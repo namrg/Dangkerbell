@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/drawer_layout"
+    android:layout_height="match_parent">
+    <RelativeLayout
+
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".realhomeActivityActivity">
+
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.Toolbar
+
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/toolbar_menu"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:drawableTop="@drawable/ic_menu_black_24dp"
+                    android:fontFamily="@font/nanumsquare_acr"
+                    android:text="메뉴"
+                    android:textColor="#7A7A7A"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/bmdohyeon_ttf"
+                    android:text="당커벨"
+
+                    android:textColor="@color/colorAccent"
+                    android:textSize="22dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/myprofile"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_gravity="right"
+                    android:layout_marginRight="10dp"
+                    android:drawableTop="@drawable/ic_person_black_24dp"
+                    android:fontFamily="@font/nanumsquare_acr"
+                    android:text="내정보"
+                    android:textColor="#7A7A7A"
+                    android:textSize="15dp" />
+
+
+            </androidx.appcompat.widget.Toolbar>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorAccent"
+                android:orientation="horizontal">
+                ></LinearLayout>
+
+
+
+
+
+
+            <LinearLayout
+                android:id="@+id/framlayout1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="여기는 그래프 나타남" />
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+
+                    <GridLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
+                        android:columnCount="3"
+                        android:rowCount="1">
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/round_cornerblue"
+                            android:fontFamily="@font/nanumsquare_acr"
+                            android:text="혈당 관리"
+                            android:id="@+id/blood_btn"
+                            android:textColor="#ffffff"
+                            android:textSize="15dp" />
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="50dp"
+                            android:id="@+id/meal_btn"
+                            android:background="@drawable/round_cornerblue"
+                            android:fontFamily="@font/nanumsquare_acr"
+                            android:text="식단 관리"
+                            android:textColor="#ffffff"
+                            android:textSize="15dp" />
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/pill_btn"
+                            android:layout_marginLeft="50dp"
+                            android:background="@drawable/round_cornerblue"
+                            android:fontFamily="@font/nanumsquare_acr"
+                            android:text="복약 관리"
+
+                            android:textColor="#ffffff"
+                            android:textSize="15dp" />
+
+
+                    </GridLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+
+
+
+
+
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+    </RelativeLayout>
+
+
+    <include layout="@layout/activity_drawer"/>
+
+</androidx.drawerlayout.widget.DrawerLayout>
+
+
+

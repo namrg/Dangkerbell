@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="my_array">
+        <item> 알</item>
+        <item> ml</item>
+        <item> 그램</item>
+        <item> mg</item>
+        <item> 방울</item>
+    </string-array>
+
+    <string-array name="diabeteskind">
+        <item> 1형</item>
+        <item> 2형</item>
+        <item> 3형</item>
+
+    </string-array>
+
+
+
+</resources>

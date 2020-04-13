@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FBDD65</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">    #82BEE6</color>
+    <drawable name="btn_select">#82BEE6</drawable>
+</resources>
