@@ -108,20 +108,20 @@
                         android:rowCount="1">
 
                         <Button
+                            android:id="@+id/blood_btn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/round_cornerblue"
                             android:fontFamily="@font/nanumsquare_acr"
                             android:text="혈당 관리"
-                            android:id="@+id/blood_btn"
                             android:textColor="#ffffff"
                             android:textSize="15dp" />
 
                         <Button
+                            android:id="@+id/meal_btn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="50dp"
-                            android:id="@+id/meal_btn"
+                            android:layout_marginLeft="30dp"
                             android:background="@drawable/round_cornerblue"
                             android:fontFamily="@font/nanumsquare_acr"
                             android:text="식단 관리"
@@ -129,10 +129,10 @@
                             android:textSize="15dp" />
 
                         <Button
+                            android:id="@+id/pill_btn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/pill_btn"
-                            android:layout_marginLeft="50dp"
+                            android:layout_marginLeft="30dp"
                             android:background="@drawable/round_cornerblue"
                             android:fontFamily="@font/nanumsquare_acr"
                             android:text="복약 관리"
