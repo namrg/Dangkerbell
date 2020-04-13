@@ -1,0 +1,2 @@
+rootProject.name='Dankerbell'
+include ':app'
