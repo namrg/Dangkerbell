@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "185206175338",
+    "firebase_url": "https://dangkerbell.firebaseio.com",
+    "project_id": "dangkerbell",
+    "storage_bucket": "dangkerbell.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:185206175338:android:e48c4564e799f7047b7c13",
+        "android_client_info": {
+          "package_name": "com.example.dankerbell"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "185206175338-sa50nviv4f6b4hqo0533f30bd9442k3r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqY8ky-l0VE5pa4R3fkNHqDcDeVvdWrAQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "185206175338-sa50nviv4f6b4hqo0533f30bd9442k3r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
