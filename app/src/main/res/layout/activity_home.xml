@@ -84,13 +84,14 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:visibility="visible">
-
+                <com.github.mikephil.charting.charts.LineChart
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="여기는 그래프 나타남" />
-
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -108,23 +109,25 @@
                         android:rowCount="1">
 
                         <Button
-                            android:id="@+id/blood_btn"
+                            android:id="@+id/meal_btn"
+
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/round_cornerblue"
                             android:fontFamily="@font/nanumsquare_acr"
-                            android:text="혈당 관리"
+                            android:text="식단 관리"
                             android:textColor="#ffffff"
                             android:textSize="15dp" />
 
                         <Button
-                            android:id="@+id/meal_btn"
+                            android:id="@+id/blood_btn"
+
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="30dp"
                             android:background="@drawable/round_cornerblue"
                             android:fontFamily="@font/nanumsquare_acr"
-                            android:text="식단 관리"
+                            android:text="혈당 관리"
                             android:textColor="#ffffff"
                             android:textSize="15dp" />
 

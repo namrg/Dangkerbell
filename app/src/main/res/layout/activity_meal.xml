@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/drawer_layout"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ffffff"
+            tools:context=".mealManagement.mealActivity">
+
+
+            <View
+                android:id="@+id/view_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_below="@+id/toolbar"
+
+                android:background="@color/colorAccent" />
+
+
+            <androidx.appcompat.widget.Toolbar
+
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                >
+
+
+                <TextView
+                    android:id="@+id/toolbar_menu"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:drawableTop="@drawable/ic_menu_black_24dp"
+                    android:fontFamily="@font/nanumsquare_acr"
+                    android:text="메뉴"
+                    android:textColor="#7A7A7A"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/home_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/bmdohyeon_ttf"
+                    android:text="당커벨"
+                    android:layout_gravity="center"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+
+
+
+            </androidx.appcompat.widget.Toolbar>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="55dp"
+                android:orientation="vertical">
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+
+                    <GridLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:columnCount="3"
+                        android:gravity="center"
+                        android:rowCount="1"
+                        tools:layout_gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/nanumsquare_acr"
+                            android:text="식단 관리"
+
+                            android:textStyle="bold"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="20dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="50dp"
+                            android:id="@+id/blood_txt"
+                            android:fontFamily="@font/nanumsquare_acr"
+                            android:text="혈당 관리"
+                            android:textSize="20dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="50dp"
+                            android:id="@+id/pill_txt"
+
+                            android:fontFamily="@font/nanumsquare_acr"
+                            android:text="복약 관리"
+
+                            android:textSize="20dp" />
+
+
+                    </GridLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/colorAccent"
+                    android:orientation="horizontal">
+                    ></LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/nanumsquare_acr"
+                        android:text="날짜"
+                        android:textColor="#8C8C8C"
+                        android:textSize="17dp"></TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@color/colorPrimary"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nanumsquare_acr"
+                        android:text="아침"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="19dp"
+                        ></TextView>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:hint="아침을 입력해주세요"
+
+                        android:layout_height="wrap_content"/>
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:text="음식 검색"
+                        android:background="@color/colorPrimary"
+                    ></Button>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:hint="아침을 입력해주세요"
+
+                        android:layout_height="wrap_content"/>
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:text="음식 검색"
+                        android:background="@color/colorPrimary"
+                        ></Button>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@color/colorAccent"
+                    android:layout_marginTop="10dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nanumsquare_acr"
+                        android:text="점심"
+                        android:textColor="#ffffff"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="19dp"></TextView>
+                </LinearLayout>
+                <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:hint="점심을 입력해주세요"
+
+                    android:layout_height="wrap_content"/>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:hint="음식 검색"
+                    android:layout_height="30dp"
+                    android:background="@color/colorAccent"/>
+
+            </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:hint="점심을 입력해주세요"
+
+                        android:layout_height="wrap_content"/>
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:hint="음식 검색"
+                        android:layout_height="30dp"
+                        android:background="@color/colorAccent"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@color/colorPrimary"
+                    android:layout_marginTop="10dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nanumsquare_acr"
+                        android:text="저녁"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="19dp"></TextView>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:hint="아침을 입력해주세요"
+
+                        android:layout_height="wrap_content"/>
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:text="음식 검색"
+                        android:background="@color/colorPrimary"
+                        ></Button>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:hint="아침을 입력해주세요"
+
+                        android:layout_height="wrap_content"/>
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:text="음식 검색"
+                        android:background="@color/colorPrimary"
+                        ></Button>
+                </LinearLayout>
+
+
+
+
+                      <LinearLayout
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_marginTop="20dp"
+                          android:gravity="center"
+                          android:background="@color/colorAccent">
+                          <TextView
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:fontFamily="@font/bmdohyeon_ttf"
+                              android:text="섭취칼로리"
+                              android:textSize="15dp" />
+
+                          <TextView
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:layout_marginLeft="10dp"
+                              android:text="0"
+                              android:textSize="15dp" />
+
+                          <TextView
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:layout_marginLeft="5dp"
+                              android:text="Kcal"
+                              android:textSize="15dp" />
+
+                          <LinearLayout
+                              android:layout_width="2dp"
+                              android:layout_height="30dp"
+                              android:layout_marginLeft="10dp"
+                              android:background="@color/colorPrimary">
+
+                          </LinearLayout>
+                          <TextView
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+
+                              android:layout_marginLeft="10dp"
+
+                              android:fontFamily="@font/bmdohyeon_ttf"
+                              android:text="권장칼로리"
+                              android:textSize="15dp" />
+
+                          <TextView
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:layout_marginLeft="10dp"
+                              android:text="0"
+                              android:textSize="15dp" />
+
+                          <TextView
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:layout_marginLeft="5dp"
+                              android:text="Kcal"
+                              android:textSize="15dp" />
+                      </LinearLayout>
+
+
+
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+
+
+
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <ListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+    <include layout="@layout/activity_drawer"/>
+
+
+</androidx.drawerlayout.widget.DrawerLayout>

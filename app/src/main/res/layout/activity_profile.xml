@@ -97,24 +97,22 @@
                 android:textColor="#b8b8b8"
                 android:textSize="15dp"></TextView>
 
-            <Button
-                android:id="@+id/togglewoman"
+            <RadioButton
+                android:id="@+id/woman"
                 android:layout_width="90dp"
                 android:layout_height="40dp"
-                android:background="@drawable/selectbutton"
                 android:fontFamily="@font/nanumsquare_acr"
                 android:text="여성"
 
                 android:textColor="#b8b8b8"
                 android:textSize="15dp" />
 
-            <Button
-                android:id="@+id/toggleman"
+            <RadioButton
+                android:id="@+id/man"
 
                 android:layout_width="90dp"
                 android:layout_height="40dp"
                 android:layout_gravity="right"
-                android:background="@drawable/selectbutton"
 
                 android:fontFamily="@font/nanumsquare_acr"
                 android:text="남성"
@@ -124,9 +122,6 @@
 
 
         </LinearLayout>
-
-
-
 
 
         <LinearLayout
@@ -142,19 +137,18 @@
                 android:fontFamily="@font/bmdohyeon_ttf"
                 android:text="생년월일"
                 android:textColor="#b8b8b8"
-                android:textSize="15dp">
-            </TextView>
+                android:textSize="15dp"></TextView>
 
             <TextView
                 android:id="@+id/brith"
                 android:layout_width="200dp"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:textColor="#b8b8b8"
-
                 android:fontFamily="@font/nanumsquare_acr"
+
                 android:text="생년월일을 입력해주세요."
+                android:textColor="#b8b8b8"
                 android:textSize="15dp" />
 
 
@@ -204,15 +198,15 @@
                 android:layout_marginLeft="20dp"
                 android:fontFamily="@font/bmdohyeon_ttf"
                 android:text="키"
-                android:textSize="15dp"
-                android:textColor="#b8b8b8"></TextView>
+                android:textColor="#b8b8b8"
+                android:textSize="15dp"></TextView>
 
             <EditText
-                android:layout_width="170dp"
                 android:id="@+id/height"
+                android:layout_width="170dp"
                 android:layout_height="wrap_content"
-                android:hint="키를 입력해주세요"
                 android:fontFamily="@font/nanumsquare_acr"
+                android:hint="키를 입력해주세요"
 
                 android:textColorHint="#b8b8b8"
                 android:textSize="15dp" />
@@ -233,15 +227,15 @@
             android:gravity="center">
 
             <TextView
+                android:id="@+id/weight"
                 android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:fontFamily="@font/bmdohyeon_ttf"
                 android:text="몸무게"
-                android:id="@+id/weight"
 
-                android:textSize="15dp"
-                android:textColor="#b8b8b8"></TextView>
+                android:textColor="#b8b8b8"
+                android:textSize="15dp"></TextView>
 
             <EditText
                 android:layout_width="170dp"
@@ -280,9 +274,9 @@
                 android:id="@+id/bmi"
                 android:layout_width="200dp"
                 android:layout_height="30dp"
-                android:textColorHint="#B8b8b8"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:textColorHint="#B8b8b8"
                 android:textSize="15dp" />
         </LinearLayout>
 
@@ -333,37 +327,34 @@
                 android:layout_marginLeft="22dp"
                 android:fontFamily="@font/bmdohyeon_ttf"
                 android:text="활동량"
-                android:textSize="15dp"
-                android:textColor="#b8b8b8"></TextView>
+                android:textColor="#b8b8b8"
+                android:textSize="15dp"></TextView>
 
-            <Button
+            <RadioButton
                 android:layout_width="70dp"
                 android:layout_height="40dp"
 
-                android:background="@drawable/selectbutton"
                 android:fontFamily="@font/nanumsquare_acr"
                 android:text="적음"
 
                 android:textColor="#B8B8B8"
                 android:textSize="15dp" />
 
-            <Button
+            <RadioButton
 
                 android:layout_width="70dp"
                 android:layout_height="40dp"
 
-                android:background="@drawable/selectbutton"
                 android:fontFamily="@font/nanumsquare_acr"
 
                 android:text="보통"
                 android:textColor="#B8B8B8"
                 android:textSize="15dp" />
 
-            <Button
+            <RadioButton
 
                 android:layout_width="70dp"
                 android:layout_height="40dp"
-                android:background="@drawable/selectbutton"
 
                 android:fontFamily="@font/nanumsquare_acr"
                 android:text="많음"
@@ -374,49 +365,17 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center">
-
-            <TextView
-                android:layout_width="90dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:fontFamily="@font/bmdohyeon_ttf"
-                android:text="목표혈당"
-                android:textSize="15dp"
-                android:textColor="#b8b8b8"></TextView>
-
-            <EditText
-                android:layout_width="170dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/nanumsquare_acr"
-                android:hint="목표혈당을 입력해주세요"
-
-                android:textColorHint="#b8b8b8"
-                android:textSize="15dp" />
-
-            <TextView
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:text="mg/dl"
-                android:textColor="#b8b8b8" />
-
-
-        </LinearLayout>
 
         <Button
+            android:id="@+id/store"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
-            android:textColor="#ffffff"
-            android:id="@+id/store"
             android:background="@drawable/round_cornerblue"
             android:fontFamily="@font/nanumsquare_acr"
             android:text="저장하기"
+            android:textColor="#ffffff"
             android:textSize="17dp">
 
         </Button>
