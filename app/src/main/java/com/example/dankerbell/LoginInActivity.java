@@ -1,5 +1,6 @@
 package com.example.dankerbell;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -101,8 +102,9 @@ public class LoginInActivity extends AppCompatActivity implements
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         handleFacebookAccessToken(loginResult.getAccessToken());
+                        Intent intent = new Intent(getApplicationContext(), homeActivity.class); //새로추가
+                        startActivity(intent);//액티비티 띄우기       새로추가
                     }
-
                     @Override
                     public void onCancel() {
                     }
@@ -183,13 +185,17 @@ public class LoginInActivity extends AppCompatActivity implements
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
+
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
+                            Intent homeintent = new Intent(getApplicationContext(), homeActivity.class); // 새로추가
+                            startActivity(homeintent);//액티비티 띄우기 새로 추가 - 홈화면 전환
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             updateUI(null);
+
                         }
                     }
                 });
