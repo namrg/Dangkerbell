@@ -189,7 +189,7 @@ public class LoginInActivity extends AppCompatActivity implements
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
-                            Intent homeintent = new Intent(getApplicationContext(), homeActivity.class); // 새로추가
+                            Intent homeintent = new Intent(getApplicationContext(), homeActivity.class); // 새로추가 구글 로그인 성공 후 화면전환
                             startActivity(homeintent);//액티비티 띄우기 새로 추가 - 홈화면 전환
                         } else {
                             // If sign in fails, display a message to the user.
