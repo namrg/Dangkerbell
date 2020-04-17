@@ -98,7 +98,7 @@
 
                 <EditText
                     android:layout_width="100dp"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:fontFamily="@font/nanumsquare_acr"
                     android:hint="의약품명"
@@ -134,7 +134,7 @@
 
                 <EditText
                     android:layout_width="100dp"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:fontFamily="@font/nanumsquare_acr"
                     android:hint="복용량"
                     android:textColorHint="#B8b8b8"
