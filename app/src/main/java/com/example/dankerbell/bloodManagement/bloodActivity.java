@@ -20,10 +20,6 @@ public class bloodActivity extends AppCompatActivity { // 혈당관리클래스
     TextView home; //
     TextView meal_txt; // 상단에 식단관리 TextView
     TextView pill_txt; // 상단에 복약관리 TextView
-
-    String userId, database; //데이터베이스 및 유저정보 변수수
-
-   public void onCreate(Bundle savedInstanceState) {
     TextView wakeup,wakeUp,wakeupbloodedit,wakesugartext, wakepressuretext,wakeupbloodfinish;  // 기상 후 !!!
     // wakeUp,wakeup=기상후 , wakeupbloodedit : 기상 후 연필 아이콘 , wakesugartext : 기상 후 혈당 text wakepressuretext : 기상 후 혈압text
     // wakepressuretext : 기상 후 혈압 text wakeupbloodfinish : 체크 아이콘
