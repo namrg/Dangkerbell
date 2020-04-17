@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "185206175338-57i9dtbcrjakj9oo7d0ra2o8qkju7nsv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dankerbell",
+            "certificate_hash": "6a997838fd997c4f77d0418661cb6f1b599d18e4"
+          }
+        },
+        {
           "client_id": "185206175338-req3olme5rvoimv7ad9eddnuufnttcat.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
