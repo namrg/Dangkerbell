@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/drawer_layout"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        tools:context=".barcodeActivity">
+
+
+        <View
+            android:id="@+id/view_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_below="@+id/toolbar"
+
+            android:background="@color/colorAccent" />
+
+
+        <androidx.appcompat.widget.Toolbar
+
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            >
+
+            <TextView
+                android:id="@+id/back"
+                style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:drawableTop="@drawable/backspace"
+                android:fontFamily="@font/nanumsquare_acr"
+                android:text="뒤로가기"
+                android:textColor="#7A7A7A"
+                android:textSize="15dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:fontFamily="@font/bmdohyeon_ttf"
+                android:text="복용 중인 약 등록"
+                android:layout_gravity="center"
+
+                android:textColor="@color/colorAccent"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+
+
+
+
+        </androidx.appcompat.widget.Toolbar>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="60dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/nanumsquare_acr"
+                android:text="복용 중인 약을 등록해주세요."
+                android:textColor="#b8b8b8"
+                android:textSize="17dp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:fontFamily="@font/bmdohyeon_ttf"
+                    android:text="의약품명"
+                    android:textColor="#b8b8b8"
+                    android:textSize="15dp"></TextView>
+
+                <EditText
+                    android:id="@+id/pill_name"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/nanumsquare_acr"
+                    android:hint="의약품명"
+                    android:textAlignment="center"
+                    android:textColorHint="#B8b8b8"
+                    android:textSize="15dp" />
+
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:background="@color/colorAccent"
+                    android:fontFamily="@font/nanumsquare_acr"
+
+                    android:text="의약품 검색"
+                    android:textColor="#ffffff"
+                    android:textSize="15dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:fontFamily="@font/bmdohyeon_ttf"
+                    android:text="1회 복용량"
+                    android:textColor="#b8b8b8"
+                    android:textSize="15dp"></TextView>
+
+                <EditText
+                    android:id="@+id/amount"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nanumsquare_acr"
+                    android:hint="복용량"
+                    android:textColorHint="#B8b8b8"
+                    android:textSize="15dp" />
+
+
+                <Spinner
+                    android:id="@+id/diabeteskindspinner"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="1dp"
+                    android:background="@color/colorAccent"
+                    android:entries="@array/my_array"
+                    android:fontFamily="@font/nanumsquare_acr"
+                    android:textColor="#ffffff"></Spinner>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/weight"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:fontFamily="@font/bmdohyeon_ttf"
+                    android:text="복용횟수"
+
+                    android:textColor="#b8b8b8"
+                    android:textSize="15dp"></TextView>
+
+                <EditText
+                    android:id="@+id/count"
+                    android:layout_width="170dp"
+
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nanumsquare_acr"
+                    android:hint="복용횟수를 입력해주세요"
+                    android:textColorHint="#B8b8b8"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:text="회"
+                    android:textColor="#B8b8b8" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:fontFamily="@font/bmdohyeon_ttf"
+                    android:text="복용시간"
+                    android:textColor="#b8b8b8"
+                    android:textSize="15dp"></TextView>
+
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="20dp"
+                    android:fontFamily="@font/nanumsquare_acr"
+
+                    android:text="복용 시간을 선택해주세요."
+                    android:textColorHint="#B8b8b8"
+                    android:textSize="15dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+
+                <CheckBox
+                    android:id="@+id/wakeUp"
+                    android:layout_width="70dp"
+                    android:layout_height="40dp"
+                    android:fontFamily="@font/nanumsquare_acr"
+                    android:text="기상"
+                    android:textColor="#B8B8B8"
+                    android:textSize="15dp" />
+
+                <CheckBox
+                    android:id="@+id/morning"
+                    android:layout_width="70dp"
+                    android:layout_height="40dp"
+                    android:fontFamily="@font/nanumsquare_acr"
+                    android:text="아침"
+                    android:textColor="#B8B8B8"
+                    android:textSize="15dp" />
+
+                <CheckBox
+                    android:id="@+id/lunch"
+                    android:layout_width="70dp"
+                    android:layout_height="40dp"
+                    android:fontFamily="@font/nanumsquare_acr"
+                    android:text="점심"
+                    android:textColor="#B8B8B8"
+                    android:textSize="15dp" />
+
+                <CheckBox
+                    android:id="@+id/evening"
+                    android:layout_width="70dp"
+                    android:layout_height="40dp"
+                    android:fontFamily="@font/nanumsquare_acr"
+                    android:text="저녁"
+                    android:textColor="#B8B8B8"
+                    android:textSize="15dp" />
+
+                <CheckBox
+                    android:id="@+id/night"
+                    android:layout_width="70dp"
+                    android:layout_height="40dp"
+                    android:fontFamily="@font/nanumsquare_acr"
+                    android:text="취침"
+                    android:textColor="#B8B8B8"
+                    android:textSize="15dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center">
+
+
+                <Spinner
+                    android:id="@+id/pilltime"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/colorAccent"
+                    android:entries="@array/interval"
+                    android:fontFamily="@font/nanumsquare_acr"
+                    android:textColor="#ffffff"></Spinner>
+
+                <EditText
+                    android:id="@+id/times"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nanumsquare_acr"
+                    android:hint="분 "
+                    android:textSize="15dp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/store"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/round_cornerblue"
+                android:fontFamily="@font/nanumsquare_acr"
+                android:text="저장하기"
+                android:textColor="#ffffff"
+                android:textSize="17dp">
+
+            </Button>
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+    <include layout="@layout/activity_drawer"/>
+
+
+
+</LinearLayout>
