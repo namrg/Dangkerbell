@@ -14,6 +14,3 @@
 .cxx
 app/src/main/res/layout/activity_home.xml
 app/src/main/AndroidManifest.xml
-app/build.gradle
-app/src/main/res/layout/activity_addpill.xml
-app/src/main/res/layout/activity_addpill.xml
