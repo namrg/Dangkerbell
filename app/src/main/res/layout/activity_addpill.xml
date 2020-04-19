@@ -139,6 +139,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nanumsquare_acr"
                     android:hint="복용량"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:textColorHint="#B8b8b8"
                     android:textSize="15dp" />
 

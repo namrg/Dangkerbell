@@ -126,18 +126,39 @@
                     android:background="@color/colorAccent"
                     android:orientation="horizontal">
 
-
                     ></LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
                     android:layout_marginTop="10dp"
-                    android:fontFamily="@font/nanumsquare_acr"
-                    android:text="날짜"
-                    android:textColor="#8C8C8C"
-                    android:textSize="17dp"></TextView>
+                    android:gravity="center"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/prev"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:drawableLeft="@drawable/prev"></TextView>
+                    <TextView
+                        android:id="@+id/date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                       android:fontFamily="@font/nanumsquare_acr"
+                        android:text="날짜"
+                        android:layout_marginRight="10dp"
+                        android:textColor="#8C8C8C"
+                        android:textSize="17dp"></TextView>
+                    <TextView
+                        android:id="@+id/next"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/next"></TextView>
+
+                </LinearLayout>
+
+
+
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -230,7 +251,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
                                 android:gravity="center"
-
                                 android:visibility="visible"
                                 android:fontFamily="@font/nanumsquare_acr"
                                 android:textSize="15dp" />
@@ -262,7 +282,7 @@
 
                             <EditText
                                 android:id="@+id/wakesugaredit"
-
+                                android:gravity="center"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
@@ -273,7 +293,7 @@
 
                             <EditText
                                 android:id="@+id/wakepressureedit"
-
+                                android:gravity="center"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
@@ -282,6 +302,7 @@
                                 android:textSize="15dp" />
 
                             <TextView
+
                                 android:id="@+id/wakeupbloodfinish"
                                 android:visibility="gone"
                                 android:layout_width="wrap_content"
@@ -369,6 +390,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
 
+                                android:gravity="center"
 
                                 android:layout_marginLeft="10dp"
                                 android:fontFamily="@font/nanumsquare_acr"
@@ -378,6 +400,7 @@
                                 android:id="@+id/morningpressureedit"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:gravity="center"
 
                                 android:layout_marginLeft="10dp"
                                 android:visibility="gone"
@@ -470,6 +493,8 @@
                                 android:fontFamily="@font/nanumsquare_acr"
                                 android:textSize="15dp"
                                 android:visibility="gone"
+                                android:gravity="center"
+
                                 />
 
                             <EditText
@@ -477,9 +502,8 @@
                                 android:layout_height="wrap_content"
                                 android:id="@+id/lunchpressureedit"
                                 android:visibility="gone"
-
+                                android:gravity="center"
                                 android:layout_marginLeft="10dp"
-
                                 android:fontFamily="@font/nanumsquare_acr"
                                 android:textSize="15dp" />
                             <TextView
@@ -565,6 +589,7 @@
                                 android:fontFamily="@font/nanumsquare_acr"
                                 android:textSize="15dp"
                                 android:visibility="gone"
+                                android:gravity="center"
                                 />
 
                             <EditText
@@ -572,6 +597,7 @@
                                 android:layout_height="wrap_content"
                                 android:id="@+id/dinnerpressureedit"
                                 android:visibility="gone"
+                                android:gravity="center"
 
                                 android:layout_marginLeft="10dp"
 
@@ -658,6 +684,7 @@
                                 android:fontFamily="@font/nanumsquare_acr"
                                 android:textSize="15dp"
                                 android:visibility="gone"
+                                android:gravity="center"
                                 />
 
                             <EditText
@@ -665,9 +692,8 @@
                                 android:layout_height="wrap_content"
                                 android:id="@+id/sleeppressureedit"
                                 android:visibility="gone"
-
+                                android:gravity="center"
                                 android:layout_marginLeft="10dp"
-
                                 android:fontFamily="@font/nanumsquare_acr"
                                 android:textSize="15dp" />
                             <TextView

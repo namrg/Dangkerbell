@@ -12,6 +12,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -47,13 +48,10 @@ dependencies {
 
     //add the Firebase SDK for Google Analytics
     implementation 'com.google.firebase:firebase-analytics:17.2.2'
-<<<<<<< HEAD
     //firebase- 안드로이드 연결
     implementation 'com.google.firebase:firebase-firestore:21.2.1'
-=======
-    implementation 'com.google.firebase:firebase-core:17.0.0'
->>>>>>> a4d8ffd5cc54b3cc3d6f29d8c49b1bef48dc194d
 
+    implementation 'com.google.firebase:firebase-core:17.0.0'
     //firebase 기반 구글 로그인
     implementation 'com.google.firebase:firebase-auth:19.1.0'
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
@@ -61,6 +59,9 @@ dependencies {
     //facebook로그인
     implementation 'com.facebook.android:facebook-login:[5,6)'
 
+//multi-dex
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.google.firebase:firebase-firestore:21.4.2'
 
 }
 apply plugin: 'com.google.gms.google-services'
