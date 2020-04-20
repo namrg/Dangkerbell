@@ -15,10 +15,12 @@ import com.example.dankerbell.homeActivity;
 import com.example.dankerbell.mealManagement.mealActivity;
 import com.example.dankerbell.pillManagement.pillActivity;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
-public class bloodActivity extends AppCompatActivity { // 혈당관리클래스
-
+public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
     BloodSugarCrud mBloodSugar = BloodSugarCrud.getInstance(); //firebase 참조 singletone
 
     TextView home; //
@@ -43,15 +45,53 @@ public class bloodActivity extends AppCompatActivity { // 혈당관리클래스
     TextView Sleep,sleep,sleepbloodedit,sleepsugartext, sleeppressuretext,sleepbloodfinish;  // 취침전 !!!
     EditText sleepsugaredit, sleeppressureedit; // 취침 전 혈당입력칸 / 혈압 입력칸
 
+
+    TextView currentdate;
+    TextView prev,next;
+
     String time; // 기상후, 식전 식후 등
-
-
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blood);
         home=findViewById(R.id.home_txt);
         meal_txt=findViewById(R.id.meal_txt);
         pill_txt=findViewById(R.id.pill_txt);
+
+
+        //새로추가
+        currentdate=findViewById(R.id.date);
+        SimpleDateFormat sdf = new SimpleDateFormat("yy.MM.dd", Locale.getDefault());
+        final Calendar calendar = Calendar.getInstance(); // 오늘날짜
+        final String date = sdf.format(calendar.getTime());
+        currentdate.setText(date);
+        prev=findViewById(R.id.prev);
+        next=findViewById(R.id.next);
+        prev.setOnClickListener(new View.OnClickListener() {
+
+
+            @Override
+            public void onClick(View view) { // 상단에 날짜 중 < 버튼 클릭
+                SimpleDateFormat sdf2 = new SimpleDateFormat("yy.MM.dd", Locale.getDefault());
+                calendar.add(Calendar.DATE, -1);  // 오늘 날짜에서 하루를 뺌.
+                String yesterday = sdf2.format(calendar.getTime());
+                currentdate.setText(yesterday);
+
+            }
+        });
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { // 상단에 날짜 중 > 버튼 클릭
+                SimpleDateFormat sdf3 = new SimpleDateFormat("yy.MM.dd", Locale.getDefault());
+                calendar.add(Calendar.DATE, +1);  // 오늘 날짜에서 하루를 더함
+                String tomorrow = sdf3.format(calendar.getTime());
+                    currentdate.setText(tomorrow);
+                            }
+        });
+
+//새로 추가 끝
+
+
+
 
         //기상 후
         wakeup=findViewById(R.id.wakeup);
@@ -103,12 +143,13 @@ public class bloodActivity extends AppCompatActivity { // 혈당관리클래스
         wakeupbloodedit.setOnClickListener(new View.OnClickListener() { // 기상 후 행의 연필 아이콘 클릭 시 실행
             @Override
             public void onClick(View view) {
-                Log.d(this.getClass().getName(),"왜 앙대 바부야 냥냥경 바보쓰쓰");
-               wakeUp.setVisibility(View.INVISIBLE);
 
-                wakeupbloodedit.setVisibility(View.INVISIBLE);
-                wakesugartext.setVisibility(View.INVISIBLE);
-                wakepressuretext.setVisibility(View.INVISIBLE);
+                Log.d(this.getClass().getName(),"왜 앙대 바부야");
+                wakeUp.setVisibility(View.GONE);
+
+                wakeupbloodedit.setVisibility(View.GONE);
+                wakesugartext.setVisibility(View.GONE);
+                wakepressuretext.setVisibility(View.GONE);
                 wakeupbloodfinish.setVisibility(View.VISIBLE);
                 wakesugaredit.setVisibility(View.VISIBLE);
                 wakepressureedit.setVisibility(View.VISIBLE);
@@ -123,14 +164,14 @@ public class bloodActivity extends AppCompatActivity { // 혈당관리클래스
             @Override
             public void onClick(View view) {
                 Log.d(this.getClass().getName(),"체크 클릭");
-                wakeup.setVisibility(View.INVISIBLE);
+                wakeup.setVisibility(View.GONE);
                 wakeUp.setVisibility(View.VISIBLE);
                 wakeupbloodedit.setVisibility(View.VISIBLE);
                 wakesugartext.setVisibility(View.VISIBLE);
                 wakepressuretext.setVisibility(View.VISIBLE);
-                wakeupbloodfinish.setVisibility(View.INVISIBLE);
-                wakesugaredit.setVisibility(View.INVISIBLE);
-                wakepressureedit.setVisibility(View.INVISIBLE);
+                wakeupbloodfinish.setVisibility(View.GONE);
+                wakesugaredit.setVisibility(View.GONE);
+                wakepressureedit.setVisibility(View.GONE);
                 String wakesugar=(String)wakesugaredit.getText().toString();
                 wakesugartext.setText(wakesugar);
 
@@ -151,10 +192,10 @@ public class bloodActivity extends AppCompatActivity { // 혈당관리클래스
             @Override
             public void onClick(View view) {
                 Log.d(this.getClass().getName(),"왜 앙대 바부야");
-                Morning.setVisibility(View.INVISIBLE);
-                morningbloodedit.setVisibility(View.INVISIBLE);
-                morningsugartext.setVisibility(View.INVISIBLE);
-                morningpressuretext.setVisibility(View.INVISIBLE);
+                Morning.setVisibility(View.GONE);
+                morningbloodedit.setVisibility(View.GONE);
+                morningsugartext.setVisibility(View.GONE);
+                morningpressuretext.setVisibility(View.GONE);
                 morningbloodfinish.setVisibility(View.VISIBLE);
                 morningsugaredit.setVisibility(View.VISIBLE);
                 morningpressureedit.setVisibility(View.VISIBLE);
@@ -169,14 +210,14 @@ public class bloodActivity extends AppCompatActivity { // 혈당관리클래스
             @Override
             public void onClick(View view) {
                 Log.d(this.getClass().getName(),"체크 클릭");
-                morning.setVisibility(View.INVISIBLE);
+                morning.setVisibility(View.GONE);
                 Morning.setVisibility(View.VISIBLE);
                 morningbloodedit.setVisibility(View.VISIBLE);
                 morningsugartext.setVisibility(View.VISIBLE);
                 morningpressuretext.setVisibility(View.VISIBLE);
-                morningbloodfinish.setVisibility(View.INVISIBLE);
-                morningsugaredit.setVisibility(View.INVISIBLE);
-                morningpressureedit.setVisibility(View.INVISIBLE);
+                morningbloodfinish.setVisibility(View.GONE);
+                morningsugaredit.setVisibility(View.GONE);
+                morningpressureedit.setVisibility(View.GONE);
                 String morningsugar = (String) morningsugaredit.getText().toString();
                 morningsugartext.setText(morningsugar); // 입력한 아침 혈당을 morningsugartext에 입력
 
@@ -190,10 +231,10 @@ public class bloodActivity extends AppCompatActivity { // 혈당관리클래스
             @Override
             public void onClick(View view) {
                 Log.d(this.getClass().getName(),"왜 앙대 바부야");
-                Lunch.setVisibility(View.INVISIBLE);
-                lunchbloodedit.setVisibility(View.INVISIBLE);
-                lunchsugartext.setVisibility(View.INVISIBLE);
-                lunchpressuretext.setVisibility(View.INVISIBLE);
+                Lunch.setVisibility(View.GONE);
+                lunchbloodedit.setVisibility(View.GONE);
+                lunchsugartext.setVisibility(View.GONE);
+                lunchpressuretext.setVisibility(View.GONE);
                 lunchbloodfinish.setVisibility(View.VISIBLE);
                 lunchsugaredit.setVisibility(View.VISIBLE);
                 lunchpressureedit.setVisibility(View.VISIBLE);
@@ -207,14 +248,14 @@ public class bloodActivity extends AppCompatActivity { // 혈당관리클래스
             @Override
             public void onClick(View view) {
                 Log.d(this.getClass().getName(),"체크 클릭");
-                lunch.setVisibility(View.INVISIBLE);
+                lunch.setVisibility(View.GONE);
                 Lunch.setVisibility(View.VISIBLE);
                 lunchbloodedit.setVisibility(View.VISIBLE);
                 lunchsugartext.setVisibility(View.VISIBLE);
                 lunchpressuretext.setVisibility(View.VISIBLE);
-                lunchbloodfinish.setVisibility(View.INVISIBLE);
-                lunchsugaredit.setVisibility(View.INVISIBLE);
-                lunchpressureedit.setVisibility(View.INVISIBLE);
+                lunchbloodfinish.setVisibility(View.GONE);
+                lunchsugaredit.setVisibility(View.GONE);
+                lunchpressureedit.setVisibility(View.GONE);
                 String lunchsugar = (String)lunchsugaredit.getText().toString(); // 입력한 점심 혈당을 lunchsugaredit에 입력
                 lunchsugartext.setText(lunchsugar);
 
@@ -228,10 +269,10 @@ public class bloodActivity extends AppCompatActivity { // 혈당관리클래스
             @Override
             public void onClick(View view) {
                 Log.d(this.getClass().getName(),"왜 앙대 바부야");
-                Dinner.setVisibility(View.INVISIBLE);
-                dinnerbloodedit.setVisibility(View.INVISIBLE);
-                dinnersugartext.setVisibility(View.INVISIBLE);
-                dinnerpressuretext.setVisibility(View.INVISIBLE);
+                Dinner.setVisibility(View.GONE);
+                dinnerbloodedit.setVisibility(View.GONE);
+                dinnersugartext.setVisibility(View.GONE);
+                dinnerpressuretext.setVisibility(View.GONE);
                 dinnerbloodfinish.setVisibility(View.VISIBLE);
                 dinnersugaredit.setVisibility(View.VISIBLE);
                 dinnerpressureedit.setVisibility(View.VISIBLE);
@@ -245,14 +286,14 @@ public class bloodActivity extends AppCompatActivity { // 혈당관리클래스
             @Override
             public void onClick(View view) {
                 Log.d(this.getClass().getName(),"체크 클릭");
-                dinner.setVisibility(View.INVISIBLE);
+                dinner.setVisibility(View.GONE);
                 Dinner.setVisibility(View.VISIBLE);
                 dinnerbloodedit.setVisibility(View.VISIBLE);
                 dinnersugartext.setVisibility(View.VISIBLE);
                 dinnerpressuretext.setVisibility(View.VISIBLE);
-                dinnerbloodfinish.setVisibility(View.INVISIBLE);
-                dinnersugaredit.setVisibility(View.INVISIBLE);
-                dinnerpressureedit.setVisibility(View.INVISIBLE);
+                dinnerbloodfinish.setVisibility(View.GONE);
+                dinnersugaredit.setVisibility(View.GONE);
+                dinnerpressureedit.setVisibility(View.GONE);
                 String dinnersugar = (String)dinnersugaredit.getText().toString(); // 입력한 저녁 혈당을 lunchsugaredit에 입력
                 dinnersugartext.setText(dinnersugar);
 
@@ -266,10 +307,10 @@ public class bloodActivity extends AppCompatActivity { // 혈당관리클래스
             @Override
             public void onClick(View view) {
                 Log.d(this.getClass().getName(),"왜 앙대 바부야");
-                Sleep.setVisibility(View.INVISIBLE);
-                sleepbloodedit.setVisibility(View.INVISIBLE);
-                sleepsugartext.setVisibility(View.INVISIBLE);
-                sleeppressuretext.setVisibility(View.INVISIBLE);
+                Sleep.setVisibility(View.GONE);
+                sleepbloodedit.setVisibility(View.GONE);
+                sleepsugartext.setVisibility(View.GONE);
+                sleeppressuretext.setVisibility(View.GONE);
                 sleepbloodfinish.setVisibility(View.VISIBLE);
                 sleepsugaredit.setVisibility(View.VISIBLE);
                 sleeppressureedit.setVisibility(View.VISIBLE);
@@ -283,22 +324,22 @@ public class bloodActivity extends AppCompatActivity { // 혈당관리클래스
             @Override
             public void onClick(View view) {
                 Log.d(this.getClass().getName(),"체크 클릭");
-                sleep.setVisibility(View.INVISIBLE);
+                sleep.setVisibility(View.GONE);
                 Sleep.setVisibility(View.VISIBLE);
                 sleepbloodedit.setVisibility(View.VISIBLE);
                 sleepsugartext.setVisibility(View.VISIBLE);
                 sleeppressuretext.setVisibility(View.VISIBLE);
-                sleepbloodfinish.setVisibility(View.INVISIBLE);
-                sleepsugaredit.setVisibility(View.INVISIBLE);
-                sleeppressureedit.setVisibility(View.INVISIBLE);
-                String sleepsugar = (String)sleepsugaredit.getText().toString(); // 입력한 취침 후  혈당을 dinnersugaredit에 입력
-                sleepsugartext.setText(sleepsugar);
+                sleepbloodfinish.setVisibility(View.GONE);
+                sleepsugaredit.setVisibility(View.GONE);
+                sleeppressureedit.setVisibility(View.GONE);
+        String sleepsugar = (String)sleepsugaredit.getText().toString(); // 입력한 취침 후  혈당을 dinnersugaredit에 입력
+        sleepsugartext.setText(sleepsugar);
 
-                String sleeppressure = (String)sleeppressureedit.getText().toString(); // 입력한 취침 후  혈압을 dinnerpressureedit에 입력
-                sleeppressuretext.setText(sleeppressure);
-            }
+        String sleeppressure = (String)sleeppressureedit.getText().toString(); // 입력한 취침 후  혈압을 dinnerpressureedit에 입력
+        sleeppressuretext.setText(sleeppressure);
+    }
 
-        });
+});
 
 
         home.setOnClickListener(new View.OnClickListener() { // 당커벨 클릭 시 홈화면으로 전환
