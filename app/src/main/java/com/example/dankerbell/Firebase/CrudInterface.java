@@ -1,10 +1,9 @@
 package com.example.dankerbell.Firebase;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public interface CrudInterface {
-    DatabaseReference mPostReference = FirebaseDatabase.getInstance().getReference();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     //각종 기록들 crud
     void create();
     void read();

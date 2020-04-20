@@ -38,8 +38,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class LoginInActivity extends AppCompatActivity implements
-        View.OnClickListener {
+public class LoginInActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;

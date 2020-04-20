@@ -1,22 +1,26 @@
 package com.example.dankerbell.bloodManagement;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.dankerbell.Firebase.BloodSugarCrud;
 import com.example.dankerbell.R;
 import com.example.dankerbell.homeActivity;
 import com.example.dankerbell.mealManagement.mealActivity;
 import com.example.dankerbell.pillManagement.pillActivity;
 
+import java.util.Date;
+
 public class bloodActivity extends AppCompatActivity { // 혈당관리클래스
+
+    BloodSugarCrud mBloodSugar = BloodSugarCrud.getInstance(); //firebase 참조 singletone
+
     TextView home; //
     TextView meal_txt; // 상단에 식단관리 TextView
     TextView pill_txt; // 상단에 복약관리 TextView
@@ -39,6 +43,9 @@ public class bloodActivity extends AppCompatActivity { // 혈당관리클래스
     TextView Sleep,sleep,sleepbloodedit,sleepsugartext, sleeppressuretext,sleepbloodfinish;  // 취침전 !!!
     EditText sleepsugaredit, sleeppressureedit; // 취침 전 혈당입력칸 / 혈압 입력칸
 
+    String time; // 기상후, 식전 식후 등
+
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blood);
@@ -55,6 +62,7 @@ public class bloodActivity extends AppCompatActivity { // 혈당관리클래스
         wakeupbloodfinish=findViewById(R.id.wakeupbloodfinish);
         wakesugaredit=findViewById(R.id.wakesugaredit);
         wakepressureedit=findViewById(R.id.wakepressureedit);
+
         //아침
         morning=findViewById(R.id.morning);
         Morning=findViewById(R.id.Morning);
@@ -95,8 +103,8 @@ public class bloodActivity extends AppCompatActivity { // 혈당관리클래스
         wakeupbloodedit.setOnClickListener(new View.OnClickListener() { // 기상 후 행의 연필 아이콘 클릭 시 실행
             @Override
             public void onClick(View view) {
-                Log.d(this.getClass().getName(),"왜 앙대 바부야");
-                wakeUp.setVisibility(View.INVISIBLE);
+                Log.d(this.getClass().getName(),"왜 앙대 바부야 냥냥경 바보쓰쓰");
+               wakeUp.setVisibility(View.INVISIBLE);
 
                 wakeupbloodedit.setVisibility(View.INVISIBLE);
                 wakesugartext.setVisibility(View.INVISIBLE);
@@ -111,7 +119,7 @@ public class bloodActivity extends AppCompatActivity { // 혈당관리클래스
 
         wakeupbloodfinish.setOnClickListener(new View.OnClickListener() { // 새로 추가한 부분
             //입력을 다하고, 기상 후 체크모양 클릭 시 다시 TextView로 전환, 입력한 혈당,혈압 값 set 설정
-            //데베 삽입 X
+            //데베 삽입 O
             @Override
             public void onClick(View view) {
                 Log.d(this.getClass().getName(),"체크 클릭");
@@ -129,8 +137,12 @@ public class bloodActivity extends AppCompatActivity { // 혈당관리클래스
                 String wakepressure = (String)wakepressureedit.getText().toString();
                 wakepressuretext.setText(wakepressure);
 
-
-
+                /*
+                bloodsugar : userid - { bs, bp, date, time }
+                 */
+                // DB 삽입부
+                time = wakeup.toString();
+                mBloodSugar.create("userid", Double.parseDouble(wakesugartext.toString()), Double.parseDouble(wakepressuretext.toString()), new Date(), time);
 
             }
 
