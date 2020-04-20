@@ -1,4 +1,4 @@
-package com.example.dankerbell.bloodManagement;
+.package com.example.dankerbell.bloodManagement;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -175,11 +175,13 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
                 wakepressuretext.setText(wakepressure);
 
                 /*
-                bloodsugar : userid - { bs, bp, date, time }
+                bloodsugarDB : userid - { bs, bp, date, time }
                  */
                 // DB 삽입부
                 time = wakeup.toString();
                 //mBloodSugar.create("userid", Double.parseDouble(wakesugartext.toString()), Double.parseDouble(wakepressuretext.toString()), new Date(), time);
+                Log.d(this.getClass().getName(),wakesugar+"이거닷~!!!!!!1");
+                mBloodSugar.create("userid", Double.parseDouble(wakesugar), Double.parseDouble(wakepressure), new Date(), time);
 
             }
 
