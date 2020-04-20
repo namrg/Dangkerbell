@@ -1,4 +1,4 @@
-.package com.example.dankerbell.bloodManagement;
+package com.example.dankerbell.bloodManagement;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.dankerbell.Firebase.BloodSugarCrud;
 import com.example.dankerbell.R;
 import com.example.dankerbell.homeActivity;
 import com.example.dankerbell.mealManagement.mealActivity;
@@ -19,6 +21,8 @@ import java.util.Date;
 import java.util.Locale;
 
 public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
+    BloodSugarCrud mBloodSugar = BloodSugarCrud.getInstance(); //firebase 참조 singletone
+
     TextView home; //
     TextView meal_txt; // 상단에 식단관리 TextView
     TextView pill_txt; // 상단에 복약관리 TextView
