@@ -182,7 +182,7 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
                 bloodsugarDB : userid - { bs, bp, date, time }
                  */
                 // DB 삽입부
-                time = wakeup.toString();
+                time = "기상 후";
                 Log.d(this.getClass().getName(),wakesugar+"이거닷~!!!!!!1");
                 mBloodSugar.create("userid", Double.parseDouble(wakesugar), Double.parseDouble(wakepressure), new Date(), time);
 
