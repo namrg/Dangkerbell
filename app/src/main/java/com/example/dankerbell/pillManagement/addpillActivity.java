@@ -103,8 +103,7 @@ public class addpillActivity extends AppCompatActivity { // 약 직접등록 클
                 //디비에 올리는 부분, document가 중복이면 덮어쓰기가 되는 문제점이 아직 있음
                 InfoaddPill addpill = new InfoaddPill(pillName, amt, uamnt,cnt, takingTime, pilltime,times);
                 mFirestore=FirebaseFirestore.getInstance();
-
-                mFirestore.collection("takingPill").document(User).set(addpill);
+                mFirestore.collection(User).document("takingPill").set(addpill);
             }
         });
     }
