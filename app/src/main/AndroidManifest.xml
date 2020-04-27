@@ -23,6 +23,7 @@
         <activity android:name=".ProfileActivity"/>
         <activity android:name=".bloodManagement.bloodActivity"></activity>
         <activity android:name=".mealManagement.mealActivity"></activity>
+        <activity android:name=".mealManagement.SearchmealActivity"></activity>
         <activity android:name=".pillManagement.pillActivity"></activity>
         <activity android:name=".pillManagement.addpillActivity"></activity>
     </application>

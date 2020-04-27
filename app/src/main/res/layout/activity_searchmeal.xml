@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:orientation="vertical">
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal">
+
+           <SearchView
+               android:layout_width="match_parent"
+               android:queryHint="음식명을 검색하세요"
+               android:id="@+id/searchView"
+               android:layout_height="wrap_content"></SearchView>
+
+       </LinearLayout>
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="1dp"
+
+           android:background="@color/colorAccent"
+           android:orientation="horizontal">
+
+
+           ></LinearLayout>
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical">
+           <TextView
+               android:layout_width="match_parent"
+               android:text="감자튀김"
+               android:textSize="15dp"
+               android:id="@+id/fries"
+               android:layout_height="wrap_content">
+           </TextView>
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="0.5dp"
+
+               android:background="#d5d5d5"
+               android:orientation="horizontal">
+
+
+               ></LinearLayout>
+           <TextView
+               android:layout_width="match_parent"
+               android:text="크림파스타"
+               android:textSize="15dp"
+               android:id="@+id/creampasta"
+               android:layout_height="wrap_content">
+           </TextView>
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="0.5dp"
+
+               android:background="#d5d5d5"
+               android:orientation="horizontal">
+
+
+               ></LinearLayout>
+           <TextView
+               android:layout_width="match_parent"
+               android:text="토마토파스타"
+               android:textSize="15dp"
+               android:id="@+id/tomatopasta"
+               android:layout_height="wrap_content">
+           </TextView>
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="0.5dp"
+
+               android:background="#d5d5d5"
+               android:orientation="horizontal">
+
+
+               ></LinearLayout>
+           <TextView
+               android:layout_width="match_parent"
+               android:text="크림빵"
+               android:textSize="15dp"
+               android:id="@+id/creambread"
+               android:layout_height="wrap_content">
+           </TextView>
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="0.5dp"
+
+               android:background="#d5d5d5"
+               android:orientation="horizontal">
+
+
+               ></LinearLayout>
+           <TextView
+               android:layout_width="match_parent"
+               android:text="크림스프"
+               android:textSize="15dp"
+               android:id="@+id/creamsoup"
+               android:layout_height="wrap_content">
+           </TextView>
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="0.5dp"
+
+               android:background="#d5d5d5"
+               android:orientation="horizontal">
+
+
+               ></LinearLayout>
+
+       </LinearLayout>
+
+   </LinearLayout>
+</ScrollView>

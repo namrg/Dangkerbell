@@ -57,7 +57,7 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
         meal_txt=findViewById(R.id.meal_txt);
         pill_txt=findViewById(R.id.pill_txt);
 
-
+        String yesterday;
         //새로추가
         currentdate=findViewById(R.id.date);
         SimpleDateFormat sdf = new SimpleDateFormat("yy.MM.dd", Locale.getDefault());
@@ -78,14 +78,15 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
 
             }
         });
+
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) { // 상단에 날짜 중 > 버튼 클릭
                 SimpleDateFormat sdf3 = new SimpleDateFormat("yy.MM.dd", Locale.getDefault());
                 calendar.add(Calendar.DATE, +1);  // 오늘 날짜에서 하루를 더함
                 String tomorrow = sdf3.format(calendar.getTime());
-                    currentdate.setText(tomorrow);
-                            }
+                currentdate.setText(tomorrow);
+            }
         });
 
 //새로 추가 끝
@@ -182,11 +183,10 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
                 bloodsugarDB : userid - { bs, bp, date, time }
                  */
                 // DB 삽입부
+                time = wakeup.toString();
                 time = "기상 후";
-
                 Log.d(this.getClass().getName(),wakesugar+"이거닷~!!!!!!1");
                 mBloodSugar.create("userid", Double.parseDouble(wakesugar), Double.parseDouble(wakepressure), new Date(), time);
-
             }
 
         });
@@ -225,6 +225,13 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
 
                 String morningpressure = (String)morningpressureedit.getText().toString();
                 morningpressuretext.setText(morningpressure); // 입력한 아침 혈압을 morningpressuretext에 입력
+
+                time = morning.toString();
+
+                time = "아침";
+
+                Log.d(this.getClass().getName(),morningsugar+"아침혈당이거닷~!!!!!!1");
+                mBloodSugar.create("userid", Double.parseDouble(morningsugar), Double.parseDouble(morningpressure), new Date(), time);
             }
 
         });

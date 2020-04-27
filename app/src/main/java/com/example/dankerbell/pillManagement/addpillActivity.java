@@ -76,6 +76,8 @@ public class addpillActivity extends AppCompatActivity { // 약 직접등록 클
         //xml에서 받은 정보를 String형으로 다 변환
         //start convert
         final String pillName = mpill_name.getText().toString();
+        Log.d(this.getClass().getName(),pillName);
+
         final String amt = mamount.getText().toString();
         final String uamnt =munit_amount.getSelectedItem().toString();
         final String cnt = mcount.getText().toString();
