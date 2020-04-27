@@ -45,8 +45,6 @@ public class LoginInActivity extends AppCompatActivity implements View.OnClickLi
 
     private FirebaseAuth mAuth;
 
-    //facebook로그인
-    private CallbackManager mCallbackManager;
     //구글 로그인
     private GoogleSignInClient mGoogleSignInClient;
 
@@ -75,12 +73,13 @@ public class LoginInActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        //Log.e("getKeyHash", ""+getKeyHash(LoginInActivity.this));
 
         // Button listeners
         findViewById(R.id.googleLogin_btn).setOnClickListener(this);
-
 
         // Google
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -89,29 +88,9 @@ public class LoginInActivity extends AppCompatActivity implements View.OnClickLi
                 .build();
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
         // Initialize Firebase Auth
-
         mAuth = FirebaseAuth.getInstance();
-
-        // facebook
-        mCallbackManager = CallbackManager.Factory.create();
-        LoginButton loginButton = findViewById(R.id.facebookLogin_btn);
-        LoginManager.getInstance().registerCallback(mCallbackManager,
-                new FacebookCallback<LoginResult>() {
-                    @Override
-                    public void onSuccess(LoginResult loginResult) {
-                        handleFacebookAccessToken(loginResult.getAccessToken());
-                        Intent intent = new Intent(getApplicationContext(), homeActivity.class); //새로추가
-                        startActivity(intent);//액티비티 띄우기       새로추가
-                    }
-                    @Override
-                    public void onCancel() {
-                    }
-
-                    @Override
-                    public void onError(FacebookException exception) {
-                    }
-                });
     }
 
     @Override
@@ -120,6 +99,10 @@ public class LoginInActivity extends AppCompatActivity implements View.OnClickLi
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);
+        if(currentUser != null){
+            Intent Homeintent = new Intent(getApplicationContext(), homeActivity.class); // 새로추가 구글 로그인 성공 후 화면전환
+            startActivity(Homeintent);//액티비티 띄우기 새로 추가 - 홈화면 전환
+        }
     }
 
 
@@ -142,35 +125,6 @@ public class LoginInActivity extends AppCompatActivity implements View.OnClickLi
                 // [END_EXCLUDE]
             }
         }
-
-        //facebook
-        mCallbackManager.onActivityResult(requestCode, resultCode, data);
-    }
-
-
-    //facebook 권한 설정
-    private void handleFacebookAccessToken(AccessToken token) {
-        Log.d(TAG, "handleFacebookAccessToken:" + token);
-
-        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(LoginInActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            updateUI(null);
-                        }
-                    }
-                });
     }
 
     //Google 권한 설정
@@ -184,7 +138,6 @@ public class LoginInActivity extends AppCompatActivity implements View.OnClickLi
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
@@ -194,7 +147,8 @@ public class LoginInActivity extends AppCompatActivity implements View.OnClickLi
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             updateUI(null);
-
+                            Intent loginintent = new Intent(getApplicationContext(), LoginInActivity.class); // 새로추가 구글 로그인 성공 후 화면전환
+                            startActivity(loginintent);//액티비티 띄우기 새로 추가 - 홈화면 전환
                         }
                     }
                 });
@@ -212,18 +166,10 @@ public class LoginInActivity extends AppCompatActivity implements View.OnClickLi
             findViewById(R.id.googleLogin_btn).setVisibility(View.GONE);
             // findViewById(R.id.signOutAndDisconnect).setVisibility(View.VISIBLE);
 
-            //facebook
-            findViewById(R.id.facebookLogin_btn).setVisibility(View.GONE);
-            //findViewById(R.id.buttonFacebookSignout).setVisibility(View.VISIBLE);
-
         } else {
             //google
             findViewById(R.id.googleLogin_btn).setVisibility(View.VISIBLE);
             //findViewById(R.id.signOutAndDisconnect).setVisibility(View.GONE);
-
-            //facebook
-            findViewById(R.id.facebookLogin_btn).setVisibility(View.VISIBLE);
-            //findViewById(R.id.buttonFacebookSignout).setVisibility(View.GONE);
         }
     }
 
