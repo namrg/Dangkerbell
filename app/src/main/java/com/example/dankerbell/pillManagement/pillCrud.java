@@ -41,29 +41,44 @@ public class pillCrud implements CrudInterface {
                 takingPillTime,pilltime, times);
         updateData = post.toMap();
 
-        db.collection(User).document("takeingPill").collection(pill_name)
-                .add(updateData)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        db.collection("user").document(User).collection("takingPill").document(pill_name)
+                .set(updateData)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d("약 데이터 추가", "DocumentSnapshot added with ID: " + documentReference.getId());
+                    public void onSuccess(Void aVoid) {
+                        Log.d("약 데이터 추가", "DocumentSnapshot successfully written!");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.w("약 데이터 추가", "Error adding document", e);
+                        Log.w("약 데이터 추가", "Error writing document", e);
                     }
                 });
-
     }
 
     @Override
     public void read(){}
 
+    public void read(String pill_name) {
+        db.collection(User).document("takingPill").collection(pill_name).whereEqualTo("pill_name", pill_name)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("혈당 데이터 읽기", document.getId() + " => " + document.getData());
+                            }
+                        } else {
+                            Log.w("혈당 데이터 읽기", "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+    }
+
     @Override
     public void update() {
-
     }
 
     @Override

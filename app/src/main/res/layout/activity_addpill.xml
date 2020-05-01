@@ -99,7 +99,7 @@
                 <EditText
                     android:id="@+id/pill_name"
                     android:layout_width="89dp"
-                    android:layout_height="28dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:fontFamily="@font/nanumsquare_acr"
                     android:hint="의약품명"
