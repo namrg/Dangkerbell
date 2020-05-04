@@ -98,7 +98,7 @@
 
                 <EditText
                     android:id="@+id/pill_name"
-                    android:layout_width="89dp"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:fontFamily="@font/nanumsquare_acr"
@@ -139,8 +139,6 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nanumsquare_acr"
                     android:hint="복용량"
-                    android:layout_gravity="center"
-                    android:gravity="center"
                     android:textColorHint="#B8b8b8"
                     android:textSize="15dp" />
 

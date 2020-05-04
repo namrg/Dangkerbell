@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.dankerbell.R;
 import com.example.dankerbell.bloodManagement.bloodActivity;
 import com.example.dankerbell.mealManagement.mealActivity;
 import com.example.dankerbell.pillManagement.pillActivity;
