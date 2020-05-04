@@ -11,7 +11,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffff">
+        android:background="#ffffff"
+        tools:context=".barcodeActivity">
 
 
         <View
@@ -97,8 +98,8 @@
 
                 <EditText
                     android:id="@+id/pill_name"
-                    android:layout_width="90dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="89dp"
+                    android:layout_height="28dp"
                     android:layout_gravity="center"
                     android:fontFamily="@font/nanumsquare_acr"
                     android:hint="의약품명"
