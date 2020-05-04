@@ -76,6 +76,7 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
             @Override
             public void onClick(View view) {
                 Log.d(this.getClass().getName(),"아침 체크버튼 클릭");
+                Log.d(this.getClass().getName(),"ㅇㅂㅇ");
 
             }
         });
