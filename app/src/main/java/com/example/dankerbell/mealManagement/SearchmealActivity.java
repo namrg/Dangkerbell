@@ -50,6 +50,7 @@ public class SearchmealActivity extends AppCompatActivity implements RecyclerVie
         addItem("토마토파스타","500kcal");
         addItem("알리오올리오","500kcal");
         addItem("파스타","500kcal");
+
     }
 
     private void addItem(String food, String kcal) {

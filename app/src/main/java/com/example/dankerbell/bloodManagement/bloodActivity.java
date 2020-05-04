@@ -21,9 +21,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-import static com.facebook.internal.CallbackManagerImpl.RequestCodeOffset.Message;
-import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
-
 public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
     BloodSugarCrud mBloodSugar = BloodSugarCrud.getInstance(); //firebase 참조 singletone
     TextView home; //
@@ -72,8 +69,6 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
         mBloodSugar.mHandler1 = new Handler(){
             @Override public void handleMessage(Message msg){
                 if (msg.what==1000){
-
-
                     wakesugartext.setText(mBloodSugar.getBloodsugar());
                     wakepressuretext.setText(mBloodSugar.getBloodpressure());
                     morningsugartext.setText(mBloodSugar.getmBloodsugar());
@@ -128,9 +123,7 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
                 mBloodSugar.mHandler1 = new Handler(){
                     @Override public void handleMessage(Message msg){
                         if (msg.what==1000){
-
                             Log.d("메세지 받음",mBloodSugar.getBloodsugar());
-
                             wakesugartext.setText(mBloodSugar.getBloodsugar());
                             wakepressuretext.setText(mBloodSugar.getBloodpressure());
                             morningpressuretext.setText(mBloodSugar.getmBloodpressure());
