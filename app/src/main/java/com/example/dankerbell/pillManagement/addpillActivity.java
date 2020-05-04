@@ -61,7 +61,8 @@ public class addpillActivity extends AppCompatActivity { // 약 직접등록 클
         mn = (CheckBox)findViewById(R.id.night);
 
         mpilltime = (Spinner)findViewById(R.id.pilltime);
-        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, R.array.interval, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, R.array.interval
+                , android.R.layout.simple_spinner_item);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mpilltime.setAdapter(adapter1);
 

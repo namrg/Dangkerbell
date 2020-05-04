@@ -14,6 +14,10 @@
         <item> 3형</item>
     </string-array>
 
+    <string-array name="interval">
+        <item> 식전</item>
+        <item> 식후</item>
+    </string-array>
 
 
 </resources>
