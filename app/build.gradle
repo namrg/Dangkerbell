@@ -59,6 +59,7 @@ dependencies {
     //facebook로그인
     implementation 'com.facebook.android:facebook-login:[5,6)'
 
+    //multi-dex
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.google.firebase:firebase-firestore:21.4.2'
 
