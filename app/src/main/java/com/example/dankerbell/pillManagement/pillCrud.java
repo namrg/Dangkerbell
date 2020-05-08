@@ -60,7 +60,7 @@ public class pillCrud implements CrudInterface {
     @Override
     public void read(){}
 
-    public void read(String pill_name) {
+    public void read(String pill_name) { // 복용량이랑 약 이름 받아오는거
         db.collection(User).document("takingPill").collection(pill_name).whereEqualTo("pill_name", pill_name)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

@@ -182,118 +182,47 @@
                         android:textSize="19dp"></TextView>
 
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="240dp"
+                        android:id="@+id/searchmorning"
+                        android:drawableRight="@drawable/search">
+
+                    </TextView>
+
+                    <TextView
                         android:id="@+id/morningmealmore"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="270dp"
+                        android:layout_marginLeft="7dp"
                         android:drawableRight="@drawable/expandmoreblack">
 
                     </TextView>
+                    <TextView
+                        android:id="@+id/morningmealless2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:visibility="gone"
+                        android:layout_marginLeft="7dp"
+                        android:drawableRight="@drawable/expandlessblack"
+                        android:gravity="end"></TextView>
                 </LinearLayout>
+
 
                 <LinearLayout
                     android:id="@+id/morningmeal"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:orientation="vertical"
-                    android:visibility="gone">
-
-                    <LinearLayout
-                        android:id="@+id/morningtext1"
+                    android:visibility="gone"
+                    >
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler2"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                       >
-
-                        <EditText
-                            android:id="@+id/morningfood1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:hint="아침을 입력해주세요" />
-
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:id="@+id/morningsearch1"
-                            android:background="@color/colorPrimary"
-                            android:text="음식 검색"></Button>
-
-                        <ImageView
-                            android:id="@+id/addmorningtext1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="40dp"
-                            android:layout_marginTop="15dp"
-                            android:src="@drawable/addyellow"></ImageView>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/morningtext2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:visibility="gone">
-
-                        <EditText
-                            android:id="@+id/morningfood2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:hint="아침을 입력해주세요" />
-
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:id="@+id/morningsearch2"
-                            android:background="@color/colorPrimary"
-                            android:text="음식 검색"></Button>
-
-                        <ImageView
-                            android:id="@+id/addmorningtext2"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:layout_marginLeft="40dp"
-                            android:src="@drawable/addyellow"></ImageView>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/morningtext3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:visibility="gone">
-
-                        <EditText
-                            android:id="@+id/morningfood3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:hint="아침을 입력해주세요" />
-
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:id="@+id/morningsearch3"
-                            android:background="@color/colorPrimary"
-                            android:text="음식 검색"></Button>
-
-                        <ImageView
-                            android:id="@+id/addmorningtext3"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:layout_marginLeft="40dp"
-                            android:src="@drawable/addyellow"></ImageView>
-                    </LinearLayout>
-
+                        android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
 
                 </LinearLayout>
-
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -335,115 +264,46 @@
                         android:text="점심"
                         android:textColor="#ffffff"
                         android:textSize="19dp"></TextView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="240dp"
+                    android:id="@+id/searchlunch"
+                    android:drawableRight="@drawable/ic_search_white_24dp">
+
+                </TextView>
+
+
 
                     <TextView
                         android:id="@+id/lunchmealmore"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="270dp"
+                        android:layout_marginLeft="7dp"
                         android:drawableRight="@drawable/expandmore"></TextView>
+                    <TextView
+                        android:id="@+id/lunchmealless"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginLeft="7dp"
+                        android:drawableRight="@drawable/expandlesswhite"
+                        android:gravity="end"
+                        android:visibility="gone"></TextView>
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/lunchmeal"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:visibility="gone"
                     android:orientation="vertical">
-
-                    <LinearLayout
-                        android:id="@+id/lunchtext1"
-                        android:layout_marginTop="10dp"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler3"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal">
+                        android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
 
-                        <EditText
-                            android:id="@+id/lunchfood1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:hint="점심을 입력해주세요" />
 
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:background="@color/colorAccent"
-                            android:id="@+id/lunch"
-                            android:text="음식 검색"
-                            android:textColor="#ffffff" />
-
-                        <ImageView
-                            android:id="@+id/addlunchtext1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="25dp"
-                            android:layout_marginLeft="40dp"
-                            android:src="@drawable/addblue"></ImageView>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/lunchtext2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:visibility="gone">
-
-                        <EditText
-                            android:id="@+id/lunchfood2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:hint="점심을 입력해주세요" />
-
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:background="@color/colorAccent"
-                            android:text="음식 검색"
-
-                            android:textColor="#ffffff" />
-
-                        <ImageView
-                            android:id="@+id/addlunchtext2"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:layout_marginLeft="40dp"
-                            android:src="@drawable/addblue"></ImageView>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/lunchtext3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:visibility="gone">
-
-                        <EditText
-                            android:id="@+id/lunchfood3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:hint="점심을 입력해주세요" />
-
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:background="@color/colorAccent"
-                            android:text="음식 검색"
-                            android:textColor="#ffffff" />
-
-                        <ImageView
-                            android:id="@+id/addlunchtext3"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:layout_marginLeft="40dp"
-                            android:src="@drawable/addblue"></ImageView>
-                    </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -463,7 +323,7 @@
                         android:visibility="gone"></TextView>
 
                     <TextView
-                        android:id="@+id/lunchmealless"
+                        android:id="@+id/lunchmealless2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
@@ -486,112 +346,49 @@
                         android:fontFamily="@font/nanumsquare_acr"
                         android:text="저녁"
                         android:textSize="19dp"></TextView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="240dp"
+                        android:id="@+id/dinnersearch"
+                        android:drawableRight="@drawable/search">
+
+                    </TextView>
+
 
                     <TextView
                         android:id="@+id/dinnermealmore"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="270dp"
+                        android:layout_marginLeft="7dp"
                         android:drawableRight="@drawable/expandmoreblack">
-
                     </TextView>
+                    <TextView
+                        android:id="@+id/dinnermealless"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:visibility="gone"
+                        android:layout_marginLeft="10dp"
+                        android:drawableRight="@drawable/expandlessblack"
+                        android:gravity="end"></TextView>
+
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/dinnermeal"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:orientation="vertical"
                     android:visibility="gone">
-
-                    <LinearLayout
-                        android:id="@+id/dinnertext1"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler4"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal">
+                        android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
 
-                        <EditText
-                            android:id="@+id/dinnerfood1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:hint="저녁을 입력해주세요" />
 
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:background="@color/colorPrimary"
-                            android:text="음식 검색"></Button>
 
-                        <ImageView
-                            android:id="@+id/adddinnertext1"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:layout_marginLeft="40dp"
-                            android:src="@drawable/addyellow"></ImageView>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/dinnertext2"
-                        android:layout_marginTop="10dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:visibility="gone">
-
-                        <EditText
-                            android:id="@+id/dinnerfood2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:hint="저녁을 입력해주세요" />
-
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:background="@color/colorPrimary"
-                            android:text="음식 검색"></Button>
-
-                        <ImageView
-                            android:id="@+id/adddinnertext2"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:layout_marginLeft="40dp"
-                            android:src="@drawable/addyellow"></ImageView>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/dinnertext3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:visibility="gone">
-
-                        <EditText
-                            android:id="@+id/dinnefood3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:hint="저녁을 입력해주세요" />
-
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:background="@color/colorPrimary"
-                            android:text="음식 검색"></Button>
-
-                        <ImageView
-                            android:id="@+id/adddinnertext3"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:layout_marginLeft="40dp"
-                            android:src="@drawable/addyellow"></ImageView>
-                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -611,7 +408,7 @@
                         android:gravity="end"></TextView>
 
                     <TextView
-                        android:id="@+id/dinnermealless"
+                        android:id="@+id/dinnermealless2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"

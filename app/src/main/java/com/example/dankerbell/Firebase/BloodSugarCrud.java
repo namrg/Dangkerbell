@@ -134,7 +134,7 @@
             }
         });
     }
-    public void wakeupbloodPressure(final String date){// 실행 O 값 전달 O , 날짜랑 혈당,혈압 안맞음 싱크
+    public void wakeupbloodPressure(final String date){// 실행 O 값 전달 O
         db.collection(User).document("wakeupbloodSugar"+date).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {

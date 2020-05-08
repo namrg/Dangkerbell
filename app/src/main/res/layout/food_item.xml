@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="30dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="8dp"
     app:cardCornerRadius="5dp">
@@ -13,52 +13,53 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/text1"
+            android:id="@+id/foodlist"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="34dp"
             android:layout_below="@+id/text2"
             android:layout_toStartOf="@+id/checkBox"
             android:layout_toLeftOf="@+id/checkBox"
             android:layout_weight="2"
-
+            android:layout_marginLeft="10dp"
             android:fontFamily="@font/nanumsquare_acr"
             android:text="TextView"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#000" />
 
         <TextView
-            android:id="@+id/text2"
+            android:id="@+id/kcallist"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_toStartOf="@+id/checkBox"
             android:layout_toLeftOf="@+id/text3"
-            android:layout_weight="0.7"
+            android:layout_weight="1.0"
 
             android:fontFamily="@font/nanumsquare_acr"
             android:text="TextView"
             android:textColor="#000" />
+
         <TextView
             android:id="@+id/text3"
             android:layout_width="0dp"
-            android:fontFamily="@font/nanumsquare_acr"
             android:layout_height="wrap_content"
-            android:textColor="#000"
-            android:layout_weight="1"
-
-            android:layout_toLeftOf="@+id/text2"
             android:layout_toStartOf="@+id/text2"
-            android:text="kcal" />
+            android:layout_toLeftOf="@+id/text2"
+            android:layout_weight="1.3"
 
-        <CheckBox
-            android:id="@+id/check"
+            android:fontFamily="@font/nanumsquare_acr"
+            android:text="kcal"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text=""
+            android:drawableRight="@drawable/removeblack"
             />
 
     </LinearLayout>
 
-</androidx.cardview.widget.CardView>
+</LinearLayout>

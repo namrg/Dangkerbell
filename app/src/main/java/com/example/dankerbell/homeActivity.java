@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.dankerbell.bloodManagement.bloodActivity;
 import com.example.dankerbell.mealManagement.mealActivity;
 import com.example.dankerbell.pillManagement.pillActivity;
+import com.github.mikephil.charting.charts.LineChart;
 
 public class homeActivity extends AppCompatActivity { // 홈화면 클래스
     TextView profile;
@@ -20,6 +21,7 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스
         setContentView(R.layout.activity_home);
 
         profile=findViewById(R.id.myprofile); // 내 정보 버튼
+        CreateChart();
         profile.setOnClickListener(new View.OnClickListener() { // 내 정보 버튼 클릭 시 실행
             @Override
             public void onClick(View view) {
@@ -53,6 +55,10 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스
         });
     }
 
+    private void CreateChart() {
+        LineChart lineChart;
+        lineChart=findViewById(R.id.chart);
+    }
 
 
 }

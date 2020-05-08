@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Dankerbell</string>
+    <string name="search">음식검색창</string>
+
     <string name="search_hint">음식을 검색해주세요</string>
 
 </resources>
