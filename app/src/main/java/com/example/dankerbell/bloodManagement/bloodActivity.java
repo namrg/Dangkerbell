@@ -66,7 +66,7 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
         mBloodSugar.wakeupbloodSugar(date);
         mBloodSugar.wakeupbloodPressure(date);
         mBloodSugar.morning(date);
-        mBloodSugar.mHandler1 = new Handler(){
+        /*mBloodSugar.mHandler1 = new Handler(){
             @Override public void handleMessage(Message msg){
                 if (msg.what==1000){
                     wakesugartext.setText(mBloodSugar.getBloodsugar());
@@ -75,7 +75,7 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
                     morningpressuretext.setText(mBloodSugar.getmBloodpressure());
                 }
             }
-        };
+        };*/
 
         currentdate.setText(date);
 
@@ -97,7 +97,7 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
                 mBloodSugar.wakeupbloodPressure(yesterday);
                 mBloodSugar.morning(yesterday);
                 currentdate.setText(yesterday);
-                mBloodSugar.mHandler1 = new Handler(){
+               /* mBloodSugar.mHandler1 = new Handler(){
                     @Override public void handleMessage(Message msg){
                     if (msg.what==1000){
                             Log.d("메세지 받음",mBloodSugar.getBloodsugar());
@@ -107,7 +107,7 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
                             morningsugartext.setText(mBloodSugar.getmBloodsugar());
                     }
                 }
-                };
+                };*/
             }
         });
 
@@ -120,7 +120,7 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
                 mBloodSugar.wakeupbloodSugar(tomorrow);
                 mBloodSugar.wakeupbloodPressure(tomorrow);
                 mBloodSugar.morning(tomorrow);
-                mBloodSugar.mHandler1 = new Handler(){
+          /*      mBloodSugar.mHandler1 = new Handler(){
                     @Override public void handleMessage(Message msg){
                         if (msg.what==1000){
                             Log.d("메세지 받음",mBloodSugar.getBloodsugar());
@@ -130,7 +130,7 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
                             morningsugartext.setText(mBloodSugar.getmBloodsugar());
                         }
                     }
-                };
+                };*/
 
             }
         });

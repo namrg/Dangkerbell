@@ -7,29 +7,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.dankerbell.R;
 import com.example.dankerbell.bloodManagement.bloodActivity;
 import com.example.dankerbell.homeActivity;
 import com.example.dankerbell.mealManagement.mealActivity;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-
-import static com.example.dankerbell.Firebase.CrudInterface.db;
 
 public class pillActivity extends AppCompatActivity { // 복약관리 클래스
     pillCrud mPill = pillCrud.getInstance();
     TextView home; // 당커벨 (어플이름 )
-    TextView blood_txt, meal_txt, med_name;
+    TextView blood_txt, meal_txt, med_name,amount;
     Button register_btn,del_btn;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -73,16 +61,9 @@ public class pillActivity extends AppCompatActivity { // 복약관리 클래스
         super.onStart();
         //데이터 읽기
         mPill.read();
-
-    /*    //데이터 삭제
-        med_name = findViewById(R.id.med_name);
-        final String pillName = med_name.getText().toString();
-        del_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPill.delete(pillName);
-            }
-        });*/
+        med_name.setText(mPill.getpillName());
+        amount.setText(mPill.getAmount());
+        Log.d("값", mPill.getpillName()+ " => " +mPill.getAmount());
     }
 }
 
