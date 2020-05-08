@@ -7,12 +7,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.dankerbell.R;
 import com.example.dankerbell.bloodManagement.bloodActivity;
 import com.example.dankerbell.homeActivity;
 import com.example.dankerbell.mealManagement.mealActivity;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+
+import static com.example.dankerbell.Firebase.CrudInterface.db;
 
 public class pillActivity extends AppCompatActivity { // 복약관리 클래스
     pillCrud mPill = pillCrud.getInstance();
@@ -55,15 +67,24 @@ public class pillActivity extends AppCompatActivity { // 복약관리 클래스
                 startActivity(addpillintent);// 약 직접등록 화면으로 이동하도록 addpillActivity로 전환
             }
         });
+        med_name = findViewById(R.id.med_name);
+        amount = findViewById(R.id.amount);
+        mPill.read();
+        String pillName = mPill.getpillName();
+        int amount = mPill.getAmount();
+        Log.d("pillActivity", mPill.getpillName() +"/" + pillName + " => " +amount);
     }
 
-    public void onStart() {
-        super.onStart();
-        //데이터 읽기
-        mPill.read();
-        med_name.setText(mPill.getpillName());
-        amount.setText(mPill.getAmount());
-        Log.d("값", mPill.getpillName()+ " => " +mPill.getAmount());
-    }
+
+    /*    //데이터 삭제
+        med_name = findViewById(R.id.med_name);
+        final String pillName = med_name.getText().toString();
+        del_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPill.delete(pillName);
+            }
+        });*/
+
 }
 
