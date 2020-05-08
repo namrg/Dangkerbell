@@ -15,7 +15,10 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.SEARCH" />
+
             </intent-filter>
+
         </activity>
 
         <activity android:name=".homeActivity">
@@ -24,8 +27,10 @@
         <activity android:name=".bloodManagement.bloodActivity"></activity>
         <activity android:name=".mealManagement.mealActivity"></activity>
         <activity android:name=".mealManagement.SearchmealActivity"></activity>
-        <activity android:name=".pillManagement.pillActivity"></activity>
+        <activity android:name=".pillManagement.pillActivity">
+        </activity>
         <activity android:name=".pillManagement.addpillActivity"></activity>
+
     </application>
 
 </manifest>
