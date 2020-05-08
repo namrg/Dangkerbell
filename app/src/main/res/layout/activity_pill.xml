@@ -208,6 +208,13 @@
 
                         </TableRow>
 
+                        <!-- 동적 리스트 영역
+                        <linearlayout android:id="@+id/dynamicArea" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                        </linearlayout>
+
+-->
+
+
                         <TableRow>
 
                             <TextView

@@ -26,7 +26,7 @@
         import java.util.HashMap;
         import java.util.Map;
 
-        import static com.facebook.FacebookSdk.getApplicationContext;
+        //import static com.facebook.FacebookSdk.getApplicationContext;
 
         public class BloodSugarCrud extends AppCompatActivity implements CrudInterface  {
     private static BloodSugarCrud instance; //싱글톤

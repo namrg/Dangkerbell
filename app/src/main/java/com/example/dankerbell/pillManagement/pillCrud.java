@@ -1,5 +1,6 @@
 package com.example.dankerbell.pillManagement;
 
+import android.os.Handler;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -11,9 +12,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,23 +23,27 @@ public class pillCrud implements CrudInterface {
     private static pillCrud instance;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     final String User = user.getEmail();
+    static String pillName; //약 이름
+    static int amount; // 복용량
+    public static Handler mHandler =new Handler();
 
-    public static pillCrud getInstance(){
-        if(instance == null){
+    public static pillCrud getInstance() {
+        if (instance == null) {
             instance = new pillCrud();
         }
         return instance;
     }
+
     @Override
-    public void create(){}
+    public void create() {}
 
     //약 추가 부분은 끝
-    public void create(String userId,String pill_name, int amount, String unit_amount,
-                       int count, String takingPillTime, String pilltime, int times){
+    public void create(String userId, String pill_name, int amount, String unit_amount,
+                       int count, String takingPillTime, String pilltime, int times) {
         Map<String, Object> updateData = new HashMap<>();
 
         pillMapper post = new pillMapper(userId, pill_name, amount, unit_amount, count,
-                takingPillTime,pilltime, times);
+                takingPillTime, pilltime, times);
         updateData = post.toMap();
 
         db.collection("user").document(User).collection("takingPill").document(pill_name)
@@ -58,20 +63,27 @@ public class pillCrud implements CrudInterface {
     }
 
     @Override
-    public void read(){}
-
-    public void read(String pill_name) { // 복용량이랑 약 이름 받아오는거
-        db.collection(User).document("takingPill").collection(pill_name).whereEqualTo("pill_name", pill_name)
+    public void read() {
+        db.collection("user").document(User).collection("takingPill")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                      //  Bundle data = new Bundle();
+                       // Message msg= Message.obtain();
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d("혈당 데이터 읽기", document.getId() + " => " + document.getData());
+                                pillName = document.getData().get("pill_name").toString();
+                          //      data.putString("pillName", pillName);
+                           //     msg.setData(data);
+                                amount = Integer.parseInt(document.getData().get("amount").toString());
+                                mHandler.sendEmptyMessage(amount);
+                            //    msg.setData(data);
+                                Log.d("데이터 있음", document.getId() + " => " + document.getData());
+                                Log.d("값", pillName + " => " + amount);
                             }
                         } else {
-                            Log.w("혈당 데이터 읽기", "Error getting documents.", task.getException());
+                            Log.d("읽기 실패", "Error getting documents: ", task.getException());
                         }
                     }
                 });
@@ -79,10 +91,29 @@ public class pillCrud implements CrudInterface {
 
     @Override
     public void update() {
+
     }
 
     @Override
-    public void delete() {
+    public void delete(){}
 
+    public void delete(String pillName) {
+        db.collection(User).document("takingPill").collection(pillName).document(pillName)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("삭제 성공", "DocumentSnapshot successfully deleted!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("삭제 실패", "Error deleting document", e);
+                    }
+                });
     }
+
+    public String getpillName(){ return pillName;}
+    public int getAmount(){ return amount;}
 }

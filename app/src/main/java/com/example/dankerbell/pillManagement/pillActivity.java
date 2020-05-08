@@ -2,6 +2,7 @@ package com.example.dankerbell.pillManagement;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -14,9 +15,11 @@ import com.example.dankerbell.homeActivity;
 import com.example.dankerbell.mealManagement.mealActivity;
 
 public class pillActivity extends AppCompatActivity { // 복약관리 클래스
+    pillCrud mPill = pillCrud.getInstance();
     TextView home; // 당커벨 (어플이름 )
-    TextView blood_txt, meal_txt;
-    Button register_btn;
+    TextView blood_txt, meal_txt, med_name,amount;
+    Button register_btn,del_btn;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pill);
@@ -52,9 +55,15 @@ public class pillActivity extends AppCompatActivity { // 복약관리 클래스
                 startActivity(addpillintent);// 약 직접등록 화면으로 이동하도록 addpillActivity로 전환
             }
         });
-
-
     }
 
+    public void onStart() {
+        super.onStart();
+        //데이터 읽기
+        mPill.read();
+        med_name.setText(mPill.getpillName());
+        amount.setText(mPill.getAmount());
+        Log.d("값", mPill.getpillName()+ " => " +mPill.getAmount());
+    }
 }
 
