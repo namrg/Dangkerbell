@@ -299,7 +299,7 @@
                     android:visibility="gone"
                     android:orientation="vertical">
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycler3"
+                        android:id="@+id/recycler_lunch"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
 
@@ -350,7 +350,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:layout_marginLeft="240dp"
-                        android:id="@+id/dinnersearch"
+                        android:id="@+id/searchdinner"
                         android:drawableRight="@drawable/search">
 
                     </TextView>
@@ -383,7 +383,7 @@
                     android:orientation="vertical"
                     android:visibility="gone">
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycler4"
+                        android:id="@+id/recycler_dinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
 

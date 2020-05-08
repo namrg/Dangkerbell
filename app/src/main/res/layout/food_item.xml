@@ -23,7 +23,6 @@
             android:layout_marginLeft="10dp"
             android:fontFamily="@font/nanumsquare_acr"
             android:text="TextView"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#000" />
 
         <TextView

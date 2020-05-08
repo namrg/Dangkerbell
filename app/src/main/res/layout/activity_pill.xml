@@ -163,8 +163,7 @@
 
                             <TextView
                                 android:layout_width="70dp"
-                                android:layout_height="wrap_content"
-
+                                android:layout_height="match_parent"
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="10dp"
                                 android:background="@color/colorAccent"
@@ -208,28 +207,24 @@
 
                         </TableRow>
 
-                        <!-- 동적 리스트 영역
-                        <linearlayout android:id="@+id/dynamicArea" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
-                        </linearlayout>
-
--->
-
-
                         <TableRow>
 
                             <TextView
                                 android:id="@+id/med_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:fontFamily="@font/bmdohyeon_ttf"
+                                android:gravity="center"
+                                android:fontFamily="@font/nanumsquare_acr"
                                 android:textSize="15dp" />
 
                             <TextView
+                                android:gravity="center"
+
                                 android:id="@+id/amount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
-                                android:fontFamily="@font/bmdohyeon_ttf"
+                                android:fontFamily="@font/nanumsquare_acr"
                                 android:textSize="15dp" />
 
                             <TextView
@@ -237,9 +232,10 @@
                                 android:layout_width="53dp"
 
                                 android:layout_height="match_parent"
+                                android:gravity="center"
 
                                 android:layout_marginLeft="10dp"
-                                android:fontFamily="@font/bmdohyeon_ttf"
+                                android:fontFamily="@font/nanumsquare_acr"
                                 android:textSize="15dp" />
 
                             <TextView
@@ -249,7 +245,7 @@
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="10dp"
                                 android:drawableRight="@drawable/remove"
-                                android:fontFamily="@font/bmdohyeon_ttf"
+                                android:fontFamily="@font/nanumsquare_acr"
                                 android:gravity="center"
                                 android:textSize="15dp" />
                         </TableRow>
@@ -416,6 +412,11 @@
                     android:id="@+id/view2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
+
+
+            </LinearLayout>
+
+
         </RelativeLayout>
         <include layout="@layout/activity_drawer"/>
 

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center">
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selectbutton">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorAccent">
+
+
+            <TextView
+                android:id="@+id/med_name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:fontFamily="@font/nanumsquare_acr"
+                android:textSize="15dp" />
+
+            <TextView
+                android:gravity="center"
+
+                android:id="@+id/amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/nanumsquare_acr"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/alarm"
+                android:layout_width="53dp"
+
+                android:layout_height="match_parent"
+                android:gravity="center"
+
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/nanumsquare_acr"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/del_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:drawableRight="@drawable/remove"
+                android:fontFamily="@font/nanumsquare_acr"
+                android:gravity="center"
+                android:textSize="15dp" />
+        </TableRow>
+
+        </TableLayout>
+</LinearLayout>

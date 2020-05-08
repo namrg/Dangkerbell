@@ -70,13 +70,13 @@ public class BloodSugarMapper implements MappingInterface {
 
         }
         else if(time=="점심"){
-            db.collection(User).document("lunchbloodSugar"+date).set(result);
+            db.collection("user").document(User).collection("lunchbloodSugar").document(date).set(result);
         }
         else if(time=="저녁"){
-            db.collection(User).document("dinnerbloodSugar"+date).set(result);
+            db.collection("user").document(User).collection("dinnerbloodSugar").document(date).set(result);
         }
         else{
-            db.collection(User).document("sleepbloodSugar"+date).set(result);
+            db.collection("user").document(User).collection("sleepbloodSugar").document(date).set(result);
         }
         return result;
     }

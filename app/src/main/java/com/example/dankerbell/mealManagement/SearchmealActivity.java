@@ -30,7 +30,6 @@ import com.example.dankerbell.R;
 import java.util.ArrayList;
 
 import static com.example.dankerbell.Firebase.FoodlistCrud.getFood;
-import static com.example.dankerbell.Firebase.FoodlistCrud.getmsg;
 import static com.example.dankerbell.Firebase.FoodlistCrud.mealHandler;
 
 public class SearchmealActivity extends AppCompatActivity implements RecyclerViewAdapterCallback{
@@ -78,7 +77,6 @@ public class SearchmealActivity extends AppCompatActivity implements RecyclerVie
             }
         });
 
-        FoodlistCrud.getFoodList();
         if(mList.isEmpty()) {
             Log.d(this.getClass().getName(),"mList비어져잇음");
             for(int i=0;i<ma.getfood.size();i++){ //파이어베이스에서 받아온 코드

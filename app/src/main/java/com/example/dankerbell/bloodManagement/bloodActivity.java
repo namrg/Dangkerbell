@@ -63,19 +63,30 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
         final String date = sdf.format(calendar.getTime());
         wakesugartext=findViewById(R.id.wakesugartext);
         wakepressuretext=findViewById(R.id.wakepressureetext);
-        mBloodSugar.wakeupbloodSugar(date);
-        mBloodSugar.wakeupbloodPressure(date);
-        mBloodSugar.morning(date);
-        /*mBloodSugar.mHandler1 = new Handler(){
+        mBloodSugar.wakeupread(date);
+        mBloodSugar.morningread(date);
+        mBloodSugar.lunchread(date);
+        mBloodSugar.dinnerread(date);
+        mBloodSugar.sleepread(date);
+//        mBloodSugar.wakeupbloodPressure(date);
+//        mBloodSugar.readwakeup(date);
+      //  mBloodSugar.morning(date);
+        mBloodSugar.mHandler1 = new Handler(){
             @Override public void handleMessage(Message msg){
                 if (msg.what==1000){
                     wakesugartext.setText(mBloodSugar.getBloodsugar());
                     wakepressuretext.setText(mBloodSugar.getBloodpressure());
                     morningsugartext.setText(mBloodSugar.getmBloodsugar());
                     morningpressuretext.setText(mBloodSugar.getmBloodpressure());
+                    lunchsugartext.setText(mBloodSugar.getLbloodsugar());
+                    lunchpressuretext.setText(mBloodSugar.getLbloodpressure());
+                    dinnersugartext.setText(mBloodSugar.getDbloodsugar());
+                    dinnerpressuretext.setText(mBloodSugar.getDbloodpressure());
+                    sleepsugartext.setText(mBloodSugar.getSbloodsugar());
+                    sleeppressuretext.setText(mBloodSugar.getSbloodpressure());
                 }
             }
-        };*/
+        };
 
         currentdate.setText(date);
 
@@ -84,8 +95,7 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
 
         //mBloodSugar.wakeupbloodSugar(mBloodSugar.getBloodpressure());
        // mBloodSugar.wakeupbloodPressure(mBloodSugar.getBloodsugar());
-        Log.d("너왜이래ㅡㅡ4",mBloodSugar.getBloodpressure());
-        Log.d("너왜이래ㅡㅡ5",mBloodSugar.getBloodsugar());
+
 
         prev.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,21 +103,32 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
                 SimpleDateFormat sdf2 = new SimpleDateFormat("yy.MM.dd", Locale.getDefault());
                 calendar.add(Calendar.DATE, -1);  // 오늘 날짜에서 하루를 뺌.
                 String yesterday = sdf.format(calendar.getTime());
-                mBloodSugar.wakeupbloodSugar(yesterday);
-                mBloodSugar.wakeupbloodPressure(yesterday);
-                mBloodSugar.morning(yesterday);
+                mBloodSugar.wakeupread(yesterday);
+                mBloodSugar.morningread(yesterday);
+                mBloodSugar.lunchread(yesterday);
+                mBloodSugar.dinnerread(yesterday);
+                mBloodSugar.sleepread(yesterday);
+                //mBloodSugar.wakeupbloodPressure(yesterday);
+               // mBloodSugar.readwakeup(yesterday);
+                //mBloodSugar.morning(yesterday);
                 currentdate.setText(yesterday);
-               /* mBloodSugar.mHandler1 = new Handler(){
+                mBloodSugar.mHandler1 = new Handler(){
                     @Override public void handleMessage(Message msg){
                     if (msg.what==1000){
                             Log.d("메세지 받음",mBloodSugar.getBloodsugar());
                             wakesugartext.setText(mBloodSugar.getBloodsugar());
                             wakepressuretext.setText(mBloodSugar.getBloodpressure());
-                            morningpressuretext.setText(mBloodSugar.getmBloodpressure());
-                            morningsugartext.setText(mBloodSugar.getmBloodsugar());
+                        morningsugartext.setText(mBloodSugar.getmBloodsugar());
+                        morningpressuretext.setText(mBloodSugar.getmBloodpressure());
+                        lunchsugartext.setText(mBloodSugar.getLbloodsugar());
+                        lunchpressuretext.setText(mBloodSugar.getLbloodpressure());
+                        dinnersugartext.setText(mBloodSugar.getDbloodsugar());
+                        dinnerpressuretext.setText(mBloodSugar.getDbloodpressure());
+                        sleepsugartext.setText(mBloodSugar.getSbloodsugar());
+                        sleeppressuretext.setText(mBloodSugar.getSbloodpressure());
                     }
                 }
-                };*/
+                };
             }
         });
 
@@ -117,20 +138,32 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
                 calendar.add(Calendar.DATE, +1);  // 오늘 날짜에서 하루를 더함
                 String tomorrow = sdf.format(calendar.getTime());
                 currentdate.setText(tomorrow);
-                mBloodSugar.wakeupbloodSugar(tomorrow);
-                mBloodSugar.wakeupbloodPressure(tomorrow);
-                mBloodSugar.morning(tomorrow);
-          /*      mBloodSugar.mHandler1 = new Handler(){
+              //  mBloodSugar.readwakeup(tomorrow);
+
+                mBloodSugar.wakeupread(tomorrow);
+                mBloodSugar.morningread(tomorrow);
+                mBloodSugar.lunchread(tomorrow);
+                mBloodSugar.dinnerread(tomorrow);
+                mBloodSugar.sleepread(tomorrow);
+//                mBloodSugar.wakeupbloodPressure(tomorrow);
+            //    mBloodSugar.morning(tomorrow);
+                mBloodSugar.mHandler1 = new Handler(){
                     @Override public void handleMessage(Message msg){
                         if (msg.what==1000){
                             Log.d("메세지 받음",mBloodSugar.getBloodsugar());
                             wakesugartext.setText(mBloodSugar.getBloodsugar());
                             wakepressuretext.setText(mBloodSugar.getBloodpressure());
-                            morningpressuretext.setText(mBloodSugar.getmBloodpressure());
                             morningsugartext.setText(mBloodSugar.getmBloodsugar());
+                            morningpressuretext.setText(mBloodSugar.getmBloodpressure());
+                            lunchsugartext.setText(mBloodSugar.getLbloodsugar());
+                            lunchpressuretext.setText(mBloodSugar.getLbloodpressure());
+                            dinnersugartext.setText(mBloodSugar.getDbloodsugar());
+                            dinnerpressuretext.setText(mBloodSugar.getDbloodpressure());
+                            sleepsugartext.setText(mBloodSugar.getSbloodsugar());
+                            sleeppressuretext.setText(mBloodSugar.getSbloodpressure());
                         }
                     }
-                };*/
+                };
 
             }
         });
@@ -274,12 +307,14 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
                 time = morning.toString();
 
                 time = "아침";
+                mBloodSugar.create(Double.parseDouble(morningsugar), Double.parseDouble(morningpressure), date, time);
 
                 Log.d(this.getClass().getName(),morningsugar+"아침혈당이거닷~!!!!!!1");
-                mBloodSugar.create(Double.parseDouble(morningsugar), Double.parseDouble(morningpressure), date, time);
+
             }
 
         });
+
 
         lunchbloodedit.setOnClickListener(new View.OnClickListener() { // 점심 행의 연필 아이콘 클릭 시 실행
             @Override

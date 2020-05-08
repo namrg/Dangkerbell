@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.dankerbell.Firebase.BloodSugarCrud;
 import com.example.dankerbell.R;
 
 import org.w3c.dom.Text;
@@ -19,6 +20,9 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 
 public class RecyclerFoodKcalAdapter extends RecyclerView.Adapter<RecyclerFoodKcalAdapter.ViewHolder> {
+    private static RecyclerFoodKcalAdapter instance; //싱글톤
+
+
     private ArrayList<RecyclermyfoodItem> mData = null ;
 
     Context context;

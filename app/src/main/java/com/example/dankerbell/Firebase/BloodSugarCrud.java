@@ -34,10 +34,47 @@
     public String bloodpressure=" ";
     public String mbloodsugar=" ";
     public String mbloodpressure=" ";
+    public String lbloodsugar=" ";
+    public String lbloodpressure=" ";
+    public String dbloodsugar=" ";
+    public String dbloodpressure=" ";
+    public String sbloodsugar=" ";
+    public String sbloodpressure=" ";
     public static Handler mHandler1 =new Handler();
 
+            public String getMbloodsugar() {
+                return mbloodsugar;
+            }
 
-    //FirebaseFirestore db
+            public String getMbloodpressure() {
+                return mbloodpressure;
+            }
+
+            public String getLbloodsugar() {
+                return lbloodsugar;
+            }
+
+            public String getLbloodpressure() {
+                return lbloodpressure;
+            }
+
+            public String getDbloodsugar() {
+                return dbloodsugar;
+            }
+
+            public String getDbloodpressure() {
+                return dbloodpressure;
+            }
+
+            public String getSbloodsugar() {
+                return sbloodsugar;
+            }
+
+            public String getSbloodpressure() {
+                return sbloodpressure;
+            }
+
+            //FirebaseFirestore db
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     final String User = user.getEmail();
     public static BloodSugarCrud getInstance() {
@@ -78,9 +115,10 @@
 
     }
 
+
     @Override
     public void read() {
-        db.collection(User)
+        db.collection("user").document(User).collection("wakeupbloodSugar")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -95,38 +133,23 @@
                     }
                 });
     }
-    public void readequltodate(final String date){ // 실행 O 값 전달어떻게?
-        db.collection(User)
-                .whereEqualTo("time","기상 후")
-                .whereEqualTo("date",date)
+
+
+
+    public void wakeupread(final String date){
+        db.collection("user").document(User).collection("wakeupbloodSugar").document(date)
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()){
-                            for (QueryDocumentSnapshot document : task.getResult()){
-                                Log.d("날짜가 같은 혈당 데이터 읽기",document.getId() + " => " + document.getData().get("bloodsugar"));
-
-                                Log.d("날짜",date);
-
-                            }
-                        }
-                        else {
-                            Log.w("날짜가 같은 혈당 데이터 읽기", "Error getting documents.", task.getException());
-                        }
-                    }
-                });
-    }
-    public void wakeupbloodSugar(final String date){
-//            db.collection("user").document(User).collection("morningbloodSugar").document(date).set(result);
-        db.collection("user").document(User).collection("morningbloodSugar").document(date).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()){
                     DocumentSnapshot document = task.getResult();
                     if(document.exists()){
-                        bloodsugar=document.getData().get("bloodsugar").toString();}
-                    else bloodsugar="";
+                        bloodsugar=document.getData().get("bloodsugar").toString();
+                        bloodpressure=document.getData().get("bloodpressure").toString();
+                    }
+                    else{ bloodsugar="";
+                          bloodpressure="";}
                     Log.d("받아오는 혈당",bloodsugar);
                     Log.d("날짜",date);
                     mHandler1.sendEmptyMessage(1000);
@@ -134,26 +157,93 @@
             }
         });
     }
-    public void wakeupbloodPressure(final String date){// 실행 O 값 전달 O
-        db.collection(User).document("wakeupbloodSugar"+date).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()){
-                    DocumentSnapshot document = task.getResult();
-                    if(document.exists())
-                        bloodpressure=document.getData().get("bloodpressure").toString();
-                    else
-                        bloodpressure="";
-                    Log.d("받아오는 혈압",bloodpressure);
-                    Log.d("날짜",date);
-                    mHandler1.sendEmptyMessage(1000);
-
-
-                }
-
+            public void morningread(final String date){
+                db.collection("user").document(User).collection("morningbloodSugar").document(date)
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()){
+                                    DocumentSnapshot document = task.getResult();
+                                    if(document.exists()){
+                                        mbloodsugar=document.getData().get("bloodsugar").toString();
+                                        mbloodpressure=document.getData().get("bloodpressure").toString();
+                                    }
+                                    else{ mbloodsugar="";
+                                        mbloodpressure="";}
+                                    Log.d("받아오는 혈당",mbloodsugar);
+                                    Log.d("날짜",date);
+                                    mHandler1.sendEmptyMessage(1000);
+                                }
+                            }
+                        });
             }
-        });
-    }
+
+            public void lunchread(final String date){
+                db.collection("user").document(User).collection("lunchbloodSugar").document(date)
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()){
+                                    DocumentSnapshot document = task.getResult();
+                                    if(document.exists()){
+                                        lbloodsugar=document.getData().get("bloodsugar").toString();
+                                        lbloodpressure=document.getData().get("bloodpressure").toString();
+                                    }
+                                    else{ lbloodsugar="";
+                                        lbloodpressure="";}
+                                    Log.d("받아오는 혈당",lbloodsugar);
+                                    Log.d("날짜",date);
+                                    mHandler1.sendEmptyMessage(1000);
+                                }
+                            }
+                        });
+            }
+            public void dinnerread(final String date){
+                db.collection("user").document(User).collection("dinnerbloodSugar").document(date)
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()){
+                                    DocumentSnapshot document = task.getResult();
+                                    if(document.exists()){
+                                        dbloodsugar=document.getData().get("bloodsugar").toString();
+                                        dbloodpressure=document.getData().get("bloodpressure").toString();
+                                    }
+                                    else{ dbloodsugar="";
+                                        dbloodpressure="";}
+                                    Log.d("받아오는 혈당",dbloodsugar);
+                                    Log.d("날짜",date);
+                                    mHandler1.sendEmptyMessage(1000);
+                                }
+                            }
+                        });
+            }
+            public void sleepread(final String date){
+                db.collection("user").document(User).collection("sleepbloodSugar").document(date)
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()){
+                                    DocumentSnapshot document = task.getResult();
+                                    if(document.exists()){
+                                        sbloodsugar=document.getData().get("bloodsugar").toString();
+                                        sbloodpressure=document.getData().get("bloodpressure").toString();
+                                    }
+                                    else{ sbloodsugar="";
+                                        sbloodpressure="";}
+                                    Log.d("받아오는 혈당",sbloodsugar);
+                                    Log.d("날짜",date);
+                                    mHandler1.sendEmptyMessage(1000);
+                                }
+                            }
+                        });
+            }
+
+
             public void morning(final String date){//
                 db.collection(User).document("morningbloodSugar"+date).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -197,31 +287,11 @@
 
     @Override
     public void update() {
-//           //오버로딩
-//        Map<String, Object> updateData = new HashMap<>();
 //
-//        //if(add){
-//        BloodSugarMapper post = new BloodSugarMapper(userId, bloodsugar, bloodpressure, date, time);
-//        updateData = post.toMap();
-//        db.collection(User).document("bloodSugarDB")
-//                .set(updateData)
-//                .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void aVoid) {
-//                        Log.d("set혈당데이터", "DocumentSnapshot successfully written!");
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Log.w("set혈당데이터", "Error writing document", e);
-//                    }
-//                });
 
 }
 
     @Override
     public void delete() {
-        //혈당 기록은 삭제 기능이 없음
     }
 }
