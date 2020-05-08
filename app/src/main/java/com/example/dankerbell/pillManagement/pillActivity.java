@@ -85,5 +85,6 @@ public class pillActivity extends AppCompatActivity { // 복약관리 클래스
                 mPill.delete(pillName);
             }
         });*/
+
 }
 

@@ -1,32 +1,23 @@
 package com.example.dankerbell.mealManagement;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dankerbell.R;
 import com.example.dankerbell.bloodManagement.bloodActivity;
-import com.example.dankerbell.homeActivity;
 import com.example.dankerbell.pillManagement.pillActivity;
 
-import org.w3c.dom.Text;
-
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Locale;
 
 public class mealActivity extends AppCompatActivity { // 식단관리 클래스

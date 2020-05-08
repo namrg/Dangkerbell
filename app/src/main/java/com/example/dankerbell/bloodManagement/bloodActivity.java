@@ -2,6 +2,8 @@ package com.example.dankerbell.bloodManagement;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -17,12 +19,10 @@ import com.example.dankerbell.pillManagement.pillActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
     BloodSugarCrud mBloodSugar = BloodSugarCrud.getInstance(); //firebase 참조 singletone
-
     TextView home; //
     TextView meal_txt; // 상단에 식단관리 TextView
     TextView pill_txt; // 상단에 복약관리 TextView
@@ -48,6 +48,7 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
 
     TextView currentdate;
     TextView prev,next;
+    private static Handler mHandler ;
 
     String time; // 기상후, 식전 식후 등
     public void onCreate(Bundle savedInstanceState) {
@@ -56,36 +57,81 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
         home=findViewById(R.id.home_txt);
         meal_txt=findViewById(R.id.meal_txt);
         pill_txt=findViewById(R.id.pill_txt);
-
-        String yesterday;
-        //새로추가
         currentdate=findViewById(R.id.date);
-        SimpleDateFormat sdf = new SimpleDateFormat("yy.MM.dd", Locale.getDefault());
+        final SimpleDateFormat sdf = new SimpleDateFormat("yy.MM.dd", Locale.getDefault());
         final Calendar calendar = Calendar.getInstance(); // 오늘날짜
         final String date = sdf.format(calendar.getTime());
+        wakesugartext=findViewById(R.id.wakesugartext);
+        wakepressuretext=findViewById(R.id.wakepressureetext);
+        mBloodSugar.wakeupbloodSugar(date);
+        mBloodSugar.wakeupbloodPressure(date);
+        mBloodSugar.morning(date);
+        /*mBloodSugar.mHandler1 = new Handler(){
+            @Override public void handleMessage(Message msg){
+                if (msg.what==1000){
+                    wakesugartext.setText(mBloodSugar.getBloodsugar());
+                    wakepressuretext.setText(mBloodSugar.getBloodpressure());
+                    morningsugartext.setText(mBloodSugar.getmBloodsugar());
+                    morningpressuretext.setText(mBloodSugar.getmBloodpressure());
+                }
+            }
+        };*/
+
         currentdate.setText(date);
+
         prev=findViewById(R.id.prev);
         next=findViewById(R.id.next);
+
+        //mBloodSugar.wakeupbloodSugar(mBloodSugar.getBloodpressure());
+       // mBloodSugar.wakeupbloodPressure(mBloodSugar.getBloodsugar());
+        Log.d("너왜이래ㅡㅡ4",mBloodSugar.getBloodpressure());
+        Log.d("너왜이래ㅡㅡ5",mBloodSugar.getBloodsugar());
+
         prev.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(View view) { // 상단에 날짜 중 < 버튼 클릭
                 SimpleDateFormat sdf2 = new SimpleDateFormat("yy.MM.dd", Locale.getDefault());
                 calendar.add(Calendar.DATE, -1);  // 오늘 날짜에서 하루를 뺌.
-                String yesterday = sdf2.format(calendar.getTime());
+                String yesterday = sdf.format(calendar.getTime());
+                mBloodSugar.wakeupbloodSugar(yesterday);
+                mBloodSugar.wakeupbloodPressure(yesterday);
+                mBloodSugar.morning(yesterday);
                 currentdate.setText(yesterday);
-
+               /* mBloodSugar.mHandler1 = new Handler(){
+                    @Override public void handleMessage(Message msg){
+                    if (msg.what==1000){
+                            Log.d("메세지 받음",mBloodSugar.getBloodsugar());
+                            wakesugartext.setText(mBloodSugar.getBloodsugar());
+                            wakepressuretext.setText(mBloodSugar.getBloodpressure());
+                            morningpressuretext.setText(mBloodSugar.getmBloodpressure());
+                            morningsugartext.setText(mBloodSugar.getmBloodsugar());
+                    }
+                }
+                };*/
             }
         });
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) { // 상단에 날짜 중 > 버튼 클릭
-                SimpleDateFormat sdf3 = new SimpleDateFormat("yy.MM.dd", Locale.getDefault());
                 calendar.add(Calendar.DATE, +1);  // 오늘 날짜에서 하루를 더함
-                String tomorrow = sdf3.format(calendar.getTime());
+                String tomorrow = sdf.format(calendar.getTime());
                 currentdate.setText(tomorrow);
+                mBloodSugar.wakeupbloodSugar(tomorrow);
+                mBloodSugar.wakeupbloodPressure(tomorrow);
+                mBloodSugar.morning(tomorrow);
+          /*      mBloodSugar.mHandler1 = new Handler(){
+                    @Override public void handleMessage(Message msg){
+                        if (msg.what==1000){
+                            Log.d("메세지 받음",mBloodSugar.getBloodsugar());
+                            wakesugartext.setText(mBloodSugar.getBloodsugar());
+                            wakepressuretext.setText(mBloodSugar.getBloodpressure());
+                            morningpressuretext.setText(mBloodSugar.getmBloodpressure());
+                            morningsugartext.setText(mBloodSugar.getmBloodsugar());
+                        }
+                    }
+                };*/
+
             }
         });
 
@@ -98,8 +144,7 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
         wakeup=findViewById(R.id.wakeup);
         wakeUp=findViewById(R.id.wakeUp);
         wakeupbloodedit=(TextView)findViewById(R.id.wakeupbloodedit);
-        wakesugartext=findViewById(R.id.wakesugartext);
-        wakepressuretext=findViewById(R.id.wakepressureetext);
+
         wakeupbloodfinish=findViewById(R.id.wakeupbloodfinish);
         wakesugaredit=findViewById(R.id.wakesugaredit);
         wakepressureedit=findViewById(R.id.wakepressureedit);
@@ -186,7 +231,7 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
                 time = wakeup.toString();
                 time = "기상 후";
                 Log.d(this.getClass().getName(),wakesugar+"이거닷~!!!!!!1");
-                mBloodSugar.create("userid", Double.parseDouble(wakesugar), Double.parseDouble(wakepressure), new Date(), time);
+                mBloodSugar.create(Double.parseDouble(wakesugar), Double.parseDouble(wakepressure),date, time);
             }
 
         });
@@ -231,7 +276,7 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
                 time = "아침";
 
                 Log.d(this.getClass().getName(),morningsugar+"아침혈당이거닷~!!!!!!1");
-                mBloodSugar.create("userid", Double.parseDouble(morningsugar), Double.parseDouble(morningpressure), new Date(), time);
+                mBloodSugar.create(Double.parseDouble(morningsugar), Double.parseDouble(morningpressure), date, time);
             }
 
         });
@@ -270,6 +315,14 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
 
                 String lunchpressure = (String)lunchpressureedit.getText().toString(); // 입력한 점심 혈압을 lunchpressureedit에 입력
                 lunchpressuretext.setText(lunchpressure);
+
+
+                time = "점심";
+
+                Log.d(this.getClass().getName(),lunchsugar+"점심혈당이거닷~!!!!!!1");
+             //   mBloodSugar.create("userid", Double.parseDouble(lunchsugar), Double.parseDouble(lunchpressure), new Date(), time);
+                  mBloodSugar.create(Double.parseDouble(lunchsugar), Double.parseDouble(lunchpressure), date, time);
+
             }
 
         });
@@ -306,8 +359,16 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
                 String dinnersugar = (String)dinnersugaredit.getText().toString(); // 입력한 저녁 혈당을 lunchsugaredit에 입력
                 dinnersugartext.setText(dinnersugar);
 
-                String lunchpressure = (String)dinnerpressureedit.getText().toString(); // 입력한 저녁 혈압을 lunchpressureedit에 입력
-                dinnerpressuretext.setText(lunchpressure);
+                String dinnerpressure = (String)dinnerpressureedit.getText().toString(); // 입력한 저녁 혈압을 lunchpressureedit에 입력
+                dinnerpressuretext.setText(dinnerpressure);
+
+
+                time = "저녁";
+
+                Log.d(this.getClass().getName(),dinnersugar+"저녁혈당이거닷~!!!!!!1");
+             //   mBloodSugar.create("userid", Double.parseDouble(dinnersugar), Double.parseDouble(dinnerpressure), new Date(), time);
+                   mBloodSugar.create(Double.parseDouble(dinnersugar), Double.parseDouble(dinnerpressure), date, time);
+
             }
 
         });
@@ -346,7 +407,14 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
 
         String sleeppressure = (String)sleeppressureedit.getText().toString(); // 입력한 취침 후  혈압을 dinnerpressureedit에 입력
         sleeppressuretext.setText(sleeppressure);
-    }
+
+
+                time = "취침 전";
+                Log.d(this.getClass().getName(),sleepsugar+"취침혈당이거닷~!!!!!!1");
+              //  mBloodSugar.create("userid", Double.parseDouble(sleepsugar), Double.parseDouble(sleeppressure), new Date(), time);
+                 mBloodSugar.create(Double.parseDouble(sleepsugar), Double.parseDouble(sleeppressure), date, time);
+
+            }
 
 });
 
