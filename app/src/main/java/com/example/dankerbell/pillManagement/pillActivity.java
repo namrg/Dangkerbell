@@ -37,7 +37,6 @@ public class pillActivity extends AppCompatActivity { // 복약관리 클래스
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPill.read();
-
         mPill.mHandler = new Handler(){
             @Override public void handleMessage(Message msg){ // 메세지 받고 실행
                 if (msg.what==1002){
