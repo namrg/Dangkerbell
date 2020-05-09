@@ -8,14 +8,12 @@ public class mealMapper implements MappingInterface {
     String date="";
     String food="";
     String kcal="";
-
     public mealMapper(String time,String date,String food,String kcal){
         this.time=time;
         this.date=date;
         this.food=food;
         this.kcal=kcal;
     }
-
     @Override
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();

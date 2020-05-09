@@ -25,7 +25,6 @@ public class addpillActivity extends AppCompatActivity {
     pillCrud mPill = pillCrud.getInstance();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     final String User = user.getEmail();
-
     TextView back;
     private EditText mPillname; //약이름
     private EditText mamount; //복용량
@@ -35,7 +34,6 @@ public class addpillActivity extends AppCompatActivity {
     private Spinner mpillTime; //식전 식후
     private EditText mTimes; //몇분후
     private Button mstore;
-
     public void onCreate(Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
         setContentView(R.layout.activity_addpill);

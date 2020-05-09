@@ -32,8 +32,9 @@ public class pillActivity extends AppCompatActivity { // 복약관리 클래스
     pillCrud mPill = pillCrud.getInstance();
     TextView home; // 당커벨 (어플이름 )
     TextView blood_txt, meal_txt, med_name,amount;
-    Button register_btn,del_btn;
-
+    Button register_btn;
+    TextView del_btn;
+  //final String pillName;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPill.read();
@@ -76,6 +77,18 @@ public class pillActivity extends AppCompatActivity { // 복약관리 클래스
                             startActivity(addpillintent);// 약 직접등록 화면으로 이동하도록 addpillActivity로 전환
                         }
                     });
+
+                    del_btn=findViewById(R.id.del_btn);
+                    del_btn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mPill.delete(pillName);
+                            if(mPill.getSuccess()=="1"){
+                                med_name.setText("");
+                                amount.setText("");
+                            }
+                        }
+                    });
                     med_name = findViewById(R.id.med_name); // 의약품명
                     amount = findViewById(R.id.amount);
 
@@ -90,15 +103,8 @@ public class pillActivity extends AppCompatActivity { // 복약관리 클래스
     }
 
 
-    /*    //데이터 삭제
-        med_name = findViewById(R.id.med_name);
-        final String pillName = med_name.getText().toString();
-        del_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPill.delete(pillName);
-            }
-        });*/
+        //데이터 삭제
+
 
 }
 

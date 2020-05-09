@@ -30,6 +30,7 @@ public class pillCrud implements CrudInterface {
 //    static ArrayList<Integer> amount; // 복용량
     String pillName;
     int amount;
+    String success="0";
     public static Handler mHandler =new Handler();
 
     public static pillCrud getInstance() {
@@ -38,6 +39,7 @@ public class pillCrud implements CrudInterface {
         }
         return instance;
     }
+
 
     @Override
     public void create() {}
@@ -102,17 +104,14 @@ public class pillCrud implements CrudInterface {
     public void update() {
 
     }
-
-    @Override
-    public void delete(){}
-
     public void delete(String pillName) {
-        db.collection(User).document("takingPill").collection(pillName).document(pillName)
+        db.collection("user").document(User).collection("takingPill").document(pillName)
                 .delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d("삭제 성공", "DocumentSnapshot successfully deleted!");
+                        success="1";
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -122,6 +121,15 @@ public class pillCrud implements CrudInterface {
                     }
                 });
     }
+
+    public String getSuccess() {
+        return success;
+    }
+
+    @Override
+    public void delete(){}
+
+
     public void setpillName(String pillName){
         this.pillName = pillName;
     }
