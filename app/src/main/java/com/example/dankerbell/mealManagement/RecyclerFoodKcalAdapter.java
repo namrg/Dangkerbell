@@ -54,13 +54,6 @@ public class RecyclerFoodKcalAdapter extends RecyclerView.Adapter<RecyclerFoodKc
         holder.foodlist.setText(item.getMyfood());
         holder.kcallist.setText(item.getMykcal());
 
-//        if (mData.get(position).isDeleted()){//true
-//
-//        }
-//        else{
-//            holder.foodlist.setText(item.getMyfood());
-//            holder.kcallist.setText(item.getMykcal());
-//        }
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

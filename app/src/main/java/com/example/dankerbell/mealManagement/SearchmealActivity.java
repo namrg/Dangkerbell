@@ -83,7 +83,6 @@ public class SearchmealActivity extends AppCompatActivity implements RecyclerVie
             addItem(ma.getfood.get(i),ma.getkcal.get(i));
             }
             //final String food=null;
-            final String kcal=null;
 //            FoodlistCrud.mealHandler = new Handler(){
 //               @Override public void handleMessage(Message msg){
 //                   if (msg.what==1001){

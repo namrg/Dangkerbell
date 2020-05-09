@@ -43,7 +43,7 @@ public class FoodlistCrud implements CrudInterface {
     public static ArrayList<String> getKcal() {
         return kcal;
     }
-
+    public static String time="";
     @Override
     public void create(){}
     public void create(String time,String date,String food,String kcal) {

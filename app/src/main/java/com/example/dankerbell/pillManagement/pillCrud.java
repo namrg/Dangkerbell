@@ -17,15 +17,19 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class pillCrud implements CrudInterface {
     private static pillCrud instance;
+
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     final String User = user.getEmail();
-    String pillName; //약 이름
-    int amount; // 복용량
+//    static ArrayList<String> pillName=new ArrayList<>(); //약 이름
+//    static ArrayList<Integer> amount; // 복용량
+    String pillName;
+    int amount;
     public static Handler mHandler =new Handler();
 
     public static pillCrud getInstance() {
@@ -64,7 +68,7 @@ public class pillCrud implements CrudInterface {
     }
 
     @Override
-    public void read() {
+    public void read() { //
         db.collection("user").document(User).collection("takingPill")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -74,15 +78,17 @@ public class pillCrud implements CrudInterface {
                         // Message msg= Message.obtain();
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                pillName = document.getData().get("pill_name").toString();
-                                amount = Integer.parseInt(document.getData().get("amount").toString());
+                                pillName = document.getData().get("pill_name").toString(); // 의약품명
+                                amount = Integer.parseInt(document.getData().get("amount").toString()); //복용량
                                 setpillName(pillName);
                                 setAmount(amount);
+
                                 //mHandler.sendEmptyMessage(amount);
                                 //    msg.setData(data);
-                                //Log.d("데이터 있음", document.getId() + " => " + document.getData());
+                                Log.d("데이터 있음", document.getId() + " => " + document.getData());
                                 Log.d("값", pillName + " => " + amount);
                                 Log.d("겟한 값", getpillName() + " => " + getAmount());
+                                mHandler.sendEmptyMessage(1002);
                             }
                         } else {
                             Log.d("읽기 실패", "Error getting documents: ", task.getException());
