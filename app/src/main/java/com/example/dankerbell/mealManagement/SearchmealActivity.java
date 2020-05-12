@@ -18,15 +18,12 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.dankerbell.Firebase.FoodlistCrud;
 import com.example.dankerbell.R;
-
 import java.util.ArrayList;
 
 import static com.example.dankerbell.Firebase.FoodlistCrud.getFood;
@@ -37,18 +34,17 @@ public class SearchmealActivity extends AppCompatActivity implements RecyclerVie
 
     FoodlistCrud foodlistCrud=FoodlistCrud.getInstance();
     SearchView searchView;
-
+    mealActivity ma=new mealActivity();
     RecyclerView mRecyclerView = null ;
     com.example.dankerbell.mealManagement.RecyclerImageTextAdapter mAdapter = null ;
     static ArrayList<RecyclerItem> mList = new ArrayList<RecyclerItem>();
-    static final ArrayList<String> foodarraylist=new ArrayList<>();
-    static final ArrayList<String> kcalarraylist=new ArrayList<>();
-    public static ArrayList<String> getFoodarraylist() {
-        return foodarraylist;
-    }
-    public static ArrayList<String> getKcalarraylist() {
-        return kcalarraylist;
-    }
+    static final ArrayList<String> mfoodarraylist=new ArrayList<>();
+    static final ArrayList<String> mkcalarraylist=new ArrayList<>();
+    static final ArrayList<String> lfoodarraylist=new ArrayList<>();
+    static final ArrayList<String> lkcalarraylist=new ArrayList<>();
+    static final ArrayList<String> dfoodarraylist=new ArrayList<>();
+    static final ArrayList<String> dkcalarraylist=new ArrayList<>();
+
 
     TextView foodfinish;
     @Override
@@ -58,7 +54,8 @@ public class SearchmealActivity extends AppCompatActivity implements RecyclerVie
         setContentView(R.layout.activity_searchmeal);
         RecyclerView mRecyclerView = findViewById(R.id.recycler1);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mealActivity ma=new mealActivity();
+
+        final mealActivity ma=new mealActivity();
         foodfinish=findViewById(R.id.foodfinish);
       //  final TextView t=findViewById(R.id.morningfood1);
         foodfinish.setOnClickListener(new View.OnClickListener() { // 확인하기 버튼 클릭
@@ -67,8 +64,17 @@ public class SearchmealActivity extends AppCompatActivity implements RecyclerVie
                 Intent meal = new Intent(getApplicationContext(),mealActivity.class);
                 for (int j=0; j<mList.size();j++){
                     if (mList.get(j).isSelected() == true){
-                        foodarraylist.add(mList.get(j).getFood()); // 선택된
-                        kcalarraylist.add(mList.get(j).getKcal());
+                        if(ma.op=="아침"){
+                            mfoodarraylist.add(mList.get(j).getFood()); // 선택된 음식
+                            mkcalarraylist.add(mList.get(j).getKcal());
+                        }
+                        else if(ma.op=="점심"){
+                            lfoodarraylist.add(mList.get(j).getFood()); // 선택된 음식
+                            lkcalarraylist.add(mList.get(j).getKcal());
+                        }
+                        else{
+                            dfoodarraylist.add(mList.get(j).getFood()); // 선택된 음식
+                            dkcalarraylist.add(mList.get(j).getKcal());                        }
                     }
                 }
                 mHandler2.sendEmptyMessage(100);
@@ -104,10 +110,16 @@ public class SearchmealActivity extends AppCompatActivity implements RecyclerVie
 //           addItem("곰탕", "500");
 //           addItem("돼지국밥", "500");
        }
+        init();
         mAdapter = new RecyclerImageTextAdapter(SearchmealActivity.this,mList);
         mRecyclerView.setAdapter(mAdapter) ;
-    }
 
+    }
+public void init(){
+        for(int i=0;i<mList.size();i++){
+            mList.get(i).setSelected(false);
+        }
+}
     private void addItem(String food, String kcal) {
         RecyclerItem item=new RecyclerItem(food,kcal,false);
         item.setFood(food);
@@ -117,10 +129,7 @@ public class SearchmealActivity extends AppCompatActivity implements RecyclerVie
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
-
         getMenuInflater().inflate(R.menu.option_menu, menu);
-
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             TextView finish=findViewById(R.id.foodfinish);
 

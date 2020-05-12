@@ -115,7 +115,6 @@
 
     }
 
-
     @Override
     public void read() {
         db.collection("user").document(User).collection("wakeupbloodSugar")

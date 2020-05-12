@@ -16,8 +16,9 @@ import com.example.dankerbell.R;
 
 import java.util.ArrayList;
 
-public class RecyclerImageTextAdapter extends RecyclerView.Adapter<RecyclerImageTextAdapter.ViewHolder> {
+public class RecyclerImageTextAdapter extends RecyclerView.Adapter<RecyclerImageTextAdapter.ViewHolder> { // 음식체크 Adapter
     private ArrayList<RecyclerItem> mData = null ;
+    int count=0;
     String food="";
     ArrayList<String> foodlist=new ArrayList<>();
     String kcal="";
@@ -51,6 +52,12 @@ public class RecyclerImageTextAdapter extends RecyclerView.Adapter<RecyclerImage
     // onBindViewHolder() - position에 해당하는 데이터를 뷰홀더의 아이템뷰에 표시.
     @Override
     public void onBindViewHolder(final RecyclerImageTextAdapter.ViewHolder holder, final int position) {
+        if(count==0){
+            for(int i=0;i<mData.size();i++){
+                mData.get(i).setSelected(false);
+                Log.d("count : ", String.valueOf(count));
+            }
+        }
         RecyclerItem item = mData.get(position);
         holder.title.setText(item.getFood());
         holder.kcal.setText(item.getKcal());
@@ -65,16 +72,13 @@ public class RecyclerImageTextAdapter extends RecyclerView.Adapter<RecyclerImage
                 mData.get(position).setSelected(holder.check.isChecked());
 
                 for (int j=0; j<mData.size();j++){
-
                     if (mData.get(j).isSelected() == true){
-
-                        Toast.makeText(context, mData.get(j).getFood()+"를 선택하셨습니다..", Toast.LENGTH_SHORT).show();
-
+                        Toast.makeText(context, mData.get(j).getFood()+"를 선택하셨습니다.", Toast.LENGTH_SHORT).show();
                     }
-
                 }
             }
         });
+        count++;
 
     }
 
@@ -86,11 +90,9 @@ public class RecyclerImageTextAdapter extends RecyclerView.Adapter<RecyclerImage
         return mData.size() ;
     }
     public class ViewHolder extends RecyclerView.ViewHolder implements CompoundButton.OnCheckedChangeListener {
-
         TextView title ;
         TextView kcal;
         CheckBox check;
-
         ViewHolder(View itemView) {
             super(itemView) ;
             Context context=itemView.getContext();
@@ -115,13 +117,8 @@ public class RecyclerImageTextAdapter extends RecyclerView.Adapter<RecyclerImage
             kcal=itemView.findViewById(R.id.text2);
             check=itemView.findViewById(R.id.check);
         }
-
-
         @Override
         public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
         }
     }
-
-
 }

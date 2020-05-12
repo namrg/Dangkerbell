@@ -19,7 +19,7 @@ public class mealMapper implements MappingInterface {
         HashMap<String, Object> result = new HashMap<>();
         result.put("time",time);
         result.put("date",date);
-        result.put("Food",food);
+        result.put(food,food);
         result.put("Kcal",kcal);
         return result;
     }

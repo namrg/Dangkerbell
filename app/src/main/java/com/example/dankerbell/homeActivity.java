@@ -17,6 +17,7 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스
     TextView profile;
     pillCrud mPill = pillCrud.getInstance();
     Button blood_btn,meal_btn,pill_btn;
+    TextView bluetooth;
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
@@ -51,6 +52,14 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스
             public void onClick(View view) {
                 Intent pill = new Intent(getApplicationContext(), pillActivity.class);
                 startActivity(pill);//복약관리 클래스 전환
+            }
+        });
+        bluetooth=findViewById(R.id.bluetooth);
+        bluetooth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent bluetootintent=new Intent(getApplicationContext(),BluetoothActivity.class);
+                startActivity(bluetootintent);
             }
         });
     }

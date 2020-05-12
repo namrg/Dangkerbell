@@ -58,6 +58,7 @@ dependencies {
     //multi-dex
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.google.firebase:firebase-firestore:21.4.2'
+    implementation 'com.akexorcist:bluetoothspp:1.0.0'
 
 }
 apply plugin: 'com.google.gms.google-services'

@@ -32,7 +32,7 @@
         <activity android:name=".mealManagement.SearchmealActivity"></activity>
         <activity android:name=".pillManagement.addpillActivity"></activity>
         <activity android:name=".pillManagement.pillActivity"></activity>
-
+        <activity android:name=".BluetoothActivity"></activity>
     </application>
 
 </manifest>

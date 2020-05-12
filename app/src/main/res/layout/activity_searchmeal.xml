@@ -8,7 +8,6 @@
     android:background="#ffffff"
     >
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler1"
         android:layout_width="match_parent"
@@ -21,8 +20,8 @@
 
     <Button
         android:id="@+id/foodfinish"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="27dp"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
         android:background="@drawable/round_cornerblue"

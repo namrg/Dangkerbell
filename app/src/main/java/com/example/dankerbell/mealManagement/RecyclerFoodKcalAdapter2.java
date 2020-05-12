@@ -5,29 +5,25 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.dankerbell.Firebase.BloodSugarCrud;
 import com.example.dankerbell.R;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
-public class RecyclerFoodKcalAdapter extends RecyclerView.Adapter<RecyclerFoodKcalAdapter.ViewHolder> {
-    private static RecyclerFoodKcalAdapter instance; //싱글톤
+public class RecyclerFoodKcalAdapter2 extends RecyclerView.Adapter<RecyclerFoodKcalAdapter2.ViewHolder> {
+    private static RecyclerFoodKcalAdapter2 instance; //싱글톤
 
 
     private ArrayList<RecyclermyfoodItem> mData = null ;
 
     Context context;
     // 생성자에서 데이터 리스트 객체를 전달받음.
-    RecyclerFoodKcalAdapter(Context context, ArrayList<RecyclermyfoodItem> list) {
+    RecyclerFoodKcalAdapter2(Context context, ArrayList<RecyclermyfoodItem> list) {
+
         this.context=context;
         mData = list ;
     }
@@ -37,18 +33,18 @@ public class RecyclerFoodKcalAdapter extends RecyclerView.Adapter<RecyclerFoodKc
 
     // onCreateViewHolder() - 아이템 뷰를 위한 뷰홀더 객체 생성하여 리턴.
     @Override
-    public RecyclerFoodKcalAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerFoodKcalAdapter2.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext() ;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) ;
         View view = inflater.inflate(R.layout.food_item, parent, false) ;
-        RecyclerFoodKcalAdapter.ViewHolder vh = new RecyclerFoodKcalAdapter.ViewHolder(view) ;
+        RecyclerFoodKcalAdapter2.ViewHolder vh = new RecyclerFoodKcalAdapter2.ViewHolder(view) ;
         return vh ;
     }
 
 
     // onBindViewHolder() - position에 해당하는 데이터를 뷰홀더의 아이템뷰에 표시.
     @Override
-    public void onBindViewHolder(final RecyclerFoodKcalAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final RecyclerFoodKcalAdapter2.ViewHolder holder, final int position) {
         RecyclermyfoodItem item = mData.get(position);
         holder.foodlist.setText(item.getMyfood());
         holder.kcallist.setText(item.getMykcal());
