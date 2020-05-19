@@ -2,8 +2,10 @@ package com.example.dankerbell;
 
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -11,7 +13,15 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class ProfileActivity extends AppCompatActivity { // 회원정보등록 클래스
     TextView back;
@@ -23,6 +33,9 @@ public class ProfileActivity extends AppCompatActivity { // 회원정보등록 �
     private int mMonth;
     private int mDay;
     private DatePickerDialog.OnDateSetListener callbackMethod;
+    TextView toolbar_cart;
+    private GoogleSignInClient mGoogleSignInClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +44,7 @@ public class ProfileActivity extends AppCompatActivity { // 회원정보등록 �
         man=findViewById(R.id.man); // 성별 중 남자
         back=findViewById(R.id.back); // 뒤로 가기 버튼
         birth=findViewById(R.id.brith); // 생년월일
+        toolbar_cart = findViewById(R.id.toolbar_cart);
 
         DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -57,9 +71,7 @@ public class ProfileActivity extends AppCompatActivity { // 회원정보등록 �
                     clicked=true;
 
                 }
-
-
-                }
+            }
         });
 
         woman.setOnClickListener(new View.OnClickListener() { // 여자 선택  시 실행되는 메소드
@@ -80,6 +92,7 @@ public class ProfileActivity extends AppCompatActivity { // 회원정보등록 �
                 dialog.show(); //DatePickerDialog 생성
             }
         });
+
         back.setOnClickListener(new View.OnClickListener() { // 뒤로 가기 버튼 시 실행
             @Override
             public void onClick(View view) {
@@ -87,9 +100,36 @@ public class ProfileActivity extends AppCompatActivity { // 회원정보등록 �
             }
         }); // 뒤로가기
 
+        toolbar_cart.setOnClickListener(new View.OnClickListener() { // 로그아웃 버튼 클릭
+
+            @Override
+            public void onClick(View view) {
+                Log.d(this.getClass().getName(),"로그아웃 클릭");
+                signOut();
+            }
+        });
 
     }
+    private void signOut() {
+        // Firebase sign out
+        FirebaseAuth.getInstance().signOut();
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
+        // Google sign out
+        mGoogleSignInClient.signOut().addOnCompleteListener(this,
+                new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Intent loginintent = new Intent(getApplicationContext(), LoginInActivity.class);
+                        startActivity(loginintent);//액티비티 띄우기 새로 추가 - 로그인 전환
+                        finishAffinity();
+                    }
+                });
+    }
 
 
 }

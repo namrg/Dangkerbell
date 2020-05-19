@@ -33,6 +33,7 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스
     DrawerLayout drawerLayout;
     View drawerView;
     Button logout;
+    Button mypage;
     //구글 로그인
     private GoogleSignInClient mGoogleSignInClient;
 
@@ -41,6 +42,7 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스
         setContentView(R.layout.activity_home);
         toolbar=findViewById(R.id.toolbar_menu);
         drawerLayout=findViewById(R.id.drawer_layout) ;
+        mypage = findViewById(R.id.mypage);
         logout = findViewById(R.id.logout);
         drawerView=findViewById(R.id.drawer);
         close=findViewById(R.id.toolbar_close);
@@ -60,8 +62,14 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스
                 drawerLayout.closeDrawer(drawerView);
             }
         });
+        mypage.setOnClickListener(new View.OnClickListener() { // 내 정보 버튼 클릭 시 실행
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                startActivity(intent);//액티비티 띄우기
+            }
+        });
 
-        //btn_close = findViewById(R.id.btn_close);
         logout.setOnClickListener(new View.OnClickListener() { // 로그아웃 버튼 클릭
 
             @Override
