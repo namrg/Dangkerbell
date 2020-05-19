@@ -15,6 +15,7 @@ import com.example.dankerbell.bloodManagement.bloodActivity;
 import com.example.dankerbell.mealManagement.mealActivity;
 import com.example.dankerbell.pillManagement.pillActivity;
 import com.example.dankerbell.pillManagement.pillCrud;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class homeActivity extends AppCompatActivity { // 홈화면 클래스
     TextView profile;
@@ -26,6 +27,9 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스
     DrawerLayout drawerLayout;
     View drawerView;
     Button logout;
+    private FirebaseAuth mAuth ;
+
+
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
@@ -53,9 +57,14 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스
 
         //btn_close = findViewById(R.id.btn_close);
         logout.setOnClickListener(new View.OnClickListener() { // 로그아웃 버튼 클릭
+
             @Override
             public void onClick(View view) {
                 Log.d(this.getClass().getName(),"로그아웃 클릭");
+                mAuth = FirebaseAuth.getInstance();
+                FirebaseAuth.getInstance().signOut();
+                Intent loginintent = new Intent(getApplicationContext(), LoginInActivity.class); // 새로추가 구글 로그인 성공 후 화면전환
+                startActivity(loginintent);//액티비티 띄우기 새로 추가 - 홈화면 전환
             }
         });
         profile=findViewById(R.id.myprofile); // 내 정보 버튼
@@ -99,8 +108,4 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스
             }
         });
     }
-
-
-
-
 }
