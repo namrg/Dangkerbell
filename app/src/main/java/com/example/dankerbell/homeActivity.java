@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -15,7 +16,12 @@ import com.example.dankerbell.bloodManagement.bloodActivity;
 import com.example.dankerbell.mealManagement.mealActivity;
 import com.example.dankerbell.pillManagement.pillActivity;
 import com.example.dankerbell.pillManagement.pillCrud;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 
 public class homeActivity extends AppCompatActivity { // 홈화면 클래스
     TextView profile;
@@ -27,8 +33,8 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스
     DrawerLayout drawerLayout;
     View drawerView;
     Button logout;
-    private FirebaseAuth mAuth ;
-
+    //구글 로그인
+    private GoogleSignInClient mGoogleSignInClient;
 
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,10 +67,7 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스
             @Override
             public void onClick(View view) {
                 Log.d(this.getClass().getName(),"로그아웃 클릭");
-                mAuth = FirebaseAuth.getInstance();
-                FirebaseAuth.getInstance().signOut();
-                Intent loginintent = new Intent(getApplicationContext(), LoginInActivity.class); // 새로추가 구글 로그인 성공 후 화면전환
-                startActivity(loginintent);//액티비티 띄우기 새로 추가 - 홈화면 전환
+                signOut();
             }
         });
         profile=findViewById(R.id.myprofile); // 내 정보 버튼
@@ -108,4 +111,25 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스
             }
         });
     }
+    private void signOut() {
+        // Firebase sign out
+        FirebaseAuth.getInstance().signOut();
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        // Google sign out
+        mGoogleSignInClient.signOut().addOnCompleteListener(this,
+                new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Intent loginintent = new Intent(getApplicationContext(), LoginInActivity.class);
+                        startActivity(loginintent);//액티비티 띄우기 새로 추가 - 로그인 전환
+                        finishAffinity();
+                    }
+                });
+    }
+
 }

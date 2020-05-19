@@ -170,12 +170,5 @@ public class LoginInActivity extends AppCompatActivity implements View.OnClickLi
         if (i == R.id.googleLogin_btn) {
             signIn();
         }
-//        } else if (i == R.id.signOutButton) {
-//            signOut();
-//        } else if (i == R.id.disconnectButton) {
-//            revokeAccess();
-//        }else if (i == R.id.buttonFacebookSignout) {
-//            signOut();
-//        }
     }
 }
