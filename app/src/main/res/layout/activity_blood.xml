@@ -230,6 +230,7 @@
                                 android:id="@+id/wakeUp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center"
                                 android:layout_marginLeft="10dp"
                                 android:fontFamily="@font/bmdohyeon_ttf"
                                 android:text="기상 후"
@@ -238,49 +239,50 @@
 
 
                             <TextView
+                                android:id="@+id/wakesugartext"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/wakesugartext"
-                                android:gravity="center"
                                 android:layout_marginLeft="10dp"
                                 android:fontFamily="@font/nanumsquare_acr"
-                                android:visibility="visible"
-                                android:textSize="15dp" />
-
+                                android:gravity="center"
+                                android:textSize="15dp"
+                                android:visibility="visible" />
 
 
                             <TableLayout
+                                android:id="@+id/wakeuptext"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:id="@+id/wakeuptext"
                                 android:layout_gravity="center"
-                                >
+                                android:gravity="center">
+
                                 <TableRow>
+
                                     <TextView
                                         android:id="@+id/wakepressureetext"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginLeft="10dp"
-                                        android:gravity="center"
-                                        android:visibility="visible"
                                         android:fontFamily="@font/nanumsquare_acr"
-                                        android:textSize="15dp" />
+                                        android:gravity="center"
+                                        android:textSize="15dp"
+                                        android:visibility="visible" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="/">
-                                    </TextView>
+                                        android:layout_marginLeft="5dp"
+                                        android:layout_marginRight="5dp"
+
+                                        android:text="/"></TextView>
+
                                     <TextView
                                         android:id="@+id/wakepressureetext2"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginLeft="10dp"
-                                        android:gravity="center"
-                                        android:visibility="visible"
                                         android:fontFamily="@font/nanumsquare_acr"
-                                        android:textSize="15dp" />
+                                        android:gravity="center"
+                                        android:textSize="15dp"
+                                        android:visibility="visible" />
                                 </TableRow>
                             </TableLayout>
 
@@ -288,7 +290,6 @@
                                 android:id="@+id/wakeupbloodedit"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
                                 android:drawableLeft="@drawable/pencil"
                                 android:fontFamily="@font/nanumsquare_acr"
                                 android:textSize="15dp"
@@ -304,6 +305,7 @@
                                 android:layout_marginLeft="10dp"
                                 android:fontFamily="@font/bmdohyeon_ttf"
                                 android:text="기상 후"
+                                android:layout_gravity="center"
                                 android:id="@+id/wakeup"
                                 android:visibility="gone"
                                 android:textSize="15dp" />
@@ -334,7 +336,6 @@
                                         android:hint="수축기"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginLeft="10dp"
                                         android:visibility="gone"
                                         android:fontFamily="@font/nanumsquare_acr"
                                         android:textSize="15dp" />
@@ -353,7 +354,6 @@
                                         android:hint="확장기"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginLeft="10dp"
                                         android:visibility="gone"
                                         android:fontFamily="@font/nanumsquare_acr"
                                         android:textSize="15dp" />
@@ -361,18 +361,15 @@
                             </TableLayout>
 
 
-
-
                             <TextView
 
                                 android:id="@+id/wakeupbloodfinish"
-                                android:visibility="gone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
                                 android:drawableLeft="@drawable/check"
                                 android:fontFamily="@font/nanumsquare_acr"
-                                android:textSize="15dp" />
+                                android:textSize="15dp"
+                                android:visibility="gone" />
 
 
                         </TableRow>
@@ -389,14 +386,15 @@
                         <TableRow>
 
                             <TextView
+                                android:id="@+id/Morning"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center"
                                 android:layout_marginLeft="10dp"
                                 android:fontFamily="@font/bmdohyeon_ttf"
                                 android:text="아침"
-                                android:id="@+id/Morning"
-                                android:visibility="visible"
-                                android:textSize="15dp" />
+                                android:textSize="15dp"
+                                android:visibility="visible" />
 
                             <TextView
                                 android:id="@+id/morningsugartext"
@@ -408,43 +406,44 @@
                                 android:layout_marginLeft="10dp"
                                 android:fontFamily="@font/nanumsquare_acr"
                                 android:textSize="15dp" />
+
                             <TableLayout
+                                android:id="@+id/morningtext"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:gravity="center"
                                 android:layout_gravity="center"
-                                >
+                                android:gravity="center">
+
                                 <TableRow>
+
                                     <TextView
                                         android:id="@+id/morningpressuretext"
-                                        android:visibility="visible"
-                                        android:gravity="center"
-
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-
-                                        android:layout_marginLeft="10dp"
-
                                         android:fontFamily="@font/nanumsquare_acr"
-                                        android:textSize="15dp" />
+
+                                        android:gravity="center"
+                                        android:textSize="15dp"
+                                        android:visibility="visible" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="/">
-                                    </TextView>
+                                        android:layout_marginLeft="5dp"
+                                        android:layout_marginRight="5dp"
+                                        android:text="/"></TextView>
+
                                     <TextView
                                         android:id="@+id/morningpressuretext2"
-                                        android:visibility="visible"
-                                        android:gravity="center"
-
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
 
-                                        android:layout_marginLeft="10dp"
-
                                         android:fontFamily="@font/nanumsquare_acr"
-                                        android:textSize="15dp" />
+
+                                        android:gravity="center"
+
+                                        android:textSize="15dp"
+                                        android:visibility="visible" />
                                 </TableRow>
                             </TableLayout>
 
@@ -453,22 +452,20 @@
                                 android:id="@+id/morningbloodedit"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
+                                android:drawableLeft="@drawable/pencil"
                                 android:fontFamily="@font/nanumsquare_acr"
                                 android:textSize="15dp"
-                                android:visibility="visible"
-
-                                android:drawableLeft="@drawable/pencil" />
+                                android:visibility="visible" />
                         </TableRow>
                         <TableRow>
 
                             <TextView
                                 android:id="@+id/morning"
-
                                 android:visibility="gone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
+                                android:layout_gravity="center"
                                 android:fontFamily="@font/bmdohyeon_ttf"
                                 android:text="아침"
                                 android:textSize="15dp" />
@@ -485,36 +482,53 @@
                                 android:layout_marginLeft="10dp"
                                 android:fontFamily="@font/nanumsquare_acr"
                                 android:textSize="15dp" />
-
-                            <EditText
-                                android:id="@+id/morningpressureedit"
+                            <TableLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-
-                                android:layout_marginLeft="10dp"
+                                android:id="@+id/morningedit"
                                 android:visibility="gone"
-                                android:fontFamily="@font/nanumsquare_acr"
-                                android:textSize="15dp" />
-                            <EditText
-                                android:id="@+id/morningpressureedit2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
+                                android:layout_gravity="center"
+                                >
+                                <TableRow>
+                                    <EditText
+                                        android:id="@+id/morningpressureedit"
+                                        android:gravity="center"
+                                        android:hint="수축기"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:visibility="gone"
+                                        android:fontFamily="@font/nanumsquare_acr"
+                                        android:textSize="15dp" />
 
-                                android:layout_marginLeft="10dp"
-                                android:visibility="gone"
-                                android:fontFamily="@font/nanumsquare_acr"
-                                android:textSize="15dp" />
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="5dp"
+                                        android:layout_marginRight="5dp"
+                                        android:text="/">
+                                    </TextView>
+                                    <EditText
+                                        android:id="@+id/morningpressureedit2"
+                                        android:gravity="center"
+                                        android:hint="확장기"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:visibility="gone"
+                                        android:fontFamily="@font/nanumsquare_acr"
+                                        android:textSize="15dp" />
+                                </TableRow>
+                            </TableLayout>
+
+
                             <TextView
-                                android:visibility="gone"
                                 android:id="@+id/morningbloodfinish"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
+                                android:drawableLeft="@drawable/check"
                                 android:fontFamily="@font/nanumsquare_acr"
                                 android:textSize="15dp"
-                                android:drawableLeft="@drawable/check" />
+                                android:visibility="gone" />
                         </TableRow>
 
                         <LinearLayout
@@ -526,52 +540,80 @@
 
                             ></LinearLayout>
 
-                        <TableRow>
+                        <TableRow android:layout_height="30dp">
 
                             <TextView
                                 android:id="@+id/Lunch"
-                                android:visibility="visible"
                                 android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
                                 android:layout_marginLeft="10dp"
                                 android:fontFamily="@font/bmdohyeon_ttf"
                                 android:text="점심"
-                                android:textSize="15dp" />
-
-                            <TextView
-                                android:gravity="center"
-
-                                android:id="@+id/lunchsugartext"
-                                android:layout_width="120dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:fontFamily="@font/nanumsquare_acr"
                                 android:textSize="15dp"
-                                android:visibility="visible"
-                                />
+                                android:visibility="visible" />
 
                             <TextView
-                                android:gravity="center"
+                                android:id="@+id/lunchsugartext"
 
                                 android:layout_width="120dp"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/lunchpressuretext"
-                                android:visibility="visible"
-
                                 android:layout_marginLeft="10dp"
-
+                                android:layout_marginBottom="4dp"
                                 android:fontFamily="@font/nanumsquare_acr"
-                                android:textSize="15dp" />
+                                android:gravity="center"
+                                android:textSize="15dp"
+                                android:visibility="visible" />
+
+                            <TableLayout
+                                android:id="@+id/lunchtext"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center">
+
+                                <TableRow>
+
+                                    <TextView
+                                        android:id="@+id/lunchpressuretext"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+
+                                        android:fontFamily="@font/nanumsquare_acr"
+
+                                        android:gravity="center"
+
+                                        android:textSize="15dp"
+                                        android:visibility="visible" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="5dp"
+                                        android:layout_marginRight="5dp"
+                                        android:text="/"></TextView>
+
+                                    <TextView
+                                        android:id="@+id/lunchpressuretext2"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/nanumsquare_acr"
+                                        android:gravity="center"
+
+                                        android:textSize="15dp"
+                                        android:visibility="visible" />
+                                </TableRow>
+                            </TableLayout>
+
                             <TextView
                                 android:id="@+id/lunchbloodedit"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:visibility="visible"
+                                android:layout_height="match_parent"
+                                android:drawableLeft="@drawable/pencil"
 
                                 android:fontFamily="@font/nanumsquare_acr"
                                 android:textSize="15dp"
-                                android:drawableLeft="@drawable/pencil" />
+                                android:visibility="visible" />
                         </TableRow>
                         <TableRow>
 
@@ -596,25 +638,55 @@
                                 android:gravity="center"
 
                                 />
-
-                            <EditText
-                                android:layout_width="120dp"
+                            <TableLayout
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/lunchpressureedit"
-                                android:visibility="gone"
                                 android:gravity="center"
-                                android:layout_marginLeft="10dp"
-                                android:fontFamily="@font/nanumsquare_acr"
-                                android:textSize="15dp" />
+                                android:id="@+id/lunchedit"
+                                android:visibility="gone"
+                                android:layout_gravity="center"
+                                >
+                                <TableRow>
+                                    <EditText
+                                        android:id="@+id/lunchpressureedit"
+                                        android:gravity="center"
+                                        android:hint="수축기"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="10dp"
+                                        android:visibility="gone"
+                                        android:fontFamily="@font/nanumsquare_acr"
+                                        android:textSize="15dp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="5dp"
+                                        android:layout_marginRight="5dp"
+
+                                        android:text="/">
+                                    </TextView>
+                                    <EditText
+                                        android:id="@+id/lunchpressureedit2"
+                                        android:gravity="center"
+                                        android:hint="확장기"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="10dp"
+                                        android:visibility="gone"
+                                        android:fontFamily="@font/nanumsquare_acr"
+                                        android:textSize="15dp" />
+                                </TableRow>
+                            </TableLayout>
+
                             <TextView
                                 android:id="@+id/lunchbloodfinish"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:visibility="gone"
+                                android:drawableLeft="@drawable/check"
                                 android:fontFamily="@font/nanumsquare_acr"
                                 android:textSize="15dp"
-                                android:drawableLeft="@drawable/check" />
+                                android:visibility="gone" />
                         </TableRow>
 
                         <LinearLayout
@@ -631,43 +703,76 @@
                             <TextView
                                 android:id="@+id/Dinner"
                                 android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
                                 android:layout_marginLeft="10dp"
                                 android:fontFamily="@font/bmdohyeon_ttf"
                                 android:text="저녁"
                                 android:textSize="15dp" />
 
                             <TextView
-                                android:gravity="center"
-
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
                                 android:id="@+id/dinnersugartext"
-                                android:layout_marginLeft="10dp"
-                                android:fontFamily="@font/nanumsquare_acr"
-                                android:textSize="15dp" />
 
-                            <TextView
-                                android:gravity="center"
-                                android:id="@+id/dinnerpressuretext"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-
                                 android:layout_marginLeft="10dp"
-
+                                android:layout_marginBottom="4dp"
                                 android:fontFamily="@font/nanumsquare_acr"
-                                android:textSize="15dp" />
-                            <TextView
                                 android:gravity="center"
+                                android:textSize="15dp" />
 
+                            <TableLayout
+                                android:id="@+id/dinnertext"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center">
+
+                                <TableRow>
+
+                                    <TextView
+                                        android:id="@+id/dinnerpressuretext"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+
+                                        android:fontFamily="@font/nanumsquare_acr"
+
+                                        android:gravity="center"
+
+                                        android:textSize="15dp"
+                                        android:visibility="visible" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="5dp"
+
+                                        android:layout_marginRight="5dp"
+                                        android:text="/"></TextView>
+
+                                    <TextView
+                                        android:id="@+id/dinnerpressuretext2"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/nanumsquare_acr"
+
+                                        android:gravity="center"
+
+                                        android:textSize="15dp"
+                                        android:visibility="visible" />
+                                </TableRow>
+                            </TableLayout>
+
+                            <TextView
                                 android:id="@+id/dinnerbloodedit"
 
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
+
+                                android:layout_height="match_parent"
+                                android:drawableLeft="@drawable/pencil"
                                 android:fontFamily="@font/nanumsquare_acr"
-                                android:textSize="15dp"
-                                android:drawableLeft="@drawable/pencil" />
+                                android:gravity="center"
+                                android:textSize="15dp" />
                         </TableRow>
                         <TableRow>
 
@@ -691,27 +796,53 @@
                                 android:visibility="gone"
                                 android:gravity="center"
                                 />
-
-                            <EditText
-                                android:layout_width="120dp"
+                            <TableLayout
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/dinnerpressureedit"
-                                android:visibility="gone"
                                 android:gravity="center"
+                                android:id="@+id/dinneredit"
+                                android:visibility="gone"
+                                android:layout_gravity="center"
+                                >
+                                <TableRow>
+                                    <EditText
+                                        android:id="@+id/dinnerpressureedit"
+                                        android:gravity="center"
+                                        android:hint="수축기"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:visibility="gone"
+                                        android:fontFamily="@font/nanumsquare_acr"
+                                        android:textSize="15dp" />
 
-                                android:layout_marginLeft="10dp"
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="5dp"
+                                        android:layout_marginRight="5dp"
 
-                                android:fontFamily="@font/nanumsquare_acr"
-                                android:textSize="15dp" />
+                                        android:text="/">
+                                    </TextView>
+                                    <EditText
+                                        android:id="@+id/dinnerpressureedit2"
+                                        android:gravity="center"
+                                        android:hint="확장기"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:visibility="gone"
+                                        android:fontFamily="@font/nanumsquare_acr"
+                                        android:textSize="15dp" />
+                                </TableRow>
+                            </TableLayout>
+
                             <TextView
                                 android:id="@+id/dinnerbloodfinish"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:visibility="gone"
+                                android:drawableLeft="@drawable/check"
                                 android:fontFamily="@font/nanumsquare_acr"
                                 android:textSize="15dp"
-                                android:drawableLeft="@drawable/check" />
+                                android:visibility="gone" />
                         </TableRow>
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -725,12 +856,13 @@
                         <TableRow>
 
                             <TextView
+                                android:id="@+id/Sleep"
                                 android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
                                 android:layout_marginLeft="10dp"
                                 android:fontFamily="@font/bmdohyeon_ttf"
                                 android:text="취침 전"
-                                android:id="@+id/Sleep"
                                 android:textSize="15dp" />
 
                             <TextView
@@ -743,32 +875,64 @@
                                 android:fontFamily="@font/nanumsquare_acr"
                                 android:textSize="15dp" />
 
-                            <TextView
-                                android:gravity="center"
-                                android:id="@+id/sleeppressuretext"
+                            <TableLayout
+                                android:id="@+id/sleeptext"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center">
 
-                                android:layout_marginLeft="10dp"
+                                <TableRow>
 
-                                android:fontFamily="@font/nanumsquare_acr"
-                                android:textSize="15dp" />
+                                    <TextView
+                                        android:id="@+id/sleeppressuretext"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+
+                                        android:fontFamily="@font/nanumsquare_acr"
+
+                                        android:gravity="center"
+
+                                        android:textSize="15dp"
+                                        android:visibility="visible" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="5dp"
+                                        android:layout_marginRight="5dp"
+                                        android:text="/"></TextView>
+
+                                    <TextView
+                                        android:id="@+id/sleeppressuretext2"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+
+                                        android:fontFamily="@font/nanumsquare_acr"
+
+                                        android:gravity="center"
+
+                                        android:textSize="15dp"
+                                        android:visibility="visible" />
+                                </TableRow>
+                            </TableLayout>
+
                             <TextView
-                                android:gravity="center"
-
                                 android:id="@+id/sleepbloodedit"
+
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
+                                android:drawableLeft="@drawable/pencil"
                                 android:fontFamily="@font/nanumsquare_acr"
-                                android:textSize="15dp"
-                                android:drawableLeft="@drawable/pencil" />
+                                android:gravity="center"
+                                android:textSize="15dp" />
                         </TableRow>
                         <TableRow>
 
                             <TextView
                                 android:id="@+id/sleep"
                                 android:visibility="gone"
+                                android:layout_gravity="center"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_marginLeft="10dp"
@@ -786,25 +950,54 @@
                                 android:visibility="gone"
                                 android:gravity="center"
                                 />
-
-                            <EditText
-                                android:layout_width="120dp"
+                            <TableLayout
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/sleeppressureedit"
-                                android:visibility="gone"
                                 android:gravity="center"
-                                android:layout_marginLeft="10dp"
-                                android:fontFamily="@font/nanumsquare_acr"
-                                android:textSize="15dp" />
+                                android:id="@+id/sleepedit"
+                                android:visibility="gone"
+                                android:layout_gravity="center"
+                                >
+                                <TableRow>
+                                    <EditText
+                                        android:id="@+id/sleeppressureedit"
+                                        android:gravity="center"
+                                        android:hint="수축기"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:visibility="gone"
+                                        android:fontFamily="@font/nanumsquare_acr"
+                                        android:textSize="15dp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="5dp"
+                                        android:layout_marginRight="5dp"
+
+                                        android:text="/">
+                                    </TextView>
+                                    <EditText
+                                        android:id="@+id/sleeppressureedit2"
+                                        android:gravity="center"
+                                        android:hint="확장기"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:visibility="gone"
+                                        android:fontFamily="@font/nanumsquare_acr"
+                                        android:textSize="15dp" />
+                                </TableRow>
+                            </TableLayout>
+
+
                             <TextView
                                 android:id="@+id/sleepbloodfinish"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:visibility="gone"
+                                android:drawableLeft="@drawable/check"
                                 android:fontFamily="@font/nanumsquare_acr"
                                 android:textSize="15dp"
-                                android:drawableLeft="@drawable/check" />
+                                android:visibility="gone" />
                         </TableRow>
                     </TableLayout>
 

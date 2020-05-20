@@ -25,7 +25,8 @@ public class BloodSugarMapper implements MappingInterface {
     String userId; //사용자 id
     String bsId;
     double bloodsugar; //혈당
-    double bloodpressure; //혈압
+    double syspressure; //수축기혈압
+    double diapressure;//확장기혈압
     double cholesterol; //콜레스테롤
     double hbA1c; //당화혈색소(단위 %)
    // Date date; //날짜 시간이랑 분리 할지 말지,,
@@ -40,11 +41,13 @@ public class BloodSugarMapper implements MappingInterface {
     final String day = sdf.format(calendar.getTime());
 
   //  public BloodSugarMapper(String userId, double bloodsugar, double bloodpressure, Date date, String time) {
-  public BloodSugarMapper(double bloodsugar, double bloodpressure, String date, String time) {
+  public BloodSugarMapper(double bloodsugar, double syspressure,double diapressure, String date, String time) {
 
         this.bloodsugar = bloodsugar;
-        this.bloodpressure = bloodpressure;
-        //this.date = new Date();
+        this.syspressure = syspressure;
+      this.diapressure = diapressure;
+
+      //this.date = new Date();
         this.date=date;
         this.time = time;
     }
@@ -55,7 +58,8 @@ public class BloodSugarMapper implements MappingInterface {
         HashMap<String, Object> result = new HashMap<>();
        // result.put("userId", userId);
         result.put("bloodsugar", bloodsugar);
-        result.put("bloodpressure", bloodpressure);
+        result.put("systolicpressure", syspressure);
+        result.put("diastlicpressure", diapressure);
         result.put("date", date);
         result.put("time", time);
         if((time == "아침")) { // 날짜가 오늘 날짜인 것 추가해야함

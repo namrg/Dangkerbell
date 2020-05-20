@@ -73,9 +73,6 @@ public class RecyclerpillAdapter extends RecyclerView.Adapter<RecyclerpillAdapte
                 Log.d("알람 끄기 클릭 ",mData.get(position).getMedname());
                 holder.alarm_off.setVisibility(View.VISIBLE);
                 holder.alarm.setVisibility(View.GONE);}
-
-
-
         });
         holder.alarm_off.setOnClickListener(new View.OnClickListener() {
             @Override
