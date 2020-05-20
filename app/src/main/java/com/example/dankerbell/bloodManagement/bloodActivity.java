@@ -1,25 +1,44 @@
 package com.example.dankerbell.bloodManagement;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.dankerbell.Firebase.BloodSugarCrud;
 import com.example.dankerbell.R;
+import com.example.dankerbell.bloodManagement.BloodReporter;
+import com.example.dankerbell.bloodManagement.glucoseReporter;
 import com.example.dankerbell.homeActivity;
 import com.example.dankerbell.mealManagement.mealActivity;
 import com.example.dankerbell.pillManagement.pillActivity;
+import com.samsung.android.sdk.healthdata.HealthConnectionErrorResult;
+import com.samsung.android.sdk.healthdata.HealthConstants;
+import com.samsung.android.sdk.healthdata.HealthDataStore;
+import com.samsung.android.sdk.healthdata.HealthPermissionManager;
+import com.samsung.android.sdk.healthdata.HealthPermissionManager.PermissionKey;
+import com.samsung.android.sdk.healthdata.HealthPermissionManager.PermissionType;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
     BloodSugarCrud mBloodSugar = BloodSugarCrud.getInstance(); //firebase 참조 singletone
@@ -29,10 +48,10 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
     TextView wakeup,wakeUp,wakeupbloodedit,wakesugartext, wakepressuretext,wakeupbloodfinish;  // 기상 후 !!!
     // wakeUp,wakeup=기상후 , wakeupbloodedit : 기상 후 연필 아이콘 , wakesugartext : 기상 후 혈당 text wakepressuretext : 기상 후 혈압text
     // wakepressuretext : 기상 후 혈압 text wakeupbloodfinish : 체크 아이콘
-    EditText wakesugaredit, wakepressureedit; // 기상 후 혈당입력칸 / 혈압 입력칸
+    EditText wakesugaredit, wakepressureedit,wakepressureedit2; // 기상 후 혈당입력칸 / 혈압 입력칸
 
     TextView Morning,morning,morningbloodedit,morningsugartext, morningpressuretext,morningbloodfinish;  // 아침 !!!
-    EditText morningsugaredit, morningpressureedit; // 아침 혈당입력칸 / 혈압 입력칸
+    EditText morningsugaredit, morningpressureedit,morningpressureedit2; // 아침 혈당입력칸 / 혈압 입력칸
 
     TextView Lunch,lunch,lunchbloodedit,lunchsugartext, lunchpressuretext,lunchbloodfinish;  // 점심 !!!
     // Lunch,lunch : 점심 , lunchbloodedit : 점심 연필 아이콘 , lunchsugartext : 점심 혈당 text, lunchbloodfinish : 점심 혈압 text
@@ -44,13 +63,22 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
 
     TextView Sleep,sleep,sleepbloodedit,sleepsugartext, sleeppressuretext,sleepbloodfinish;  // 취침전 !!!
     EditText sleepsugaredit, sleeppressureedit; // 취침 전 혈당입력칸 / 혈압 입력칸
-
+    TableLayout wakeuptext,wakeupedit;
 
     TextView currentdate;
     TextView prev,next;
     private static Handler mHandler ;
-
     String time; // 기상후, 식전 식후 등
+    public static final String APP_TAG = "SimpleHealth";
+
+    //@BindView(R.id.editHealthDateValue1) TextView mStepCountTv;
+
+    private HealthDataStore mStore;
+    //private StepCountReporter mReporter;
+    BloodReporter mReporter;
+    glucoseReporter gluecoseReporter;
+    private Set<HealthPermissionManager.PermissionKey> mKeySet;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blood);
@@ -58,11 +86,19 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
         meal_txt=findViewById(R.id.meal_txt);
         pill_txt=findViewById(R.id.pill_txt);
         currentdate=findViewById(R.id.date);
+        mKeySet = new HashSet<HealthPermissionManager.PermissionKey>();
+        mKeySet.add(new PermissionKey(HealthConstants.BloodPressure.HEALTH_DATA_TYPE, PermissionType.READ));
+        mKeySet.add(new PermissionKey(HealthConstants.BloodGlucose.HEALTH_DATA_TYPE, PermissionType.READ));
+        mStore = new HealthDataStore(this, mConnectionListener);
+        // Request the connection to the health data store
+        mStore.connectService();
         final SimpleDateFormat sdf = new SimpleDateFormat("yy.MM.dd", Locale.getDefault());
         final Calendar calendar = Calendar.getInstance(); // 오늘날짜
         final String date = sdf.format(calendar.getTime());
         wakesugartext=findViewById(R.id.wakesugartext);
         wakepressuretext=findViewById(R.id.wakepressureetext);
+        wakeuptext=findViewById(R.id.wakeuptext);
+        wakeupedit=findViewById(R.id.wakeupedit);
         mBloodSugar.wakeupread(date);
         mBloodSugar.morningread(date);
         mBloodSugar.lunchread(date);
@@ -181,6 +217,7 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
         wakeupbloodfinish=findViewById(R.id.wakeupbloodfinish);
         wakesugaredit=findViewById(R.id.wakesugaredit);
         wakepressureedit=findViewById(R.id.wakepressureedit);
+        wakepressureedit2=findViewById(R.id.wakepressureedit2);
 
         //아침
         morning=findViewById(R.id.morning);
@@ -191,6 +228,7 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
         morningbloodfinish=findViewById(R.id.morningbloodfinish);
         morningsugaredit=findViewById(R.id.morningsugaredit);
         morningpressureedit=findViewById(R.id.morningpressureedit);
+        morningpressureedit2=findViewById(R.id.morningpressureedit2);
         //점심
         lunch=findViewById(R.id.lunch);
         Lunch=findViewById(R.id.Lunch);
@@ -223,7 +261,7 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
             @Override
             public void onClick(View view) {
 
-                Log.d(this.getClass().getName(),"왜 앙대 바부야");
+                Log.d(this.getClass().getName(),"연필클릭");
                 wakeUp.setVisibility(View.GONE);
 
                 wakeupbloodedit.setVisibility(View.GONE);
@@ -232,6 +270,9 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
                 wakeupbloodfinish.setVisibility(View.VISIBLE);
                 wakesugaredit.setVisibility(View.VISIBLE);
                 wakepressureedit.setVisibility(View.VISIBLE);
+                wakepressureedit2.setVisibility(View.VISIBLE);
+                wakeuptext.setVisibility(View.GONE);
+                wakeupedit.setVisibility(View.VISIBLE);
                 wakeup.setVisibility(View.VISIBLE);
 
             }
@@ -250,6 +291,9 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
                 wakepressuretext.setVisibility(View.VISIBLE);
                 wakeupbloodfinish.setVisibility(View.GONE);
                 wakesugaredit.setVisibility(View.GONE);
+                wakepressureedit2.setVisibility(View.GONE);
+                wakeuptext.setVisibility(View.VISIBLE);
+                wakeupedit.setVisibility(View.GONE);
                 wakepressureedit.setVisibility(View.GONE);
                 String wakesugar=(String)wakesugaredit.getText().toString();
                 wakesugartext.setText(wakesugar);
@@ -476,4 +520,177 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
             }
         });
     }
+    @Override
+    public void onDestroy() {
+        mStore.disconnectService();
+        super.onDestroy();
+    }
+    private final HealthDataStore.ConnectionListener mConnectionListener = new HealthDataStore.ConnectionListener() {
+
+        @Override
+        public void onConnected() {
+            Log.d(APP_TAG, "Health data service is connected.");
+            mReporter = new BloodReporter(mStore);
+            gluecoseReporter=new glucoseReporter(mStore);
+            if (isPermissionAcquired()) {
+                mReporter.start(mStepCountObserver);
+                gluecoseReporter.start(mStepCountObserver2);
+            } else {
+                requestPermission();
+            }
+        }
+
+        @Override
+        public void onConnectionFailed(HealthConnectionErrorResult error) {
+            Log.d(APP_TAG, "Health data service is not available.");
+            showConnectionFailureDialog(error);
+        }
+
+        @Override
+        public void onDisconnected() {
+            Log.d(APP_TAG, "Health data service is disconnected.");
+            if (!isFinishing()) {
+                mStore.connectService();
+            }
+        }
+    };
+
+    private void showPermissionAlarmDialog() {
+        if (isFinishing()) {
+            return;
+        }
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(bloodActivity.this);
+        alert.setTitle(R.string.notice)
+                .setMessage(R.string.msg_perm_acquired)
+                .setPositiveButton(R.string.ok, null)
+                .show();
+    }
+
+    public void showConnectionFailureDialog(final HealthConnectionErrorResult error) {
+        if (isFinishing()) {
+            return;
+        }
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+        if (error.hasResolution()) {
+            switch (error.getErrorCode()) {
+                case HealthConnectionErrorResult.PLATFORM_NOT_INSTALLED:
+                    alert.setMessage(R.string.msg_req_install);
+                    break;
+                case HealthConnectionErrorResult.OLD_VERSION_PLATFORM:
+                    alert.setMessage(R.string.msg_req_upgrade);
+                    break;
+                case HealthConnectionErrorResult.PLATFORM_DISABLED:
+                    alert.setMessage(R.string.msg_req_enable);
+                    break;
+                case HealthConnectionErrorResult.USER_AGREEMENT_NEEDED:
+                    alert.setMessage(R.string.msg_req_agree);
+                    break;
+                default:
+                    alert.setMessage(R.string.msg_req_available);
+                    break;
+            }
+        } else {
+            alert.setMessage(R.string.msg_conn_not_available);
+        }
+
+        alert.setPositiveButton(R.string.ok, (dialog, id) -> {
+            if (error.hasResolution()) {
+                error.resolve(bloodActivity.this);
+            }
+        });
+
+        if (error.hasResolution()) {
+            alert.setNegativeButton(R.string.cancel, null);
+        }
+
+        alert.show();
+    }
+
+    public boolean isPermissionAcquired() {
+        HealthPermissionManager pmsManager = new HealthPermissionManager(mStore);
+        try {
+            // Check whether the permissions that this application needs are acquired
+            Map<PermissionKey, Boolean> resultMap = pmsManager.isPermissionAcquired(mKeySet);
+            return resultMap.get(mKeySet);
+        } catch (Exception e) {
+            Log.e(APP_TAG, "Permission request fails.", e);
+        }
+        return false;
+    }
+
+
+
+    private void requestPermission() {
+        HealthPermissionManager pmsManager = new HealthPermissionManager(mStore);
+        try {
+            // Show user permission UI for allowing user to change options
+            pmsManager.requestPermissions(mKeySet, bloodActivity.this)
+                    .setResultListener(result -> {
+                        Log.d(APP_TAG, "Permission callback is received.");
+                        Map<PermissionKey, Boolean> resultMap = result.getResultMap();
+
+                        if (resultMap.containsValue(Boolean.FALSE)) {
+                            // Requesting permission fails
+                            updateStepCountView("");
+                            showPermissionAlarmDialog();
+                        } else {
+                            gluecoseReporter.start(mStepCountObserver2);
+                            mReporter.start(mStepCountObserver);
+                        }
+                    });
+        } catch (Exception e) {
+            Log.e(APP_TAG, "Permission setting fails.", e);
+        }
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+
+    private BloodReporter.BloodObserver mStepCountObserver = new BloodReporter.BloodObserver() {
+
+        @Override
+        public void onChanged(String count) {
+            Log.d(APP_TAG, "Step reported : " + count);
+            bloodActivity.this.updateStepCountView(String.valueOf(count));
+        }
+    };
+
+    public HealthDataStore.ConnectionListener getmConnectionListener() {
+        return mConnectionListener;
+    }
+
+    private glucoseReporter.BloodglucoseObserver mStepCountObserver2 = new glucoseReporter.BloodglucoseObserver() {
+
+        @Override
+        public void onChanged(String count) {
+            Log.d(APP_TAG, "Step reported : " + count);
+            bloodActivity.this.updateStepCountView(String.valueOf(count));
+        }
+    };
+    private void updateStepCountView(final String count) {
+        Log.d("읽어온 혈당값",count);
+
+    }
+
+
+//    @Override
+//    public boolean onOptionsItemSelected(android.view.MenuItem item) {
+//
+//        if (item.getItemId() == R.id.connect) {
+//            requestPermission();
+//        }
+//
+//        return true;
+//    }
+
+
 }

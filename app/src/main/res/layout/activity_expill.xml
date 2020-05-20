@@ -156,13 +156,13 @@
                         android:background="@drawable/selectbutton">
 
                         <TableRow
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:background="@color/colorAccent">
 
 
                             <TextView
-                                android:layout_width="70dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="10dp"
@@ -173,7 +173,7 @@
                                 android:textSize="15dp" />
 
                             <TextView
-                                android:layout_width="70dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_marginLeft="20dp"
                                 android:background="@color/colorAccent"
@@ -186,18 +186,19 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginRight="20dp"
+                                android:layout_marginLeft="27dp"
+                                android:layout_marginRight="15dp"
                                 android:background="@color/colorAccent"
                                 android:fontFamily="@font/bmdohyeon_ttf"
                                 android:text="알람"
                                 android:textColor="#ffffff"
                                 android:textSize="15dp" />
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginRight="20dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginRight="25dp"
                                 android:background="@color/colorAccent"
                                 android:fontFamily="@font/bmdohyeon_ttf"
                                 android:text="삭제"
@@ -208,159 +209,28 @@
                         </TableRow>
 
                         <TableRow>
-                            <TextView
 
-                                android:id="@+id/med_name"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:fontFamily="@font/nanumsquare_acr"
-                                android:gravity="center"
-                                android:textSize="15dp" />
 
-                            <TextView
-                                android:gravity="center"
 
-                                android:id="@+id/amount"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:fontFamily="@font/nanumsquare_acr"
-                                android:textSize="15dp" />
-
-                            <TextView
-                                android:id="@+id/alarm"
-                                android:layout_width="53dp"
-
-                                android:layout_height="match_parent"
-                                android:gravity="center"
-
-                                android:layout_marginLeft="10dp"
-                                android:fontFamily="@font/nanumsquare_acr"
-                                android:textSize="15dp" />
-
-                            <TextView
-                                android:id="@+id/del_btn"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginLeft="10dp"
-                                android:drawableRight="@drawable/remove"
-                                android:fontFamily="@font/nanumsquare_acr"
-                                android:gravity="center"
-                                android:textSize="15dp" />
                         </TableRow>
-
-                        <LinearLayout
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/pillrecycler"
                             android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:background="@color/colorAccent"
-                            android:orientation="horizontal">
+                            android:layout_height="match_parent"
+                            android:layout_gravity="fill|fill_horizontal|fill_vertical"
+                            tools:layout_gravity="fill_vertical">
+
+                        </androidx.recyclerview.widget.RecyclerView>
 
 
-                            ></LinearLayout>
-
-                        <TableRow>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:fontFamily="@font/bmdohyeon_ttf"
-
-                                android:textSize="15dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
 
 
-                                android:layout_marginLeft="10dp"
-                                android:fontFamily="@font/bmdohyeon_ttf"
-                                android:textSize="15dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-
-                                android:layout_marginLeft="10dp"
-
-                                android:fontFamily="@font/bmdohyeon_ttf"
-                                android:textSize="15dp" />
-                        </TableRow>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:background="@color/colorAccent"
-                            android:orientation="horizontal">
 
 
-                            ></LinearLayout>
 
 
-                        <TableRow>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:fontFamily="@font/bmdohyeon_ttf"
-
-                                android:textSize="15dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
 
 
-                                android:layout_marginLeft="10dp"
-                                android:fontFamily="@font/bmdohyeon_ttf"
-                                android:textSize="15dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-
-                                android:layout_marginLeft="10dp"
-
-                                android:fontFamily="@font/bmdohyeon_ttf"
-                                android:textSize="15dp" />
-                        </TableRow>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:background="@color/colorAccent"
-                            android:orientation="horizontal">
-
-
-                            ></LinearLayout>
-
-                        <TableRow>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:fontFamily="@font/bmdohyeon_ttf"
-
-                                android:textSize="15dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-
-
-                                android:layout_marginLeft="10dp"
-                                android:fontFamily="@font/bmdohyeon_ttf"
-                                android:textSize="15dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-
-                                android:layout_marginLeft="10dp"
-
-                                android:fontFamily="@font/bmdohyeon_ttf"
-                                android:textSize="15dp" />
-                        </TableRow>
 
                     </TableLayout>
 

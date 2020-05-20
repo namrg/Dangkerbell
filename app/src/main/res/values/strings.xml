@@ -3,5 +3,25 @@
     <string name="search">음식검색창</string>
 
     <string name="search_hint">음식을 검색해주세요</string>
+    <string name="desc">Daily Step Count</string>
+    <string name="title1">Total</string>
+    <string name="unit1">Steps</string>
+
+    <string name="move_before">Move Day Before</string>
+    <string name="move_next">Move Day Next</string>
+
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="connect_to_shealth">Connect to Samsung Health</string>
+
+    <string name="notice">Notice</string>
+    <string name="msg_perm_acquired">All permissions should be acquired</string>
+    <string name="msg_conn_not_available">Connection with Samsung Health is not available</string>
+    <string name="msg_req_install">Please install Samsung Health</string>
+    <string name="msg_req_upgrade">Please upgrade Samsung Health</string>
+    <string name="msg_req_enable">Please enable Samsung Health</string>
+    <string name="msg_req_agree">Please agree to Samsung Health policy</string>
+    <string name="msg_req_available">Please make Samsung Health available</string>
 
 </resources>

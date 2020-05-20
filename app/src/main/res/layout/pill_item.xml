@@ -3,60 +3,94 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:gravity="center">
 
         <TableLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/selectbutton">
-
-        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorAccent">
+            android:layout_height="wrap_content"
+            android:gravity="center">
 
 
-            <TextView
-                android:id="@+id/med_name"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:fontFamily="@font/nanumsquare_acr"
-                android:textSize="15dp" />
-
-            <TextView
-                android:gravity="center"
-
-                android:id="@+id/amount"
-                android:layout_width="wrap_content"
+            <TableRow
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:fontFamily="@font/nanumsquare_acr"
-                android:textSize="15dp" />
+                android:gravity="center">
 
-            <TextView
-                android:id="@+id/alarm"
-                android:layout_width="53dp"
 
-                android:layout_height="match_parent"
-                android:gravity="center"
+                <TextView
+                    android:id="@+id/re_medname"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1.4"
+                    android:fontFamily="@font/nanumsquare_acr"
+                    android:gravity="center"
+                    android:text="의약품명"
+                    android:textSize="15dp" />
 
-                android:layout_marginLeft="10dp"
-                android:fontFamily="@font/nanumsquare_acr"
-                android:textSize="15dp" />
+                <TextView
+                    android:id="@+id/re_amount"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1.2"
+                    android:fontFamily="@font/nanumsquare_acr"
+                    android:gravity="center"
+                    android:text="복용량"
+                    android:textSize="15dp" />
 
-            <TextView
-                android:id="@+id/del_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:drawableRight="@drawable/remove"
-                android:fontFamily="@font/nanumsquare_acr"
-                android:gravity="center"
-                android:textSize="15dp" />
-        </TableRow>
+                <TextView
+                    android:id="@+id/re_alarm"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"
+                    android:layout_marginRight="7dp"
+                    android:drawableRight="@drawable/notification"
+                    android:fontFamily="@font/nanumsquare_acr"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:textSize="15dp" />
 
+                <TextView
+                    android:id="@+id/re_alarm_off"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"
+                    android:layout_marginRight="7dp"
+                    android:drawableRight="@drawable/notification_off"
+                    android:fontFamily="@font/nanumsquare_acr"
+                    android:gravity="center"
+                    android:textSize="15dp"
+                    android:visibility="gone" />
+
+
+                <TextView
+                    android:id="@+id/re_del_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="27dp"
+                    android:layout_weight="0.5"
+                    android:drawableRight="@drawable/remove"
+                    android:fontFamily="@font/nanumsquare_acr"
+                    android:gravity="center"
+                    android:textSize="15dp" />
+            </TableRow>
+            <TableRow
+                android:layout_marginTop="1dp"
+                android:background="@color/colorAccent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0.7dp"
+                    android:background="@color/colorAccent"
+                    android:orientation="horizontal">
+                    >
+                </LinearLayout>
+            </TableRow>
         </TableLayout>
+
+
+
 </LinearLayout>

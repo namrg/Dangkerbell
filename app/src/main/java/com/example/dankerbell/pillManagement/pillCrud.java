@@ -29,6 +29,9 @@ public class pillCrud implements CrudInterface {
 //    static ArrayList<String> pillName=new ArrayList<>(); //약 이름
 //    static ArrayList<Integer> amount; // 복용량
     String pillName;
+    static ArrayList<String> pillNamelist=new ArrayList<>();
+    static ArrayList<Integer> amountlist=new ArrayList<>();
+
     int amount;
     String success="0";
     public static Handler mHandler =new Handler();
@@ -78,18 +81,23 @@ public class pillCrud implements CrudInterface {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         //  Bundle data = new Bundle();
                         // Message msg= Message.obtain();
+                        pillNamelist.clear();
+                        amountlist.clear();
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                pillName = document.getData().get("pill_name").toString(); // 의약품명
-                                amount = Integer.parseInt(document.getData().get("amount").toString()); //복용량
-                                setpillName(pillName);
-                                setAmount(amount);
+//                                pillName = document.getData().get("pill_name").toString(); // 의약품명
+//                                amount = Integer.parseInt(document.getData().get("amount").toString()); //복용량
+                                pillNamelist.add(document.getData().get("pill_name").toString());
+                                amountlist.add(Integer.parseInt(document.getData().get("amount").toString()));
+
+                                //                                setpillName(pillName);
+//
+//                                setAmount(amount);
 
                                 //mHandler.sendEmptyMessage(amount);
                                 //    msg.setData(data);
                                 Log.d("데이터 있음", document.getId() + " => " + document.getData());
-                                Log.d("값", pillName + " => " + amount);
-                                Log.d("겟한 값", getpillName() + " => " + getAmount());
+                                Log.d("값", pillNamelist.get(0) + " => " + pillNamelist.get(0));
                                 mHandler.sendEmptyMessage(1002);
                             }
                         } else {
