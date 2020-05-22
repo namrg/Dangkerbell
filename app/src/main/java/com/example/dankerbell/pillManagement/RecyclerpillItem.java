@@ -3,9 +3,9 @@ package com.example.dankerbell.pillManagement;
 public class RecyclerpillItem {
     String medname;//약 이름
     int pill_amount;//복용량
-    boolean notify; //알람
+    static boolean notify; //알람
     boolean del; //삭제
-    public RecyclerpillItem(String medname, int pill_amount, boolean notify,boolean del){
+    public RecyclerpillItem(String medname, int pill_amount, boolean notify, boolean del){
         this.medname=medname;
         this.pill_amount=pill_amount;
         this.notify=notify;

@@ -72,18 +72,19 @@ public class RecyclerpillAdapter extends RecyclerView.Adapter<RecyclerpillAdapte
                 //notifyItemChanged(position,mData.get(position).notify);
                 Log.d("알람 끄기 클릭 ",mData.get(position).getMedname());
                 holder.alarm_off.setVisibility(View.VISIBLE);
-                holder.alarm.setVisibility(View.GONE);}
+                holder.alarm.setVisibility(View.GONE);
+                notifyItemChanged(position);
+            }
         });
         holder.alarm_off.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mData.get(position).setNotify(false);
+                mData.get(position).setNotify(true);
                 //notifyItemChanged(position,mData.get(position).notify);
                 Log.d("알람 켜기 클릭 ",mData.get(position).getMedname());
                 holder.alarm_off.setVisibility(View.GONE);
                 holder.alarm.setVisibility(View.VISIBLE);
-                notifyDataSetChanged();
-
+                notifyItemChanged(position);
             }
         });
 

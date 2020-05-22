@@ -9,13 +9,16 @@ import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.dankerbell.Firebase.BloodSugarCrud;
+import com.example.dankerbell.ProfileActivity;
 import com.example.dankerbell.R;
 import com.example.dankerbell.bloodManagement.BloodReporter;
 import com.example.dankerbell.bloodManagement.glucoseReporter;
@@ -42,6 +45,13 @@ import butterknife.ButterKnife;
 
 public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
     BloodSugarCrud mBloodSugar = BloodSugarCrud.getInstance(); //firebase 참조 singletone
+    TextView toolbar;
+    TextView close;
+    DrawerLayout drawerLayout;
+    View drawerView;
+    Button logout;
+    Button mypage;
+
     TextView home; //
     TextView meal_txt; // 상단에 식단관리 TextView
     TextView pill_txt; // 상단에 복약관리 TextView
@@ -108,6 +118,45 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
         mBloodSugar.lunchread(date);
         mBloodSugar.dinnerread(date);
         mBloodSugar.sleepread(date);
+
+        toolbar=findViewById(R.id.toolbar_menu);
+        drawerLayout=findViewById(R.id.drawer_layout) ;
+        mypage = findViewById(R.id.mypage);
+        logout = findViewById(R.id.logout);
+        drawerView=findViewById(R.id.drawer);
+        close=findViewById(R.id.toolbar_close);
+        toolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent drawer = new Intent(getApplicationContext(), DrawerActivity.class);
+//                startActivity(drawer);//액티비티 띄우기
+                drawerLayout.openDrawer(drawerView);
+
+
+            }
+        });
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawerLayout.closeDrawer(drawerView);
+            }
+        });
+        mypage.setOnClickListener(new View.OnClickListener() { // 내 정보 버튼 클릭 시 실행
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                startActivity(intent);//액티비티 띄우기
+            }
+        });
+
+        logout.setOnClickListener(new View.OnClickListener() { // 로그아웃 버튼 클릭
+
+            @Override
+            public void onClick(View view) {
+                Log.d(this.getClass().getName(),"로그아웃 클릭");
+                //signOut();
+            }
+        });
 
 //        mBloodSugar.wakeupbloodPressure(date);
 //        mBloodSugar.readwakeup(date);
@@ -338,8 +387,15 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
                 wakesugartext.setText(wakesugar);
 
                 String wakepressure1 = (String)wakepressureedit.getText().toString(); //수축기
-                wakepressuretext.setText(wakepressure1);
                 String wakepressure2 = (String)wakepressureedit2.getText().toString();
+
+                if(wakepressure1.equals("")){
+                    wakepressure1="";
+                }
+               // else if(wakepressureedit2.equals())
+                wakepressuretext.setText(wakepressure1);
+                if(wakepressure2.equals(""))
+                    wakepressure2="";
                 wakepressuretext2.setText(wakepressure2);
 
                 /*
@@ -621,6 +677,8 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
             mReporter = new BloodReporter(mStore);
             gluecoseReporter=new glucoseReporter(mStore);
             if (isPermissionAcquired()) {
+                Log.d(APP_TAG, "삼성헬스 데이터 연동");
+
                 mReporter.start(mStepCountObserver);
                 gluecoseReporter.start(mStepCountObserver2);
             } else {
@@ -719,7 +777,8 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
                     .setResultListener(result -> {
                         Log.d(APP_TAG, "Permission callback is received.");
                         Map<PermissionKey, Boolean> resultMap = result.getResultMap();
-
+                        gluecoseReporter.start(mStepCountObserver2);
+                        mReporter.start(mStepCountObserver);
                         if (resultMap.containsValue(Boolean.FALSE)) {
                             // Requesting permission fails
                             updateStepCountView("");

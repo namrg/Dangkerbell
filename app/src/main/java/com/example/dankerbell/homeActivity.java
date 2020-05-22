@@ -119,7 +119,7 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스
             }
         });
     }
-    private void signOut() {
+    public void signOut() {
         // Firebase sign out
         FirebaseAuth.getInstance().signOut();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
