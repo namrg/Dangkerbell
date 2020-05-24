@@ -15,10 +15,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dankerbell.Firebase.FoodlistCrud;
+import com.example.dankerbell.ProfileActivity;
 import com.example.dankerbell.R;
 import com.example.dankerbell.bloodManagement.bloodActivity;
 import com.example.dankerbell.pillManagement.pillActivity;
@@ -46,6 +48,12 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
     RecyclerView mRecyclerView2;
     RecyclerView Recyclerlunch;
     RecyclerView Recyclerdinner;
+    TextView toolbar;
+    TextView close;
+    DrawerLayout drawerLayout;
+    View drawerView;
+    Button logout;
+    Button mypage;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +68,44 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
         com.example.dankerbell.mealManagement.RecyclerFoodKcalAdapter mAdapter1 = null ;
         com.example.dankerbell.mealManagement.RecyclerFoodKcalAdapter2 mAdapter2 = null ;
         com.example.dankerbell.mealManagement.RecyclerFoodKcalAdapter3 mAdapter3 = null ;
+        toolbar=findViewById(R.id.toolbar_menu);
+        drawerLayout=findViewById(R.id.drawer_layout) ;
+        mypage = findViewById(R.id.mypage);
+        logout = findViewById(R.id.logout);
+        drawerView=findViewById(R.id.drawer);
+        close=findViewById(R.id.toolbar_close);
+        toolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent drawer = new Intent(getApplicationContext(), DrawerActivity.class);
+//                startActivity(drawer);//액티비티 띄우기
+                drawerLayout.openDrawer(drawerView);
+
+
+            }
+        });
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawerLayout.closeDrawer(drawerView);
+            }
+        });
+        mypage.setOnClickListener(new View.OnClickListener() { // 내 정보 버튼 클릭 시 실행
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                startActivity(intent);//액티비티 띄우기
+            }
+        });
+
+        logout.setOnClickListener(new View.OnClickListener() { // 로그아웃 버튼 클릭
+
+            @Override
+            public void onClick(View view) {
+                Log.d(this.getClass().getName(),"로그아웃 클릭");
+                //signOut();
+            }
+        });
 
         //날짜 설정
         final TextView currentdate=findViewById(R.id.date);

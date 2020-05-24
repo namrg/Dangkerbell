@@ -33,6 +33,7 @@
         <activity android:name=".homeActivity">
         </activity>
         <activity android:name=".ProfileActivity"/>
+        <activity android:name=".myprofileActivity"/>
         <activity android:name=".bloodManagement.bloodActivity"></activity>
         <activity android:name=".mealManagement.mealActivity"></activity>
         <activity android:name=".mealManagement.SearchmealActivity"></activity>

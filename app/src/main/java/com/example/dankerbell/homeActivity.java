@@ -65,7 +65,7 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스
         mypage.setOnClickListener(new View.OnClickListener() { // 내 정보 버튼 클릭 시 실행
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                Intent intent = new Intent(getApplicationContext(), myprofileActivity.class);
                 startActivity(intent);//액티비티 띄우기
             }
         });
@@ -82,7 +82,7 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스
         profile.setOnClickListener(new View.OnClickListener() { // 내 정보 버튼 클릭 시 실행
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                Intent intent = new Intent(getApplicationContext(), myprofileActivity.class);
                 startActivity(intent);//액티비티 띄우기
             }
         });

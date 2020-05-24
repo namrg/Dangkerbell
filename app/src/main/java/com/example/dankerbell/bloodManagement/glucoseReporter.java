@@ -88,7 +88,7 @@ public class glucoseReporter {
             for (HealthData data : result) {
                 count = data.getString(HealthConstants.BloodGlucose.GLUCOSE);
 
-                Log.d(this.getClass().getName(),count);
+                Log.d("혈당",count);
                 Log.d(this.getClass().getName(),count);
 
             }

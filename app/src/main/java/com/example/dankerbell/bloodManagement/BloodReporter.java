@@ -20,7 +20,6 @@ package com.example.dankerbell.bloodManagement;
 
 import android.util.Log;
 
-import com.example.dankerbell.Firebase.BloodSugarCrud;
 import com.samsung.android.sdk.healthdata.HealthConstants;
 import com.samsung.android.sdk.healthdata.HealthData;
 import com.samsung.android.sdk.healthdata.HealthDataObserver;
@@ -30,18 +29,21 @@ import com.samsung.android.sdk.healthdata.HealthDataResolver.ReadResult;
 import com.samsung.android.sdk.healthdata.HealthDataStore;
 import com.samsung.android.sdk.healthdata.HealthResultHolder;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
 
-public class BloodReporter {
-    BloodSugarCrud mBloodSugar = BloodSugarCrud.getInstance(); //firebase 참조 singletone
-
+public class BloodReporter<a> {
     private final HealthDataStore mStore;
     HealthConstants.BloodPressure bm;
     private static final long ONE_DAY_IN_MILLIS = 24 * 60 * 60 * 1000L;
     private BloodObserver bloodObserver;
     String count = "";
     String count2="";
+    String count3="";
+
     public BloodReporter(HealthDataStore store) {
         mStore = store;
     }
@@ -51,15 +53,16 @@ public class BloodReporter {
         // Register an observer to listen changes of step count and get today step count
         HealthDataObserver.addObserver(mStore, HealthConstants.BloodPressure.HEALTH_DATA_TYPE, mObserver);
         readTodayblood();
+        readblood();
     }
 
     // Read the today's step count on demand
     private void readTodayblood() {
         HealthDataResolver resolver = new HealthDataResolver(mStore, null);
-
         // Set time range from start time of today to the current time
         long startTime = getStartTimeOfToday();
         long endTime = startTime + ONE_DAY_IN_MILLIS;
+        Log.d("날짜", String.valueOf(getStartTimeOfToday()));
 
         ReadRequest request = new ReadRequest.Builder()
                     .setDataType(HealthConstants.BloodPressure.HEALTH_DATA_TYPE)
@@ -67,44 +70,101 @@ public class BloodReporter {
                     .setLocalTimeRange(HealthConstants.BloodPressure.START_TIME, HealthConstants.BloodPressure.TIME_OFFSET,
                             startTime, endTime)
                     .build();
+        try {
+            resolver.read(request).setResultListener(mListener);
+        } catch (Exception e) {
+            //Log.e(MainActivity.APP_TAG, "Getting step count fails.", e);
+        }
+    }
+    private void readblood() {
+        HealthDataResolver resolver = new HealthDataResolver(mStore, null);
+
+        // Set time range from start time of today to the current time
+       long startTime = getStartTime();
+       long endTime = startTime + ONE_DAY_IN_MILLIS;
+        Log.d("날짜", String.valueOf(getStartTimeOfToday()));
+
+        ReadRequest request = new ReadRequest.Builder()
+                .setDataType(HealthConstants.BloodPressure.HEALTH_DATA_TYPE)
+                .setProperties(new String[] {HealthConstants.BloodPressure.DIASTOLIC, HealthConstants.BloodPressure.SYSTOLIC})
+                .setLocalTimeRange(HealthConstants.BloodPressure.START_TIME, HealthConstants.BloodPressure.TIME_OFFSET,
+                        startTime, endTime)
+                .build();
+
+
 
         try {
             resolver.read(request).setResultListener(mListener);
         } catch (Exception e) {
-            Log.e(bloodActivity.APP_TAG, "Getting step count fails.", e);
+            //Log.e(MainActivity.APP_TAG, "Getting step count fails.", e);
         }
     }
 
-    private long getStartTimeOfToday() {
-        Calendar today = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
 
+    public long getStartTimeOfToday() {
+        Calendar today = Calendar.getInstance(TimeZone.getTimeZone("Asia/Seoul"));
         today.set(Calendar.HOUR_OF_DAY, 0);
         today.set(Calendar.MINUTE, 0);
         today.set(Calendar.SECOND, 0);
         today.set(Calendar.MILLISECOND, 0);
+       // Log.d("날짜", String.valueOf(today.getTime()));
 
         return today.getTimeInMillis();
     }
+    public long getStartTime(){
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Seoul"));
+        // final Calendar calendar = Calendar.getInstance(); // 오늘날짜
+        //final String date = sdf.format(calendar.getTime());
+        return calendar.getTimeInMillis();    }
+    Date a=getStartTimeOfToda2();
+    public long getStartTimeprev(){
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Seoul"));
+        calendar.add(Calendar.DATE, -1);  // 오늘 날짜에서 하루를 뺌
+        return calendar.getTimeInMillis();
+    }
+    public long getStartTimenext(){
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Seoul"));
+        calendar.add(Calendar.DATE, +1);  // 오늘 날짜에서 하루를 뺌
+        return calendar.getTimeInMillis();
+    }
 
-    private final HealthResultHolder.ResultListener<ReadResult> mListener = result -> {
 
-        try {
-            for (HealthData data : result) {
-                count = data.getString(HealthConstants.BloodPressure.DIASTOLIC);
-                count2 = data.getString(HealthConstants.BloodPressure.SYSTOLIC);
+    public Date getStartTimeOfToda2() {
+        Calendar today = Calendar.getInstance(TimeZone.getTimeZone("Asia/Seoul"));
+        SimpleDateFormat f = new SimpleDateFormat("yy.MM.dd.HH:mm");
+        f.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
+        final String date = f.format(today.getTime());
+        today.set(Calendar.HOUR_OF_DAY, 0);
+        today.set(Calendar.MINUTE, 0);
+        today.set(Calendar.SECOND, 0);
+        today.set(Calendar.MILLISECOND, 0);
+        Log.d("날짜1", String.valueOf(today.getTime()));
+        Log.d("날짜2", String.valueOf(date));
 
-                Log.d(this.getClass().getName(),count);
-                Log.d(this.getClass().getName(),count2);
-              //  mBloodSugar.create(Double.parseDouble(morningsugar), Double.parseDouble(morningpressure), date, time);
+        return today.getTime();
+    }
+    public final HealthResultHolder.ResultListener<ReadResult> mListener = new HealthResultHolder.ResultListener<ReadResult>() {
+        @Override
+        public void onResult(ReadResult result) {
 
+            try {
+                for (HealthData data : result) {
+                    count = data.getString(HealthConstants.BloodPressure.DIASTOLIC);
+                    count2 = data.getString(HealthConstants.BloodPressure.SYSTOLIC);
+                   // count3= data.getString(HealthConstants.BloodPressure.START_TIME);
+                    Log.d("수축기", count);
+                    Log.d("이완기", count2);
+                   // Log.d("날짜", count3);
+
+                }
+            } finally {
+                result.close();
             }
-        } finally {
-            result.close();
-        }
 
 //        if (mObserver != null) {
 //            mObserver.onChanged(count);
 //        }
+        }
     };
 
     private final HealthDataObserver mObserver = new HealthDataObserver(null) {
@@ -112,7 +172,7 @@ public class BloodReporter {
         // Update the step count when a change event is received
         @Override
         public void onChange(String dataTypeName) {
-            Log.d(bloodActivity.APP_TAG, "Observer receives a data changed event");
+            //Log.d(MainActivity.APP_TAG, "Observer receives a data changed event");
             readTodayblood();
         }
     };

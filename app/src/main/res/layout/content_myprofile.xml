@@ -1,115 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
-    tools:context=".ProfileActivity"
-    >
-    <View
-        android:id="@+id/view_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_below="@+id/toolbar"
-
-        android:background="@color/colorAccent" />
-    <androidx.appcompat.widget.Toolbar
-
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        >
-
-        <TextView
-            android:id="@+id/backspace"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:drawableTop="@drawable/backspace"
-            android:fontFamily="@font/nanumsquare_acr"
-            android:text="뒤로가기"
-            android:textColor="#7A7A7A"
-            android:textSize="15dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:fontFamily="@font/bmdohyeon_ttf"
-            android:text="회원정보 관리"
-            android:layout_gravity="center"
-
-            android:textColor="@color/colorAccent"
-            android:textSize="20dp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/toolbar_cart"
-            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_gravity="right"
-            android:layout_marginRight="10dp"
-            android:drawableTop="@drawable/ic_input_black_24dp"
-            android:fontFamily="@font/nanumsquare_acr"
-            android:text="로그아웃"
-            android:textColor="#7A7A7A"
-            android:textSize="15dp" />
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/activity_profile">
 
 
-    </androidx.appcompat.widget.Toolbar>
-
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="60dp"
             android:orientation="vertical">
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:gravity="center">
 
                 <TextView
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
                     android:fontFamily="@font/bmdohyeon_ttf"
                     android:text="성별"
                     android:textColor="#b8b8b8"
                     android:textSize="15dp"></TextView>
 
-                <RadioButton
-                    android:id="@+id/woman"
-                    android:layout_width="90dp"
+                <TextView
+                    android:id="@+id/mgender"
+                    android:layout_width="100dp"
+                    android:gravity="center"
                     android:layout_height="30dp"
+                    android:layout_marginRight="100dp"
                     android:fontFamily="@font/nanumsquare_acr"
-                    android:text="여성"
-                    android:onClick="GenderRadio"
-
-                    android:textColor="#b8b8b8"
-                    android:textSize="15dp" />
-
-                <RadioButton
-                    android:id="@+id/man"
-                    android:onClick="GenderRadio"
-
-                    android:layout_width="90dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="right"
-
-                    android:fontFamily="@font/nanumsquare_acr"
-                    android:text="남성"
-
-                    android:textColor="#b8b8b8"
+                    android:text=""
                     android:textSize="15dp" />
 
 
@@ -132,14 +59,13 @@
                     android:textSize="15dp"></TextView>
 
                 <TextView
-                    android:id="@+id/brith"
-                    android:layout_width="200dp"
+                    android:id="@+id/mbrith"
+                    android:layout_width="100dp"
+                    android:layout_marginRight="100dp"
                     android:layout_height="30dp"
+                    android:layout_gravity="center"
                     android:fontFamily="@font/nanumsquare_acr"
-
                     android:gravity="center"
-                    android:text="생년월일을 입력해주세요."
-                    android:textColor="#b8b8b8"
                     android:textSize="15dp" />
 
 
@@ -155,7 +81,7 @@
                 <TextView
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left"
+                    android:layout_gravity="center"
                     android:layout_marginLeft="20dp"
                     android:fontFamily="@font/bmdohyeon_ttf"
                     android:text="당뇨유형"
@@ -163,18 +89,15 @@
                     android:textSize="15dp"></TextView>
 
 
-                <Spinner
-                    android:id="@+id/diabeteskindspinner"
+                <TextView
+                    android:id="@+id/mdiabeteskind"
                     android:layout_width="100dp"
                     android:layout_height="30dp"
-
-                    android:layout_gravity="center"
-                    android:layout_marginRight="100dp"
-                    android:background="@color/colorAccent"
-                    android:entries="@array/diabeteskind"
-                    android:fontFamily="@font/nanumsquare_acr"
                     android:gravity="center"
-                    android:textColor="#ffffff"></Spinner>
+
+                    android:layout_marginRight="100dp"
+                    android:fontFamily="@font/nanumsquare_acr"
+                    ></TextView>
 
 
             </LinearLayout>
@@ -194,12 +117,11 @@
                     android:textColor="#b8b8b8"
                     android:textSize="15dp"></TextView>
 
-                <EditText
-                    android:id="@+id/height"
-                    android:layout_width="170dp"
-                    android:layout_height="wrap_content"
+                <TextView
+                    android:id="@+id/mheight"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
                     android:fontFamily="@font/nanumsquare_acr"
-                    android:hint="키를 입력해주세요"
                     android:gravity="center"
                     android:textColorHint="#b8b8b8"
                     android:textSize="15dp" />
@@ -207,8 +129,8 @@
                 <TextView
                     android:layout_width="30dp"
                     android:layout_height="wrap_content"
-                    android:text="CM"
-                    android:textColor="#b8b8b8" />
+                    android:layout_marginRight="70dp"
+                    android:text="CM" />
 
 
             </LinearLayout>
@@ -220,6 +142,7 @@
                 android:gravity="center">
 
                 <TextView
+                    android:id="@+id/weight"
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
@@ -229,21 +152,19 @@
                     android:textColor="#b8b8b8"
                     android:textSize="15dp"></TextView>
 
-                <EditText
-                    android:id="@+id/weight"
-                    android:layout_width="170dp"
-                    android:layout_height="wrap_content"
+                <TextView
+                    android:id="@+id/mweight"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
                     android:fontFamily="@font/nanumsquare_acr"
                     android:gravity="center"
-                    android:hint="몸무게를 입력해주세요"
-                    android:textColorHint="#B8b8b8"
                     android:textSize="15dp" />
 
                 <TextView
                     android:layout_width="30dp"
                     android:layout_height="wrap_content"
-                    android:text="KG"
-                    android:textColor="#B8b8b8" />
+                    android:layout_marginRight="70dp"
+                    android:text="KG" />
 
 
             </LinearLayout>
@@ -264,13 +185,11 @@
                     android:textSize="15dp"></TextView>
 
                 <TextView
-                    android:id="@+id/bmi"
-                    android:layout_width="200dp"
+                    android:id="@+id/mbmi"
+                    android:layout_width="100dp"
                     android:layout_height="30dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:textColorHint="#B8b8b8"
-                    android:textSize="15dp" />
+                    android:layout_marginRight="100dp"
+                    android:gravity="center" />
             </LinearLayout>
 
             <LinearLayout
@@ -288,25 +207,26 @@
                     android:textColor="#b8b8b8"
                     android:textSize="15dp"></TextView>
 
-                <EditText
-                    android:id="@+id/disease"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/nanumsquare_acr"
-                    android:gravity="center"
-                    android:hint="기저질환"
-                    android:textColorHint="#B8b8b8"
-                    android:textSize="15dp" />
-
-                <Button
+                <TextView
+                    android:id="@+id/mdisease"
                     android:layout_width="100dp"
                     android:layout_height="30dp"
-                    android:background="@color/colorAccent"
                     android:fontFamily="@font/nanumsquare_acr"
+                    android:gravity="center"
+                    android:textSize="15dp" />
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:fontFamily="@font/nanumsquare_acr"
+
                     android:text="기저질환 검색"
                     android:textColor="#ffffff"
                     android:textSize="13dp" />
+
+
             </LinearLayout>
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -316,35 +236,22 @@
                 <TextView
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
                     android:fontFamily="@font/bmdohyeon_ttf"
                     android:text="고혈압"
                     android:textColor="#b8b8b8"
                     android:textSize="15dp"></TextView>
 
-                <RadioButton
-                    android:id="@+id/hypertension"
-                    android:layout_width="90dp"
+
+                <TextView
+                    android:id="@+id/mhypertension"
+                    android:layout_width="100dp"
                     android:layout_height="30dp"
+                    android:layout_marginRight="100dp"
+                    android:gravity="center"
                     android:fontFamily="@font/nanumsquare_acr"
-                    android:text="유"
-                    android:onClick="highbloodRadio"
+                    ></TextView>
 
-                    android:textColor="#b8b8b8"
-                    android:textSize="15dp" />
-
-                <RadioButton
-                    android:id="@+id/nonhypertension"
-
-                    android:layout_width="90dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="right"
-
-                    android:fontFamily="@font/nanumsquare_acr"
-                    android:text="무"
-                    android:onClick="highbloodRadio"
-
-                    android:textColor="#b8b8b8"
-                    android:textSize="15dp" />
 
 
             </LinearLayout>
@@ -357,34 +264,19 @@
                 <TextView
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
                     android:fontFamily="@font/bmdohyeon_ttf"
                     android:text="흡연"
                     android:textColor="#b8b8b8"
                     android:textSize="15dp"></TextView>
 
-                <RadioButton
-                    android:id="@+id/smoke"
-                    android:layout_width="90dp"
+                <TextView
+                    android:id="@+id/msmoke"
+                    android:layout_width="100dp"
                     android:layout_height="30dp"
+                    android:layout_marginRight="100dp"
                     android:fontFamily="@font/nanumsquare_acr"
-                    android:text="유"
-                    android:onClick="smokeRadio"
-
-                    android:textColor="#b8b8b8"
-                    android:textSize="15dp" />
-
-                <RadioButton
-                    android:id="@+id/nonsmoke"
-                    android:onClick="smokeRadio"
-
-                    android:layout_width="90dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="right"
-
-                    android:fontFamily="@font/nanumsquare_acr"
-                    android:text="무"
-
-                    android:textColor="#b8b8b8"
+                    android:gravity="center"
                     android:textSize="15dp" />
 
 
@@ -399,36 +291,25 @@
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
+                    android:layout_gravity="center"
                     android:fontFamily="@font/bmdohyeon_ttf"
                     android:text="당뇨유병기간"
                     android:textColor="#b8b8b8"
                     android:textSize="15dp"></TextView>
 
                 <TextView
-                    android:id="@+id/yearpicker"
-                    android:layout_width="200dp"
-                    android:layout_height="30dp"
-                    android:gravity="center"
-                    android:text="년도를 입력해주세요"
-                    android:textColor="#b8b8b8"></TextView>
-                <NumberPicker
-                    android:id="@+id/diabetesyear"
+                    android:id="@+id/mdiabetesyear"
                     android:layout_width="100dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@color/colorAccent"
                     android:layout_marginRight="100dp"
-                    android:visibility="gone"
                     android:fontFamily="@font/nanumsquare_acr"
                     android:gravity="center"
-                    android:text="생년월일을 입력해주세요."
-                    android:textColor="#b8b8b8"
                     android:textSize="15dp" />
 
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -437,25 +318,23 @@
 
                 <TextView
                     android:layout_width="90dp"
+                    android:layout_gravity="center"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left"
                     android:layout_marginLeft="20dp"
+                    android:gravity="center"
                     android:fontFamily="@font/bmdohyeon_ttf"
-                    android:text="당뇨            치료방법"
+                    android:text="당뇨치료방법"
                     android:textColor="#b8b8b8"
                     android:textSize="15dp"></TextView>
 
 
-                <Spinner
-                    android:id="@+id/healspinner"
+                <TextView
+                    android:id="@+id/mheal"
                     android:layout_width="200dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center"
-                    android:background="@color/colorAccent"
-                    android:entries="@array/heal"
                     android:fontFamily="@font/nanumsquare_acr"
-                    android:gravity="center"
-                    android:textColor="#ffffff"></Spinner>
+                    android:gravity="center"></TextView>
 
 
             </LinearLayout>
@@ -469,49 +348,25 @@
                 <TextView
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="25dp"
+                    android:layout_marginLeft="27dp"
                     android:fontFamily="@font/bmdohyeon_ttf"
                     android:text="활동량"
                     android:textColor="#b8b8b8"
                     android:textSize="15dp"></TextView>
 
-                <RadioButton
-                    android:id="@+id/lessact"
-                    android:layout_width="70dp"
 
-                    android:layout_height="40dp"
+                <TextView
+
+                    android:id="@+id/mactivity"
+                    android:layout_width="100dp"
+
+                    android:layout_height="30dp"
+                    android:layout_marginRight="100dp"
                     android:fontFamily="@font/nanumsquare_acr"
-                    android:onClick="activityRadio"
-
-                    android:text="적음"
-                    android:textColor="#B8B8B8"
+                    android:gravity="center"
                     android:textSize="15dp" />
 
-                <RadioButton
 
-                    android:id="@+id/normalact"
-                    android:layout_width="70dp"
-
-                    android:layout_height="40dp"
-                    android:onClick="activityRadio"
-
-                    android:fontFamily="@font/nanumsquare_acr"
-                    android:text="보통"
-                    android:textColor="#B8B8B8"
-                    android:textSize="15dp" />
-
-                <RadioButton
-
-                    android:id="@+id/manyact"
-                    android:layout_width="70dp"
-                    android:onClick="activityRadio"
-
-                    android:layout_height="40dp"
-                    android:fontFamily="@font/nanumsquare_acr"
-
-                    android:text="많음"
-                    android:textColor="#B8B8B8"
-                    android:textSize="15dp" />
 
 
             </LinearLayout>
@@ -524,48 +379,21 @@
                 <TextView
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="25dp"
+                    android:layout_marginLeft="27dp"
                     android:fontFamily="@font/bmdohyeon_ttf"
                     android:text="체중변화"
                     android:textColor="#b8b8b8"
                     android:textSize="15dp"></TextView>
 
-                <RadioButton
-                    android:id="@+id/loseweight"
-                    android:layout_width="70dp"
 
-                    android:layout_height="40dp"
+                <TextView
+
+                    android:id="@+id/mweightchange"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="100dp"
                     android:fontFamily="@font/nanumsquare_acr"
-                    android:onClick="weightRadio"
-
-                    android:text="감소"
-                    android:textColor="#B8B8B8"
-                    android:textSize="15dp" />
-
-                <RadioButton
-
-                    android:id="@+id/justweight"
-                    android:layout_width="70dp"
-
-                    android:layout_height="40dp"
-                    android:onClick="weightRadio"
-
-                    android:fontFamily="@font/nanumsquare_acr"
-                    android:text="변화없음"
-                    android:textColor="#B8B8B8"
-                    android:textSize="15dp" />
-
-                <RadioButton
-
-                    android:id="@+id/gainweight"
-                    android:layout_width="70dp"
-
-                    android:layout_height="40dp"
-                    android:fontFamily="@font/nanumsquare_acr"
-                    android:onClick="weightRadio"
-
-                    android:text="증가"
-                    android:textColor="#B8B8B8"
+                    android:gravity="center"
                     android:textSize="15dp" />
 
 
@@ -573,14 +401,14 @@
 
 
             <Button
-                android:id="@+id/finish"
+                android:id="@+id/modifybtn"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
                 android:background="@color/colorAccent"
                 android:fontFamily="@font/nanumsquare_acr"
-                android:text="저장하기"
+                android:text="수정하기"
                 android:layout_marginBottom="10dp"
                 android:textColor="#ffffff"
                 android:textSize="17dp">
@@ -590,6 +418,6 @@
         </LinearLayout>
 
 
-    </androidx.core.widget.NestedScrollView>
 
-</RelativeLayout>
+
+</androidx.core.widget.NestedScrollView>
