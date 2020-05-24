@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.dankerbell.Firebase.profileCrud;
 
 public class myprofileActivity extends AppCompatActivity {
-    TextView mgender,mbirth,mbmi,mdiabeteskind,mheight,mweight,mdisease,mhypertension,msmoke,mdiabetesyear,mheal,mactivity,mweightchange;
+    TextView mgender,mbirth,mbmi,mdiabeteskind,mheight,mweight,mdisease,mhypertension,msmoke,mdiabetesyear,mheal,mactivity,mweightchange,back,logout;
     profileCrud mprofile = profileCrud.getInstance();
     Button modifybtn;
     @Override
@@ -23,9 +24,12 @@ public class myprofileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mprofile.read();
         setContentView(R.layout.activity_myprofile);
+
         mgender=findViewById(R.id.mgender);
         mbirth=findViewById(R.id.mbrith);
         mbmi=findViewById(R.id.mbmi);
+        logout=findViewById(R.id.toolbar_cart);
+        back=findViewById(R.id.backspace);
         mdiabeteskind=findViewById(R.id.mdiabeteskind);
         mheight=findViewById(R.id.mheight);
         mweight=findViewById(R.id.mweight);
@@ -39,7 +43,24 @@ public class myprofileActivity extends AppCompatActivity {
         modifybtn=findViewById(R.id.modifybtn);
         String mygender=mprofile.getMygender();
         String mybmi=mprofile.getMybmi();
+        back.setOnClickListener(new View.OnClickListener() { // 뒤로 가기 버튼 시 실행  왜 실행이 안되지??
+            @Override
+            public void onClick(View view) {
+                Log.d(this.getClass().getName(),"뒤로가기 클릭");
 
+                onBackPressed();
+
+            }
+        }); // 뒤로가기
+
+        logout.setOnClickListener(new View.OnClickListener() { // 로그아웃 버튼 클릭
+
+            @Override
+            public void onClick(View view) {
+                Log.d(this.getClass().getName(),"로그아웃 클릭");
+                //signOut();
+            }
+        });
         modifybtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
