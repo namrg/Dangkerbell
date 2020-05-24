@@ -207,7 +207,7 @@ public class ProfileActivity extends AppCompatActivity { // 회원정보등록 �
                 Double iheight2=Double.parseDouble(mheight)/100;
                 mbmi=iweight/(iheight2*iheight2);
                 myear=String.valueOf(np.getValue());
-
+                mbmi=Double.parseDouble(String.format("%.2f",mbmi));
                 //추가
                 if (mdiabeteskind.equals("")|mheal.equals("")|mdisease.equals("")|iweight==0.0|iheight==0.0|gender.equals("")|birthday.equals("")|mbmi==0.0|highblood.equals("")|smoking.equals("")|myear.equals("")| activity.equals("")|weightchange.equals("")) {
                     notifyshow();
