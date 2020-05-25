@@ -110,6 +110,7 @@ public class FoodlistCrud implements CrudInterface {
                                 mymorningkcal.clear();
                             }
 
+                        Log.d("아침 데이터", String.valueOf(mymorningfood.size()));
 
                         mealHandler.sendEmptyMessage(1001);
 

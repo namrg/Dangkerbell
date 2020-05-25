@@ -109,16 +109,14 @@
         android:textSize="15dp" />
 
 
-
-
     <Button
-        android:id="@+id/mybudget"
+        android:id="@+id/settime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff"
 
         android:fontFamily="@font/nanumsquare_acr"
-        android:text="알람 설정"
+        android:text="시간 설정"
         android:textColor="#6B6B6B"
         android:textSize="15dp" />
 

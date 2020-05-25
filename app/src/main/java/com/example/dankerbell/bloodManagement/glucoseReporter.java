@@ -18,8 +18,11 @@
 
 package com.example.dankerbell.bloodManagement;
 
+import android.os.Handler;
 import android.util.Log;
 
+import com.example.dankerbell.Firebase.BloodSugarCrud;
+import com.example.dankerbell.Firebase.timeCrud;
 import com.samsung.android.sdk.healthdata.HealthConstants;
 import com.samsung.android.sdk.healthdata.HealthData;
 import com.samsung.android.sdk.healthdata.HealthDataObserver;
@@ -34,10 +37,12 @@ import java.util.TimeZone;
 
 public class glucoseReporter {
     private final HealthDataStore mStore;
+    BloodSugarCrud mBloodSugar = BloodSugarCrud.getInstance(); //firebase 참조 singletone
+    public static Handler bHandler =new Handler();
+
     private static final long ONE_DAY_IN_MILLIS = 24 * 60 * 60 * 1000L;
     private BloodglucoseObserver bloodglucoseObserver;
-    String count = "";
-    String count2="";
+    static String count = "";
     public glucoseReporter(HealthDataStore store) {
         mStore = store;
     }
@@ -90,6 +95,15 @@ public class glucoseReporter {
 
                 Log.d("혈당",count);
                 Log.d(this.getClass().getName(),count);
+                Double glu=Double.parseDouble(count);
+                glu= Double.parseDouble(String.format("%.2f",glu));
+                glu=glu*18;
+                count=String.valueOf(Math.round(glu));
+                //count=String.format("%.2f",glu);
+                Log.d("혈당2",count);
+
+                bHandler.sendEmptyMessage(1009);
+
 
             }
         } finally {

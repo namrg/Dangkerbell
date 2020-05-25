@@ -6,12 +6,9 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -20,25 +17,21 @@ import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.dankerbell.Firebase.profileCrud;
-import com.example.dankerbell.pillManagement.pillCrud;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.samsung.android.sdk.healthdata.HealthConnectionErrorResult;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
 
 public class ProfileActivity extends AppCompatActivity { // 회원정보등록 클래스
 
@@ -100,7 +93,7 @@ public class ProfileActivity extends AppCompatActivity { // 회원정보등록 �
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,R.array.heal, android.R.layout.simple_spinner_item);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_item);
         healspinner.setAdapter(adapter1);
-        store=findViewById(R.id.finish); //저장하기 버튼
+        store=findViewById(R.id.setTimefinish); //저장하기 버튼
         back=findViewById(R.id.backspace); // 뒤로 가기 버튼
         birth=findViewById(R.id.brith); // 생년월일
         TextView yearpicker=findViewById(R.id.yearpicker);
@@ -117,7 +110,6 @@ public class ProfileActivity extends AppCompatActivity { // 회원정보등록 �
             @Override
             public void onClick(View view) {
                 d.show();
-
             }
         });
         final NumberPicker np = (NumberPicker) d.findViewById(R.id.birthdayPicker);
