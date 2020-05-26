@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.samsung.android.health.permission.read"
-            android:value="com.samsung.health.blood_pressure; com.samsung.health.blood_glucose" />
+            android:value="com.samsung.health.blood_pressure; com.samsung.health.blood_glucose; com.samsung.health.weight; com.samsung.health.height" />
 
         <activity android:name=".LoginInActivity">
             <intent-filter>
