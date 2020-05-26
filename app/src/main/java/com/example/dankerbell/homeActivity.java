@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.dankerbell.Bluetooth.BluetoothCommunicationActivity;
+import com.example.dankerbell.Bluetooth.ConnectBluetoothActivity;
 import com.example.dankerbell.bloodManagement.bloodActivity;
 import com.example.dankerbell.mealManagement.mealActivity;
 import com.example.dankerbell.pillManagement.pillActivity;
@@ -36,6 +38,7 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스
     Button mypage;
     //구글 로그인
     private GoogleSignInClient mGoogleSignInClient;
+
 
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,7 +117,7 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스
         bluetooth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent bluetootintent=new Intent(getApplicationContext(),BluetoothActivity.class);
+                Intent bluetootintent=new Intent(getApplicationContext(),ConnectBluetoothActivity.class);
                 startActivity(bluetootintent);
             }
         });
