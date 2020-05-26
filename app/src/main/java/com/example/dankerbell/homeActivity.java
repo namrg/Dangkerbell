@@ -1,5 +1,6 @@
 package com.example.dankerbell;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,7 +35,7 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스
     TextView close;
     DrawerLayout drawerLayout;
     View drawerView;
-    Button logout;
+    Button logout,settime;
     Button mypage;
     //구글 로그인
     private GoogleSignInClient mGoogleSignInClient;
@@ -48,6 +49,7 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스
         mypage = findViewById(R.id.mypage);
         logout = findViewById(R.id.logout);
         drawerView=findViewById(R.id.drawer);
+        settime=findViewById(R.id.settime);
         close=findViewById(R.id.toolbar_close);
         toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +59,13 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스
                 drawerLayout.openDrawer(drawerView);
 
 
+            }
+        });
+        settime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent setTimeintent = new Intent(getApplicationContext(), mysetTimeActivity.class);
+                startActivity(setTimeintent);//액티비티 띄우기
             }
         });
         close.setOnClickListener(new View.OnClickListener() {

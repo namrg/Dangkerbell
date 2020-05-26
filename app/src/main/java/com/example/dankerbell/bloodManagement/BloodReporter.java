@@ -18,8 +18,11 @@
 
 package com.example.dankerbell.bloodManagement;
 
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 
+import com.example.dankerbell.Firebase.BloodSugarCrud;
 import com.samsung.android.sdk.healthdata.HealthConstants;
 import com.samsung.android.sdk.healthdata.HealthData;
 import com.samsung.android.sdk.healthdata.HealthDataObserver;
@@ -37,13 +40,12 @@ import java.util.TimeZone;
 
 public class BloodReporter<a> {
     private final HealthDataStore mStore;
+    BloodSugarCrud mBloodSugar = BloodSugarCrud.getInstance(); //firebase 참조 singletone
     HealthConstants.BloodPressure bm;
     private static final long ONE_DAY_IN_MILLIS = 24 * 60 * 60 * 1000L;
     private BloodObserver bloodObserver;
     String count = "";
     String count2="";
-    String count3="";
-
     public BloodReporter(HealthDataStore store) {
         mStore = store;
     }
@@ -107,7 +109,10 @@ public class BloodReporter<a> {
         today.set(Calendar.MINUTE, 0);
         today.set(Calendar.SECOND, 0);
         today.set(Calendar.MILLISECOND, 0);
-       // Log.d("날짜", String.valueOf(today.getTime()));
+       Log.d("시간!!!!!!!!!!", String.valueOf(Calendar.HOUR_OF_DAY));
+        Log.d("시간!!!!!!!!!!2", String.valueOf(today.HOUR_OF_DAY));
+
+        Log.d("분!!!!!!!!!!", String.valueOf(Calendar.MINUTE));
 
         return today.getTimeInMillis();
     }
@@ -115,6 +120,7 @@ public class BloodReporter<a> {
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Seoul"));
         // final Calendar calendar = Calendar.getInstance(); // 오늘날짜
         //final String date = sdf.format(calendar.getTime());
+
         return calendar.getTimeInMillis();    }
     Date a=getStartTimeOfToda2();
     public long getStartTimeprev(){
@@ -149,12 +155,27 @@ public class BloodReporter<a> {
 
             try {
                 for (HealthData data : result) {
-                    count = data.getString(HealthConstants.BloodPressure.DIASTOLIC);
-                    count2 = data.getString(HealthConstants.BloodPressure.SYSTOLIC);
+                    count = data.getString(HealthConstants.BloodPressure.DIASTOLIC); //수축기
+                    count2 = data.getString(HealthConstants.BloodPressure.SYSTOLIC); //이완기
                    // count3= data.getString(HealthConstants.BloodPressure.START_TIME);
                     Log.d("수축기", count);
                     Log.d("이완기", count2);
                    // Log.d("날짜", count3);
+                    final SimpleDateFormat sdf = new SimpleDateFormat("yy.MM.dd", Locale.getDefault());
+                    final Calendar calendar = Calendar.getInstance(); // 오늘날짜
+                    final String date = sdf.format(calendar.getTime());
+                   // mBloodSugar.create(0.0, Double.parseDouble(count),Double.parseDouble(count2),date, "아침");
+                    glucoseReporter.bHandler = new Handler(){
+                        @Override public void handleMessage(Message msg){
+                            if (msg.what==1009){
+                                Log.d("ㅠㅠ",glucoseReporter.count);
+                                Log.d("메세지받음",glucoseReporter.count);
+
+                                mBloodSugar.create(Double.parseDouble(glucoseReporter.count), Double.parseDouble(count),Double.parseDouble(count2),date, "아침");
+
+                            }
+                        }
+                    };
 
                 }
             } finally {
