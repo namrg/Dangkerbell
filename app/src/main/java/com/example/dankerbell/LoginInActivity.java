@@ -19,15 +19,21 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginInActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -35,6 +41,7 @@ public class LoginInActivity extends AppCompatActivity implements View.OnClickLi
     private static final int RC_SIGN_IN = 9001;
 
     private FirebaseAuth mAuth;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     //구글 로그인
     private GoogleSignInClient mGoogleSignInClient;
@@ -131,6 +138,10 @@ public class LoginInActivity extends AppCompatActivity implements View.OnClickLi
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            String User = user.getEmail();
+                            Map<String, Object> data = new HashMap<>();
+                            db.collection("user").document(User).set(data);
+
                             updateUI(user);
                             Intent Homeintent = new Intent(getApplicationContext(), homeActivity.class); // 새로추가 구글 로그인 성공 후 화면전환
                             startActivity(Homeintent);//액티비티 띄우기 새로 추가 - 홈화면 전환
