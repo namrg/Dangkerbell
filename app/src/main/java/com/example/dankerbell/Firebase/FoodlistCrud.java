@@ -18,6 +18,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,20 +59,35 @@ public class FoodlistCrud implements CrudInterface {
         Map<String, Object> updateData = new HashMap<>();
         mealMapper post=new mealMapper(time,date,food,kcal);
         updateData=post.toMap(); //time="아침.점심,저녁; date가 날짜
-        db.collection("user").document(User).collection(time).document(date).collection(food)
-                .add(updateData)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        db.collection("user").document(User).collection(time+date).document(food)
+        .set(updateData)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d("아침 데이터 추가", "DocumentSnapshot added with ID: " + documentReference.getId());
+                    public void onSuccess(Void aVoid) {
+                        Log.d("식단 데이터 추가", "DocumentSnapshot successfully written!");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.w("아침 데이터 추가", "Error adding document", e);
+                        Log.w("식단 데이터 추가", "Error writing document", e);
                     }
                 });
+
+//        db.collection("user").document(User).collection(time+date).document(food)
+//                .add(updateData)
+//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>()) {
+//                    @Override
+//                    public void onSuccess(DocumentReference documentReference) {
+//                        Log.d("데이터 추가", "DocumentSnapshot successfully written!");
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Log.w("데이터 추가", "Error writing document", e);
+//                    }
+//                });
 
     }
 
@@ -80,37 +96,30 @@ public class FoodlistCrud implements CrudInterface {
 
     }
     public void readmymorningmeal(final String date){ // 내 음식 읽기
-
+        mymorningfood.clear();
+        mymorningkcal.clear();
         Log.d("아침 데이터 읽기",date);
-        db.collection("user").document(User).collection("아침").document(date).collection(String.valueOf(food))
-       // db.collection("user").document(User).collection("아침"+date)
+        db.collection("user").document(User).collection("아침"+date)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        mymorningfood.clear();
-                        mymorningkcal.clear();
                         if (task.isSuccessful()) {
-                            Log.d("task", String.valueOf(task.getResult()));
-                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                if(!document.getData().get("Kcal").equals("")) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                if(!"".equals(document.getId())) {
                                     Log.d("아침 데이터 읽기", document.getId() + " => " + document.getData().get("Kcal"));
                                     mymorningfood.add(document.getData().get(document.getId()).toString());
                                     mymorningkcal.add(document.getData().get("Kcal").toString());
                                 }
                                 else{
-                                    Log.d("아침 데이터 읽기","아침데이터 없음");
                                     mymorningfood.clear();
                                     mymorningkcal.clear();
                                 }
-                            }}
-                            else{
-                                Log.d("아침 데이터 읽기","아침데이터 없음2");
-                                mymorningfood.clear();
-                                mymorningkcal.clear();
                             }
-
-                        Log.d("아침 데이터", String.valueOf(mymorningfood.size()));
+                        } else {
+                            Log.w("혈당 데이터 읽기", "Error getting documents.", task.getException());
+                        }
+                        Log.d("배열사이즈!!!", String.valueOf(mymorningfood.size()));
 
                         mealHandler.sendEmptyMessage(1001);
 
@@ -129,7 +138,7 @@ public class FoodlistCrud implements CrudInterface {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                if(!" ".equals(document.getId())) {
+                                if(!"".equals(document.getId())) {
                                     Log.d("점심 데이터 읽기", document.getId() + " => " + document.getData().get("Kcal"));
                                     mylunchfood.add(document.getData().get(document.getId()).toString());
                                     mylunchkcal.add(document.getData().get("Kcal").toString());
@@ -142,6 +151,8 @@ public class FoodlistCrud implements CrudInterface {
                         } else {
                             Log.w("혈당 데이터 읽기", "Error getting documents.", task.getException());
                         }
+                        Log.d("배열사이즈!!!", String.valueOf(mylunchfood.size()));
+
                         mealHandler.sendEmptyMessage(1001);
 
                     }
