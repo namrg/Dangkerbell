@@ -23,6 +23,7 @@ import java.util.Map;
 
 public class pillCrud implements CrudInterface {
     private static pillCrud instance;
+    private static final String TAG = "pillCrud";
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     final String User = user.getEmail();
@@ -31,6 +32,7 @@ public class pillCrud implements CrudInterface {
     String pillName;
     static ArrayList<String> pillNamelist=new ArrayList<>();
     static ArrayList<Integer> amountlist=new ArrayList<>();
+    static ArrayList<Boolean> alarmlist=new ArrayList<>();
 
     int amount;
     String success="0";
@@ -79,25 +81,16 @@ public class pillCrud implements CrudInterface {
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        //  Bundle data = new Bundle();
-                        // Message msg= Message.obtain();
                         pillNamelist.clear();
                         amountlist.clear();
+                        alarmlist.clear();
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-//                                pillName = document.getData().get("pill_name").toString(); // 의약품명
-//                                amount = Integer.parseInt(document.getData().get("amount").toString()); //복용량
                                 pillNamelist.add(document.getData().get("pill_name").toString());
                                 amountlist.add(Integer.parseInt(document.getData().get("amount").toString()));
-
-                                //                                setpillName(pillName);
-//
-//                                setAmount(amount);
-
-                                //mHandler.sendEmptyMessage(amount);
-                                //    msg.setData(data);
+                                alarmlist.add((boolean) document.getData().get("alarmSetting"));
                                 Log.d("데이터 있음", document.getId() + " => " + document.getData());
-                                Log.d("값", pillNamelist.get(0) + " => " + pillNamelist.get(0));
+                                Log.d("값", pillNamelist.get(0) + " => " + pillNamelist.get(0)+" => " + alarmlist.get(0));
                                 mHandler.sendEmptyMessage(1002);
                             }
                         } else {
@@ -109,8 +102,23 @@ public class pillCrud implements CrudInterface {
     }
 
     @Override
-    public void update() {
+    public void update() {}
 
+    public void update(String pillName,boolean value) {
+        db.collection("takingPill").document(pillName)
+                .update("alarmSetting", value)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully updated!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error updating document", e);
+                    }
+                });
     }
     public void delete(String pillName) {
         db.collection("user").document(User).collection("takingPill").document(pillName)

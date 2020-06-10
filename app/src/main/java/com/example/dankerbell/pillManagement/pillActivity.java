@@ -38,7 +38,6 @@ public class pillActivity extends AppCompatActivity { // 복약관리 클래스
     TextView home; // 당커벨 (어플이름 )
     TextView blood_txt, meal_txt, med_name,amount;
     Button register_btn;
-    TextView del_btn;
     RecyclerView pillRecycler;
 
     ArrayList<RecyclerpillItem> mypillList=new ArrayList<RecyclerpillItem>();
@@ -91,38 +90,14 @@ public class pillActivity extends AppCompatActivity { // 복약관리 클래스
                 if (msg.what == 1002) {
                     Log.d(this.getClass().getName(), "메세지 받음");
 
-//                    final String pillName = mPill.getpillName();
-//                    final String amount2 = String.valueOf(mPill.getAmount());
                     mypillList.clear();
                     if (mypillList.isEmpty()) {
                         Log.d(this.getClass().getName(), "mList비어져잇음");
                         for (int i = 0; i < mPill.pillNamelist.size(); i++) { //파이어베이스에서 받아온 코드
-                            addItem(mPill.pillNamelist.get(i), mPill.amountlist.get(i));
+                            addItem(mPill.pillNamelist.get(i), mPill.amountlist.get(i), mPill.alarmlist.get(i));
                             Log.d(this.getClass().getName(), String.valueOf(mPill.pillNamelist.size()));
                         }
                     }
-
-
-
-
-//                    del_btn=findViewById(R.id.del_btn);
-//                    del_btn.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            mPill.delete(pillName);
-//                            if(mPill.getSuccess()=="1"){
-//                                med_name.setText("");
-//                                amount.setText("");
-//                            }
-//                        }
-//                    });
-//                    med_name = findViewById(R.id.med_name); // 의약품명
-//                    amount = findViewById(R.id.amount);
-//
-//                    med_name.setText(pillName);
-//                    amount.setText(amount2);
-
-
                     recyclerpillAdapter = new RecyclerpillAdapter(pillActivity.this, mypillList);
                     pillRecycler.setAdapter(recyclerpillAdapter);
                 }
@@ -138,14 +113,13 @@ public class pillActivity extends AppCompatActivity { // 복약관리 클래스
         for(int i=0;i<mypillList.size();i++){
             mypillList.clear();
         }}
-    private void addItem(String medname, int amount) {
-        RecyclerpillItem item=new RecyclerpillItem(medname,amount,true,false);
+    private void addItem(String medname, int amount, boolean notify) {
+        RecyclerpillItem item=new RecyclerpillItem(medname,amount,notify,false);
         item.setMedname(medname);
         item.setPill_amount(amount);
+        item.setNotify(notify);
         mypillList.add(item);
     }
         //데이터 삭제
-
-
 }
 

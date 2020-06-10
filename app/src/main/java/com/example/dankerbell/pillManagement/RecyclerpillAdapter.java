@@ -8,18 +8,18 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dankerbell.R;
-import com.example.dankerbell.mealManagement.RecyclerItem;
-import com.example.dankerbell.mealManagement.RecyclermyfoodItem;
 
 import java.util.ArrayList;
+
+import static com.example.dankerbell.Firebase.CrudInterface.db;
 
 public class RecyclerpillAdapter extends RecyclerView.Adapter<RecyclerpillAdapter.ViewHolder> {
     private static RecyclerpillAdapter instance; //싱글톤
     pillCrud mPill = pillCrud.getInstance();
-
 
     private ArrayList<RecyclerpillItem> mData = null ;
 
@@ -29,9 +29,6 @@ public class RecyclerpillAdapter extends RecyclerView.Adapter<RecyclerpillAdapte
         this.context=context;
         mData = list ;
     }
-
-
-
 
     // onCreateViewHolder() - 아이템 뷰를 위한 뷰홀더 객체 생성하여 리턴.
     @Override
@@ -66,10 +63,12 @@ public class RecyclerpillAdapter extends RecyclerView.Adapter<RecyclerpillAdapte
             }
         }
         holder.alarm.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
-                mData.get(position).setNotify(false);
-                //notifyItemChanged(position,mData.get(position).notify);
+                String pillname = mData.get(position).getMedname();
+                boolean value = mData.get(position).isNotify();
+                mPill.update(pillname, value);
                 Log.d("알람 끄기 클릭 ",mData.get(position).getMedname());
                 holder.alarm_off.setVisibility(View.VISIBLE);
                 holder.alarm.setVisibility(View.GONE);
@@ -79,8 +78,9 @@ public class RecyclerpillAdapter extends RecyclerView.Adapter<RecyclerpillAdapte
         holder.alarm_off.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mData.get(position).setNotify(true);
-                //notifyItemChanged(position,mData.get(position).notify);
+                String pillname = mData.get(position).getMedname();
+                boolean value = mData.get(position).isNotify();
+                mPill.update(pillname, value);
                 Log.d("알람 켜기 클릭 ",mData.get(position).getMedname());
                 holder.alarm_off.setVisibility(View.GONE);
                 holder.alarm.setVisibility(View.VISIBLE);
@@ -107,9 +107,6 @@ public class RecyclerpillAdapter extends RecyclerView.Adapter<RecyclerpillAdapte
         });
 
     }
-
-
-
     // getItemCount() - 전체 데이터 갯수 리턴.
     @Override
     public int getItemCount() {
@@ -125,9 +122,6 @@ public class RecyclerpillAdapter extends RecyclerView.Adapter<RecyclerpillAdapte
         ViewHolder(View itemView) {
             super(itemView) ;
             Context context=itemView.getContext();
-
-
-
             // 뷰 객체에 대한 참조. (hold strong reference)
             medname= itemView.findViewById(R.id.re_medname) ; //의약품 이름//
             amount=itemView.findViewById(R.id.re_amount);

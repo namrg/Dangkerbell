@@ -19,6 +19,7 @@ public class pillMapper implements MappingInterface {
     private String takingPillTime; // 복용시간
     private String pilltime; //식전, 식후
     private int times; // 몇분후
+    private boolean notify; // 알람
 
     public pillMapper(String userId, String pill_name, int amount, String unit_amount,
                       int count, String takingPillTime, String pilltime, int times ){
@@ -30,6 +31,7 @@ public class pillMapper implements MappingInterface {
         this.takingPillTime = takingPillTime;
         this.pilltime = pilltime;
         this.times = times;
+        this.notify = true;
     }
 
     @Override
@@ -43,6 +45,7 @@ public class pillMapper implements MappingInterface {
         result.put("takingPillTime",takingPillTime);
         result.put("pilltime",pilltime);
         result.put("times", times);
+        result.put("notify", notify);
         return result;
     }
 

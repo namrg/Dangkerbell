@@ -1,10 +1,13 @@
 package com.example.dankerbell.pillManagement;
 
+import android.text.BoringLayout;
+
 public class RecyclerpillItem {
     String medname;//약 이름
     int pill_amount;//복용량
-    static boolean notify; //알람
+    boolean notify; //알람
     boolean del; //삭제
+
     public RecyclerpillItem(String medname, int pill_amount, boolean notify, boolean del){
         this.medname=medname;
         this.pill_amount=pill_amount;
@@ -32,7 +35,7 @@ public class RecyclerpillItem {
         return notify;
     }
 
-    public void setNotify(boolean notify) {
+    public void setNotify(Boolean notify) {
         this.notify = notify;
     }
 
