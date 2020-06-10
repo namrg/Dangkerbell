@@ -35,11 +35,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 >
-
-
                 <TextView
                     android:id="@+id/toolbar_menu"
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
@@ -288,9 +285,8 @@
 
 
         </RelativeLayout>
-        <include layout="@layout/activity_drawer"/>
-
-
 
     </LinearLayout>
+    <include layout="@layout/activity_drawer"/>
+
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:id="@+id/drawer_layout"
     android:layout_height="match_parent">
-    <LinearLayout
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -1027,69 +1028,97 @@
                         android:textStyle="bold"
                         android:visibility="visible" />
 
-                    <GridLayout
+                    <TableLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
                         android:layout_marginTop="20dp"
-                        android:columnCount="4"
-                        android:rowCount="1">
+                       >
+                        <TableRow>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bmdohyeon_ttf"
+                                android:text="당화혈색소"
+                                android:textColor="#ffffff"
+                                android:textSize="15dp" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:fontFamily="@font/bmdohyeon_ttf"
-                            android:text="당화혈 색소"
+                            <TextView
+                                android:id="@+id/textdangwha"
+                                android:layout_width="60dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:fontFamily="@font/bmdohyeon_ttf"
+                                android:text="정보없음"
+                                android:textColor="#ffffff"
+                                android:textSize="15dp" />
 
-                            android:textColor="#ffffff"
-                            android:textSize="15dp" />
+                            <EditText
+                                android:id="@+id/inputdangwha"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:hint="당화혈색소"
+                                android:layout_marginLeft="5dp"
+                                android:fontFamily="@font/bmdohyeon_ttf"
+                                android:textColor="#ffffff"
+                                android:textSize="15dp"
+                                android:visibility="gone" />
 
-                        <EditText
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="10dp"
-                            android:fontFamily="@font/bmdohyeon_ttf"
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:fontFamily="@font/bmdohyeon_ttf"
+                                android:text="콜레스테롤"
+                                android:textColor="#ffffff"
+                                android:textSize="15dp" />
 
-                            android:hint="정보 없음 "
+                            <TextView
+                                android:id="@+id/textcol"
+                                android:layout_width="60dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:fontFamily="@font/bmdohyeon_ttf"
+                                android:text="정보없음"
+                                android:textColor="#ffffff"
+                                android:textSize="15dp" />
 
-                            android:textColor="#ffffff"
-                            android:textSize="15dp" />
+                            <EditText
+                                android:id="@+id/inputcol"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="5dp"
+                                android:fontFamily="@font/bmdohyeon_ttf"
+                                android:textColor="#ffffff"
+                                android:hint="콜레스테롤"
+                                android:textSize="15dp"
+                                android:visibility="gone" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            <TextView
+                                android:id="@+id/finishcol"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/checkwhite"
+                                android:visibility="gone"
+                                ></TextView>
+                            <TextView
+                                android:id="@+id/editcol"
+                                android:layout_marginLeft="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/pencilwhite"></TextView>
 
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="10dp"
-                            android:fontFamily="@font/bmdohyeon_ttf"
+                        </TableRow>
 
-                            android:text="콜레스테롤"
-                            android:textColor="#ffffff"
-                            android:textSize="15dp" />
-
-                        <EditText
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_row="0"
-                            android:layout_column="3"
-                            android:layout_gravity="center"
-
-                            android:layout_marginLeft="10dp"
-
-                            android:fontFamily="@font/bmdohyeon_ttf"
-                            android:hint="정보없음"
-                            android:textColor="#ffffff"
-                            android:textSize="15dp" />
-
-
-                    </GridLayout>
+                    </TableLayout>
 
                     <View
                         android:id="@+id/view2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
+
+
                 </LinearLayout>
 
 
@@ -1100,7 +1129,7 @@
 
 
 
-    </LinearLayout>
+    </FrameLayout>
     <include layout="@layout/activity_drawer"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>

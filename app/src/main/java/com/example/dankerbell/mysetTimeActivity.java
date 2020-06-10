@@ -27,7 +27,7 @@ public class mysetTimeActivity extends AppCompatActivity {
     String mwakeuptime,msleeptime,mmorningtime,mlunchtime,mdinnertime;
     timeCrud mtimecrud = timeCrud.getInstance(); //firebase 참조 singletone
     TextView first;
-////
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -25,9 +25,16 @@ public class RecyclerDBAdapter2 extends RecyclerView.Adapter<RecyclerDBAdapter2.
     RecyclerDBAdapter2(Context context, ArrayList<RecyclermyfoodItem> list) {
         this.context=context;
         mData = list ;
+
     }
 
 
+    public void removeItems() {
+        mData.clear();
+        notifyDataSetChanged();
+        Log.d("remove 후 점심 사이즈 ", String.valueOf(mData.size()));
+
+    }
 
 
     // onCreateViewHolder() - 아이템 뷰를 위한 뷰홀더 객체 생성하여 리턴.
@@ -47,6 +54,8 @@ public class RecyclerDBAdapter2 extends RecyclerView.Adapter<RecyclerDBAdapter2.
         RecyclermyfoodItem item = mData.get(position);
         holder.foodlist.setText(item.getMyfood());
         holder.kcallist.setText(item.getMykcal());
+        Log.d("RecylerDBAdapter2 속 배열 ",String.valueOf(item.getMyfood()));
+        Log.d("RecylerDBAdapter2 속 배열2",String.valueOf(getItemCount()));
 
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,6 +1,5 @@
 package com.example.dankerbell.mealManagement;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,22 +7,29 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dankerbell.Firebase.FoodlistCrud;
+import com.example.dankerbell.LoginInActivity;
 import com.example.dankerbell.ProfileActivity;
 import com.example.dankerbell.R;
 import com.example.dankerbell.bloodManagement.bloodActivity;
+import com.example.dankerbell.homeActivity;
 import com.example.dankerbell.pillManagement.pillActivity;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 //import com.example.dankerbell.pillManagement.pillActivity;
 
 import java.text.SimpleDateFormat;
@@ -38,6 +44,9 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
     static ArrayList<RecyclermyfoodItem> mylunchList = new ArrayList<RecyclermyfoodItem>();
     static ArrayList<RecyclermyfoodItem> mydinnerList = new ArrayList<RecyclermyfoodItem>();
     static String op="0";
+    int morningkcal=0;
+    int lunchkcal=0;
+    int dinnerkcal=0;
     static final ArrayList<String> getfood=new ArrayList<>();
     static final ArrayList<String> getkcal=new ArrayList<>();
     TextView morningfood1;
@@ -50,10 +59,16 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
     RecyclerView Recyclerdinner;
     TextView toolbar;
     TextView close;
+    TextView userid,totalkcal;
+    Button drawer_pill,drawer_blood,drawer_meal;
+
     DrawerLayout drawerLayout;
     View drawerView;
     Button logout;
     Button mypage;
+    private GoogleSignInClient mGoogleSignInClient;
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    final String User = user.getEmail();
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,18 +77,31 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
         mRecyclerView2 = findViewById(R.id.recycler2); // 아침 recycler
         Recyclerlunch=findViewById(R.id.recycler_lunch);
         Recyclerdinner=findViewById(R.id.recycler_dinner);
+        totalkcal=findViewById(R.id.totalkcal);
         mRecyclerView2.setLayoutManager(new LinearLayoutManager(this));
         Recyclerlunch.setLayoutManager(new LinearLayoutManager(this));
         Recyclerdinner.setLayoutManager(new LinearLayoutManager(this));
         com.example.dankerbell.mealManagement.RecyclerFoodKcalAdapter mAdapter1 = null ;
         com.example.dankerbell.mealManagement.RecyclerFoodKcalAdapter2 mAdapter2 = null ;
         com.example.dankerbell.mealManagement.RecyclerFoodKcalAdapter3 mAdapter3 = null ;
+        com.example.dankerbell.mealManagement.RecyclerDBAdapter mymorningAdapter=null;
+        com.example.dankerbell.mealManagement.RecyclerDBAdapter2 mylunchAdapter=null;
+        com.example.dankerbell.mealManagement.RecyclerDBAdapter2 mydinnerAdapter=null;
+
+
         toolbar=findViewById(R.id.toolbar_menu);
+
+        drawer_blood=findViewById(R.id.drawer_blood);
+        drawer_meal=findViewById(R.id.drawer_meal);
+        drawer_pill=findViewById(R.id.drawer_pill);
+
         drawerLayout=findViewById(R.id.drawer_layout) ;
         mypage = findViewById(R.id.mypage);
         logout = findViewById(R.id.logout);
         drawerView=findViewById(R.id.drawer);
         close=findViewById(R.id.toolbar_close);
+        userid=findViewById(R.id.userid);
+        userid.setText(User);
         toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,13 +125,33 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
                 startActivity(intent);//액티비티 띄우기
             }
         });
-
+        drawer_pill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent pill = new Intent(getApplicationContext(), pillActivity.class);
+                startActivity(pill);//혈당관리 클래스 전환
+            }
+        });
+        drawer_blood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent blood = new Intent(getApplicationContext(), bloodActivity.class);
+                startActivity(blood);//혈당관리 클래스 전환
+            }
+        });
+        drawer_meal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent meal = new Intent(getApplicationContext(), mealActivity.class);
+                startActivity(meal);//식단관리 클래스 전환
+            }
+        });
         logout.setOnClickListener(new View.OnClickListener() { // 로그아웃 버튼 클릭
 
             @Override
             public void onClick(View view) {
                 Log.d(this.getClass().getName(),"로그아웃 클릭");
-                //signOut();
+                signOut();
             }
         });
 
@@ -137,8 +185,6 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
                             mylist();
                         }
                     }};
-
-
             }
         });
         next.setOnClickListener(new View.OnClickListener() {
@@ -153,6 +199,7 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
                 foodlistCrud.readmymorningmeal(tomorrow);
                 foodlistCrud.readmylunchmeal(tomorrow);
                 foodlistCrud.readmydinnermeal(tomorrow);
+
                 FoodlistCrud.mealHandler = new Handler(){
                     @Override public void handleMessage(Message msg){
                         if (msg.what==1001){
@@ -180,21 +227,25 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
 
         FoodlistCrud.mealHandler = new Handler(){
             @Override public void handleMessage(Message msg){
+
                 if (msg.what==1001){ // 파이어베이스 데이터를 받아오는 메소드에서 메세지 받음
-                    if(foodlistCrud.mymorningfood.isEmpty()!=true){ // 파이어베이스에 저장된 아침식단 목록이 있다면 실행
+                    if(foodlistCrud.mymorningfood.isEmpty()!=true | foodlistCrud.mymorningfood.isEmpty()){ // 파이어베이스에 저장된 아침식단 목록이 있다면 실행
                         op="아침db";
                         if(mymorningList.isEmpty()){
                         for(int i=0;i<foodlistCrud.mymorningfood.size();i++){
                             addFoodKcalItem(foodlistCrud.mymorningfood.get(i),foodlistCrud.mymorningkcal.get(i),false);
+                            morningkcal=morningkcal+Integer.parseInt(foodlistCrud.mymorningkcal.get(i));
                         }
                         com.example.dankerbell.mealManagement.RecyclerDBAdapter mymorningAdapter = new com.example.dankerbell.mealManagement.RecyclerDBAdapter(mealActivity.this,mymorningList);
                         mRecyclerView2.setAdapter(mymorningAdapter); // 어댑터
                     }}
+
                     if(!foodlistCrud.mylunchfood.isEmpty()){
                         op="점심db";
                         if(mylunchList.isEmpty()){
                         for(int i=0;i<foodlistCrud.mylunchfood.size();i++){
                             addFoodKcalItem(foodlistCrud.mylunchfood.get(i),foodlistCrud.mylunchkcal.get(i),false);
+                            lunchkcal+=Integer.parseInt(foodlistCrud.mylunchkcal.get(i));
                         }
                         com.example.dankerbell.mealManagement.RecyclerDBAdapter2 mylunchAdapter = new com.example.dankerbell.mealManagement.RecyclerDBAdapter2(mealActivity.this,mylunchList);
                         Recyclerlunch.setAdapter(mylunchAdapter);
@@ -203,10 +254,12 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
                         op="저녁db";
                         if(mydinnerList.isEmpty()){
                         for(int i=0;i<foodlistCrud.mydinnerfood.size();i++){
-                            addFoodKcalItem(foodlistCrud.mydinnerfood.get(i),foodlistCrud.mydinnerkcal.get(i),false);}
+                            addFoodKcalItem(foodlistCrud.mydinnerfood.get(i),foodlistCrud.mydinnerkcal.get(i),false);
+                            dinnerkcal+=Integer.parseInt(foodlistCrud.mydinnerkcal.get(i));}
                         com.example.dankerbell.mealManagement.RecyclerDBAdapter3 mydinnerAdapter = new com.example.dankerbell.mealManagement.RecyclerDBAdapter3(mealActivity.this,mydinnerList);
                         Recyclerdinner.setAdapter(mydinnerAdapter);
                     }}
+                   // totalkcal.setText(add);
                     if(getfood.isEmpty()){
                         for(int i=0;i<FoodlistCrud.getKcal().size();i++){
                             Log.d("음식", String.valueOf(i)+FoodlistCrud.getFood());
@@ -247,6 +300,7 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
 
                         }
                     });
+
                 }
                 else if(msg.what==1002){
 
@@ -389,8 +443,21 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
                 lunchmeal.setVisibility(View.GONE); // 점식식단 작성 layot 사라짐
             }
         });
+        home=findViewById(R.id.home_txt);
 
+        home.setOnClickListener(new View.OnClickListener() { // 당커벨 클릭 시 홈화면으로 전환
 
+            @Override
+
+            public void onClick(View view) {
+
+                Intent homeintent = new Intent(getApplicationContext(), homeActivity.class);
+
+                startActivity(homeintent);// 홈화면 전환하도록 homeActivity로 전환
+
+            }
+
+        });
 
         dinnerfinish.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -425,14 +492,8 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
             }
         });
 
-        home=findViewById(R.id.home_txt);
 
-        home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-            }
-        });
         blood_txt=findViewById(R.id.blood_txt); // 상단에 있는 혈당관리 TextView
         pill_txt=findViewById(R.id.pill_txt); // 상단에 있는 복약관리 TextView
         blood_txt.setOnClickListener(new View.OnClickListener() { // 상단에 있는 혈당관리 클릭 시 실행
@@ -456,6 +517,7 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
         item.setMykcal(kcal);
         item.setisDeleted(false);
 
+
         if(op.equals("아침")){
             Log.d(this.getClass().getName(),"아침이당");
             mymorningList.add(item);}
@@ -467,7 +529,6 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
             mydinnerList.add(item);
         }
         else if(op.equals("아침db")){
-            Log.d(this.getClass().getName(),"아침디비당 너만되면어떡하니?ㅡㅡ");
                 if(mymorningList.size()<FoodlistCrud.mymorningfood.size()){
                     Log.d("mymorningList 사이즈", String.valueOf(mymorningList.size()));
                     Log.d("디비 배열 사이즈", String.valueOf(FoodlistCrud.mymorningfood.size()));
@@ -493,26 +554,49 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
         }
     void mylist(){
         Log.d(this.getClass().getName(),"mylist 실행");
+        mymorningList.clear();
+        mylunchList.clear();
+        mydinnerList.clear();
 
+//        com.example.dankerbell.mealManagement.RecyclerDBAdapter mymorningAdapter=null;
+//        mymorningAdapter.removeItems();
+//        com.example.dankerbell.mealManagement.RecyclerDBAdapter2 mylunchAdapter=null;
+//        mylunchAdapter.removeItems();
         if(foodlistCrud.mymorningfood.isEmpty()!=true){ // 파이어베이스에 저장된 아침식단 목록이 있다면 실행
             op="아침db";
             if(mymorningList.isEmpty()){
                 for(int i=0;i<foodlistCrud.mymorningfood.size();i++){
                     addFoodKcalItem(foodlistCrud.mymorningfood.get(i),foodlistCrud.mymorningkcal.get(i),false);
                 }
+                Log.d("mymorningList 배열 사이즈", String.valueOf(FoodlistCrud.mymorningfood.size()));
+
                 com.example.dankerbell.mealManagement.RecyclerDBAdapter mymorningAdapter = new com.example.dankerbell.mealManagement.RecyclerDBAdapter(mealActivity.this,mymorningList);
                 mRecyclerView2.setAdapter(mymorningAdapter); // 어댑터
             }}
+        else{
+            com.example.dankerbell.mealManagement.RecyclerDBAdapter mymorningAdapter = new com.example.dankerbell.mealManagement.RecyclerDBAdapter(mealActivity.this,mymorningList);
+            mymorningAdapter.removeItems();
+            mRecyclerView2.setAdapter(mymorningAdapter); // 어댑터
+        }
         if(!foodlistCrud.mylunchfood.isEmpty()){
             op="점심db";
             if(mylunchList.isEmpty()){
                 for(int i=0;i<foodlistCrud.mylunchfood.size();i++){
                     addFoodKcalItem(foodlistCrud.mylunchfood.get(i),foodlistCrud.mylunchkcal.get(i),false);
                 }
+                Log.d("mylunchList1 배열 사이즈", String.valueOf(FoodlistCrud.mylunchfood.size()));
+
                 com.example.dankerbell.mealManagement.RecyclerDBAdapter2 mylunchAdapter = new com.example.dankerbell.mealManagement.RecyclerDBAdapter2(mealActivity.this,mylunchList);
                 Recyclerlunch.setAdapter(mylunchAdapter);
+                Log.d("mylunchList2 배열 사이즈", String.valueOf(FoodlistCrud.mylunchfood.size()));
+
             }}
-        if(foodlistCrud.mydinnerfood.isEmpty()!=true){  // attaching이 왜 안되죵 ?
+        else{
+            com.example.dankerbell.mealManagement.RecyclerDBAdapter2 mylunchAdapter = new com.example.dankerbell.mealManagement.RecyclerDBAdapter2(mealActivity.this,mylunchList);
+            mylunchAdapter.removeItems();
+            Recyclerlunch.setAdapter(mylunchAdapter);
+        }
+        if(foodlistCrud.mydinnerfood.isEmpty()!=true){
             op="저녁db";
             if(mydinnerList.isEmpty()){
                 for(int i=0;i<foodlistCrud.mydinnerfood.size();i++){
@@ -520,6 +604,33 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
                 com.example.dankerbell.mealManagement.RecyclerDBAdapter3 mydinnerAdapter = new com.example.dankerbell.mealManagement.RecyclerDBAdapter3(mealActivity.this,mydinnerList);
                 Recyclerdinner.setAdapter(mydinnerAdapter);
             }}
+        else{
+            com.example.dankerbell.mealManagement.RecyclerDBAdapter3 mydinnerAdapter = new com.example.dankerbell.mealManagement.RecyclerDBAdapter3(mealActivity.this,mydinnerList);
+            mydinnerAdapter.removeItems();
+            Recyclerdinner.setAdapter(mydinnerAdapter);
+        }
+        Log.d("mylunchList2 배열 사이즈", String.valueOf(FoodlistCrud.mylunchfood.size()));
+
+    }
+    public void signOut() {
+        // Firebase sign out
+        FirebaseAuth.getInstance().signOut();
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        // Google sign out
+        mGoogleSignInClient.signOut().addOnCompleteListener(this,
+                new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Intent loginintent = new Intent(getApplicationContext(), LoginInActivity.class);
+                        startActivity(loginintent);//액티비티 띄우기 새로 추가 - 로그인 전환
+                        finishAffinity();
+                    }
+                });
     }
 
     }
