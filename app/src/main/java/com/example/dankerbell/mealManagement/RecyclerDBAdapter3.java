@@ -29,10 +29,7 @@ public class RecyclerDBAdapter3 extends RecyclerView.Adapter<RecyclerDBAdapter3.
 
 
 
-    public void removeItems() {
-        mData.clear();
-        notifyDataSetChanged();
-    }
+
     // onCreateViewHolder() - 아이템 뷰를 위한 뷰홀더 객체 생성하여 리턴.
     @Override
     public RecyclerDBAdapter3.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

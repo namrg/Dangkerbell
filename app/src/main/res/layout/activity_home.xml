@@ -82,36 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:id="@+id/fragment_container"
                 android:visibility="visible">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/nanumsquare_acr"
-                        android:text="오늘의 걸음수 !"
-                        android:textSize="15dp"
-                        android:textStyle="bold"></TextView>
-
-                    <TextView
-                        android:id="@+id/todaystep"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
-                        android:drawableLeft="@drawable/walk"
-                        android:fontFamily="@font/nanumsquare_acr"
-                        android:gravity="center"
-
-                        android:text="0"></TextView>
-
-                </LinearLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -136,19 +107,18 @@
 
                         <Button
                             android:id="@+id/meal_btn"
-                            android:drawableTop="@drawable/meal"
+
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/round_cornerblue"
                             android:fontFamily="@font/nanumsquare_acr"
                             android:text="식단 관리"
                             android:textColor="#ffffff"
-                            android:textSize="17dp"
-                            />
+                            android:textSize="17dp" />
 
                         <Button
                             android:id="@+id/blood_btn"
-                            android:drawableTop="@drawable/management"
+
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="30dp"
@@ -164,9 +134,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="30dp"
                             android:background="@drawable/round_cornerblue"
-                            android:drawableTop="@drawable/pharmacy"
                             android:fontFamily="@font/nanumsquare_acr"
                             android:text="복약 관리"
+
                             android:textColor="#ffffff"
                             android:textSize="17dp" />
 
@@ -185,68 +155,21 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/nanumsquare_acr"
                             android:text="혈당기기가 있으신가요?"
-                            android:textSize="15dp"
+                            android:textSize="16dp"
                             android:textStyle="bold"></TextView>
 
                         <TextView
                             android:id="@+id/bluetooth"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
                             android:layout_marginLeft="10dp"
                             android:drawableLeft="@drawable/ic_bluetooth_black_24dp"
                             android:fontFamily="@font/nanumsquare_acr"
-                            android:gravity="center"
                             android:text="혈당기기 연결하기"></TextView>
-                    </LinearLayout>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="350dp"
-                    android:layout_height="70dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="30dp"
-                    android:background="@drawable/round_cornerblue"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:id="@+id/meal"
-                        android:layout_width="230dp"
-                        android:layout_height="30dp"
-                        android:background="@drawable/round_corneryellow"
-                        android:fontFamily="@font/nanumsquare_acr"
-                        android:gravity="center"
-                        android:layout_gravity="center"
-                        android:orientation="horizontal"
-
-                        android:visibility="visible" >
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/today"
-                            android:text="날짜"
-                            android:textSize="17dp"
-                            android:textStyle="bold"
-                            />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="의 건강 정보 !"
-                            android:textSize="17dp"
-                            android:textStyle="bold"
-                            />
-
-
 
                     </LinearLayout>
 
-
-
-
-
-
-
                 </LinearLayout>
-
 
 
             </LinearLayout>
@@ -255,39 +178,12 @@
 
 
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
 
-                <androidx.viewpager.widget.ViewPager
-                    android:id="@+id/vpPager"
-                    android:background="@color/colorAccent"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-
-                <me.relex.circleindicator.CircleIndicator
-                    android:id="@+id/indicator"
-                    android:layout_width="match_parent"
-                    app:ci_drawable="@drawable/black_radius"
-                    app:ci_height="7dp"
-                    app:ci_width="7dp"
-                    app:ci_margin="4dp"
-                    android:layout_height="48dp"
-                    />
-
-
-
-            </FrameLayout>
 
 
         </com.google.android.material.appbar.AppBarLayout>
 
-
-
-
-
     </RelativeLayout>
-
 
 
     <include layout="@layout/activity_drawer"/>

@@ -233,6 +233,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:layout_marginLeft="290dp"
+                        android:visibility="gone"
                         android:drawableRight="@drawable/checkyellow"
                         android:gravity="end"></TextView>
 
@@ -317,7 +318,7 @@
                         android:layout_marginLeft="290dp"
                         android:drawableRight="@drawable/check"
                         android:gravity="end"
-                        ></TextView>
+                        android:visibility="gone"></TextView>
 
                     <TextView
                         android:id="@+id/lunchmealless2"
@@ -400,6 +401,7 @@
                         android:layout_gravity="end"
                         android:layout_marginLeft="290dp"
                         android:drawableRight="@drawable/checkyellow"
+                        android:visibility="gone"
                         android:gravity="end"></TextView>
 
                     <TextView
@@ -407,6 +409,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
+                        android:visibility="gone"
                         android:layout_marginLeft="10dp"
                         android:drawableRight="@drawable/expandlessyellow"
                         android:gravity="end"></TextView>
@@ -430,7 +433,6 @@
                         android:textSize="15dp" />
 
                     <TextView
-                        android:id="@+id/totalkcal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"

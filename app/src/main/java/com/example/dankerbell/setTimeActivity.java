@@ -95,7 +95,7 @@ public class setTimeActivity extends AppCompatActivity {
         TimePickerDialog.OnTimeSetListener listener4 = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int i, int i1) { // 저녁 시간
-
+                ////
                 dinnertime.setText(i+"시"+i1+"분");
                 mdinnertime=i+":"+i1;
                 Log.d("2",mdinnertime);
@@ -183,5 +183,10 @@ public class setTimeActivity extends AppCompatActivity {
                 startActivity(intent);//액티비티 띄우기
             }
         });
+
+
     }
+
+
+
 }

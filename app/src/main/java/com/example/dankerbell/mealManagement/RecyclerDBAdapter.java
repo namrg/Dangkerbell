@@ -19,8 +19,8 @@ public class RecyclerDBAdapter extends RecyclerView.Adapter<RecyclerDBAdapter.Vi
 
 
     private ArrayList<RecyclermyfoodItem> mData = null ;
-    Context context;
 
+    Context context;
     // 생성자에서 데이터 리스트 객체를 전달받음.
     RecyclerDBAdapter(Context context, ArrayList<RecyclermyfoodItem> list) {
         this.context=context;
@@ -65,12 +65,7 @@ public class RecyclerDBAdapter extends RecyclerView.Adapter<RecyclerDBAdapter.Vi
         });
 
     }
-    public void removeItems() {
-        mData.clear();
-        notifyDataSetChanged();
-        Log.d("remove 후 사이즈 ", String.valueOf(mData.size()));
 
-    }
 
 
     // getItemCount() - 전체 데이터 갯수 리턴.

@@ -17,7 +17,6 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.SetOptions;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -194,26 +193,11 @@ public class profileCrud implements CrudInterface {
     public void update() {
 
     }
-    public void updatehw(String height,String weight,double bmi) {
 
-        // Update one field, creating the document if it does not already exist.
-        Map<String, Object> data = new HashMap<>();
-        data.put("키", height);
-        data.put("몸무게", weight);
-        data.put("bmi", bmi);
-
-
-
-        db.collection("user").document(User).collection("내정보").document("my profile")
-                .set(data, SetOptions.merge());
-
-
-    }
     @Override
     public void delete() {
 
     }
-
 
 
 }

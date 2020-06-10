@@ -146,6 +146,20 @@
 
     @Override
     public void read() {
+        db.collection("user").document(User).collection("wakeupbloodSugar")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("혈당 데이터 읽기", document.getId() + " => " + document.getData());
+                            }
+                        } else {
+                            Log.w("혈당 데이터 읽기", "Error getting documents.", task.getException());
+                        }
+                    }
+                });
     }
 
 

@@ -6,22 +6,6 @@
     android:layout_height="match_parent">
 
     //google 로그인버튼
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_gravity="center"
-        android:fontFamily="@font/bmdohyeon_ttf"
-        android:text="당커벨"
-
-        android:textColor="@color/colorAccent"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        tools:layout_editor_absoluteX="172dp"
-        tools:layout_editor_absoluteY="300dp"
-        tools:ignore="MissingConstraints" />
-
     <com.google.android.gms.common.SignInButton
         android:id="@+id/googleLogin_btn"
         android:layout_width="341dp"

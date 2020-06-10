@@ -1,7 +1,6 @@
 package com.example.dankerbell;
 
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -373,21 +372,6 @@ public class ProfileActivity extends AppCompatActivity { // 회원정보등록 �
                     }
                 });
     }
-        private SamsungheightReporter.HeightObserver heightObserver = new SamsungheightReporter.HeightObserver() {
-
-        @Override
-        public void onChanged(String count) {
-
-        //    ProfileActivity.this.updateStepCountView(String.valueOf(count));
-        }
-    };
-    private SamsungweightReporter.WeightObserver weightObserver = new SamsungweightReporter.WeightObserver() {
-
-            @Override
-        public void onChanged(String count) {
-              //  ProfileActivity.this.updateStepCountView(String.valueOf(count));
-        }
-    };
 
 
 }
