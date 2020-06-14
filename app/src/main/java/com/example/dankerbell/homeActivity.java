@@ -1,33 +1,33 @@
 package com.example.dankerbell;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 
+import com.example.dankerbell.Bluetooth.BluetoothCommunicationActivity;
 import com.example.dankerbell.Bluetooth.ConnectBluetoothActivity;
+//import com.example.dankerbell.Firebase.StepCountCrud;
 import com.example.dankerbell.Firebase.StepCountCrud;
+import com.example.dankerbell.Firebase.profileCrud;
 import com.example.dankerbell.bloodManagement.BloodReporter;
 import com.example.dankerbell.bloodManagement.bloodActivity;
 import com.example.dankerbell.bloodManagement.glucoseReporter;
 import com.example.dankerbell.mealManagement.mealActivity;
 import com.example.dankerbell.pillManagement.pillActivity;
-
+import com.example.dankerbell.pillManagement.pillCrud;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -42,66 +42,26 @@ import com.samsung.android.sdk.healthdata.HealthPermissionManager;
 import com.samsung.android.sdk.healthdata.HealthPermissionManager.PermissionKey;
 import com.samsung.android.sdk.healthdata.HealthPermissionManager.PermissionType;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
 import butterknife.BindView;
-import me.relex.circleindicator.CircleIndicator;
 
-public class homeActivity extends AppCompatActivity { // 홈화면 클래스
+public class homeActivity extends AppCompatActivity { // 홈화면 클래스 userid 및 걸음수
+    bloodActivity bloodActivity=new bloodActivity();
+    profileCrud mprofile=profileCrud.getInstance();
 
-    FragmentPagerAdapter adapterViewPager;
-    public static class MyPagerAdapter extends FragmentPagerAdapter {
-        //private static int NUM_ITEMS = 2;
-        static int NUM_ITEMS;
-        public MyPagerAdapter(FragmentManager fragmentManager,int NUM_ITEMS) {
-                super(fragmentManager,BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-                this.NUM_ITEMS=NUM_ITEMS;
-        }
-
-        // Returns total number of pages
-        @Override
-        public int getCount() {
-            return NUM_ITEMS;
-        }
-
-        // Returns the fragment to display for that page
-        @Override
-        public Fragment getItem(int position) {
-            Log.d("실행o",String.valueOf(position));
-
-            switch (position) {
-
-                case 0:
-
-                    return FirstFragment.newInstance(0, "Page # 1");
-                case 1:
-                    return SecondFragment.newInstance(1, "Page # 2");
-                //      case 2:
-                //  return ThirdFragment.newInstance(2, "Page # 3");
-                default:
-                    return null;
-
-            }
-        }
-
-        // Returns the page title for the top indicator
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return "Page " + position;
-        }
-
-    }
-
+    String date=bloodActivity.getDate();
+    TextView today;
     TextView profile;
     Button blood_btn,meal_btn,pill_btn;
     TextView bluetooth;
     TextView toolbar;
-    TextView userid;
-    Button drawer_pill,drawer_blood,drawer_meal;
     TextView close;
-    TextView todaystep;
     DrawerLayout drawerLayout;
     View drawerView;
     Button logout,settime;
@@ -116,13 +76,12 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스
     BloodReporter mReporter;
     glucoseReporter gluecoseReporter;
     SamsungheightReporter hReporter;
-    SamsungweightReporter wReporter;
+   SamsungweightReporter wReporter;
     @Override
     public void onDestroy() {
         mStore.disconnectService();
         super.onDestroy();
     }
-
     private final HealthDataStore.ConnectionListener mConnectionListener = new HealthDataStore.ConnectionListener() {
 
         @Override
@@ -136,13 +95,11 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스
             hReporter=new SamsungheightReporter(mStore);
 
             if (isPermissionAcquired()) {
-                //   mReporter.start(mStepCountObserver);
-                sReporter.start(stepCountObserver);
+                sReporter.start(stepCountObserver); //걸음수
                 mReporter.start(bObserver);
-                gluecoseReporter.start(gObserver);
-                wReporter.start(wObserver);
-
-                hReporter.start(hObserver);
+                gluecoseReporter.start(gObserver); //혈당
+                wReporter.start(wObserver); //몸무게
+                hReporter.start(hObserver); //키
             } else {
                 requestPermission();
             }
@@ -249,18 +206,17 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스
                         if (resultMap.containsValue(Boolean.FALSE)) {
                             //Log.d("혈당5",mReporter.count);
 
-                            updateStepCountView("");
+                           updateStepCountView("");
                             showPermissionAlarmDialog();
                         } else {
 //                            Log.d("혈압6",mReporter.count);
 //                            Log.d("혈당",gluecoseReporter.count);
-                            //    mStepCountTv.setText(mReporter.count);
+  //                            mStepCountTv.setText(mReporter.count);
                             wReporter.start(wObserver);
-
                             sReporter.start(stepCountObserver);
                             mReporter.start(bObserver);
                             gluecoseReporter.start(gObserver);
-                            hReporter.start(hObserver);
+                           hReporter.start(hObserver);
                         }
                     });
         } catch (Exception e) {
@@ -320,7 +276,7 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스
 
         }
     };
-
+//
     private void updateStepCountView(final String count) {
         todaystep.setText(count);
 
@@ -341,91 +297,22 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스
     final String User = user.getEmail();
     StepCountCrud step=StepCountCrud.getInstance();
     int count=0;
+    TextView comment1,comment2,comment3;
+    TextView todaystep;
+    TextView userid;
+    Button drawer_pill,drawer_meal,drawer_blood;
+
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mprofile.read();
         setContentView(R.layout.activity_home);
-        ViewPager vpPager = (ViewPager) findViewById(R.id.vpPager);
-        vpPager.setAdapter(adapterViewPager);
-       todaystep=findViewById(R.id.todaystep);
-        adapterViewPager = new MyPagerAdapter(getSupportFragmentManager(),2);
-        CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
-        indicator.setViewPager(vpPager);
-      //  adapterViewPager.registerDataSetObserver(indicator.getDataSetObserver());
-
-        // Request the connection to the health data store
-        if(count==0)     {
-            mKeySet = new HashSet<PermissionKey>();
-            mKeySet.add(new PermissionKey(HealthConstants.StepCount.HEALTH_DATA_TYPE, PermissionType.READ));
-            mKeySet.add(new PermissionKey(HealthConstants.Weight.HEALTH_DATA_TYPE, PermissionType.READ));
-            mKeySet.add(new PermissionKey(HealthConstants.Height.HEALTH_DATA_TYPE, PermissionType.READ));
-            mKeySet.add(new PermissionKey(HealthConstants.BloodPressure.HEALTH_DATA_TYPE, PermissionType.READ));
-            mKeySet.add(new PermissionKey(HealthConstants.BloodGlucose.HEALTH_DATA_TYPE, PermissionType.READ));
-
-            mStore = new HealthDataStore(this, mConnectionListener);
-            mStore.connectService();}
-        count++;
-        Log.d("count",String.valueOf(count));
- 
-
-
-        step.read();
-
-//        todaystep.setText(sReporter.count);
-
-
-            step.stepHandler = new Handler() {
-
-                @Override
-                public void handleMessage(Message msg) {
-                    if (msg.what == 1007) {
-                        todaystep.setText(step.getstep());
-                    }
-                }
-
-            };
-
-        toolbar=findViewById(R.id.toolbar_menu);
-        drawerLayout=findViewById(R.id.drawer_layout);
-
+        userid=findViewById(R.id.userid); // !!!!!!!
         drawer_blood=findViewById(R.id.drawer_blood);
-        drawer_pill=findViewById(R.id.drawer_pill);
         drawer_meal=findViewById(R.id.drawer_meal);
-
-        mypage = findViewById(R.id.mypage);
-        logout = findViewById(R.id.logout);
-        drawerView=findViewById(R.id.drawer);
-        settime=findViewById(R.id.settime);
-        close=findViewById(R.id.toolbar_close);
-        userid=findViewById(R.id.userid);
-        userid.setText(User);
-        toolbar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Intent drawer = new Intent(getApplicationContext(), DrawerActivity.class);
-//                startActivity(drawer);//액티비티 띄우기
-                drawerLayout.openDrawer(drawerView);
-            }
-        });
-        settime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent setTimeintent = new Intent(getApplicationContext(), mysetTimeActivity.class);
-                startActivity(setTimeintent);//액티비티 띄우기
-            }
-        });
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawerLayout.closeDrawer(drawerView);
-            }
-        });
-        mypage.setOnClickListener(new View.OnClickListener() { // 내 정보 버튼 클릭 시 실행
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), myprofileActivity.class); // 이미 내가 저장한 프로필
-                startActivity(intent);//액티비티 띄우기
-            }
-        });
+        drawer_pill=findViewById(R.id.drawer_pill);
+        today=findViewById(R.id.today);
+        comment1=findViewById(R.id.comment1);
+        comment2=findViewById(R.id.comment2);
         drawer_pill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -447,12 +334,124 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스
                 startActivity(meal);//식단관리 클래스 전환
             }
         });
+
+        //  comment3=findViewById(R.id.comment3);
+        final SimpleDateFormat sdf = new SimpleDateFormat("MM.dd", Locale.getDefault());
+
+        final Calendar calendar = Calendar.getInstance(); // 오늘날짜
+
+        date = sdf.format(calendar.getTime());
+        today.setText(date);
+        //bmi<18.5 저체중     bmi>35 과체중
+        mprofile.pHandler = new Handler(){
+            @Override public void handleMessage(Message msg){
+
+                if (msg.what==1007){
+                    Double bmi=Double.parseDouble(mprofile.getMybmi());
+                    if(mprofile.getMybmi().equals("")){ //bmi없으면
+                        comment1.setText("매일 일정한 시간에 규칙적으로 식사해야 해요. 설탕,꿀 등 단순당 섭취를 주의해주세요.지방을 적당량 섭취하고, 콜레스테롤 섭취를 제한해주세요. ");
+                        comment2.setText("내 정보를 입력하시면 더 정확한 건강정보를 볼 수 있습니다!");
+                        comment2.setTextSize(17);
+                    }
+                    else {
+                        if (bmi > 35) {
+                            comment1.setText("인슐린 저항성은 체지방이 증가할수록 높아집니다. 운동 습관을 점검하고, 운동을 통해 체지방률을 낮추어야 합니다. 탄수화물 과다섭취는 금물이에요 !");
+                            comment2.setText("");
+
+                        } else if (mprofile.getMydiabeteskind().equals("1형")) {
+                            comment1.setText("당이용 장애로 인해 오히려 혈당이 상승하여 케톤혈증을 일으킬 가능성이 있으므로 적극적인 운동은 오히려 삼가하도록 하는 것이 좋습니다. 운동 시 케톤혈증이 자주 일어난다면 인슐린 투여량을 줄이는 것 보다는 간식으로 조정하는 것이 좋습니다. ");
+                        } else if (mprofile.getMyhealdiabetes().equals("경구혈당강하제 단독")) {
+                            comment1.setText("경구 혈당강하제로 치료하고 있으시므로 약물의 최대작용시간을 피해서 운동하는 것이 저혈당 방지에 도움이 됩니다.");
+                            comment2.setVisibility(View.GONE);
+                        } else {
+                            comment1.setText("매일 일정한 시간에 규칙적으로 식사해야 해요.");
+                            comment2.setText("소금 섭취를 줄이고, 단순당 섭취에 주의해주세요.");
+                            comment3.setText("지방을 적당량 섭취하고, 콜레스테롤 섭취를 제한한다..");
+                        }
+                    }
+                }
+            }
+        };
+        Log.d("우저아이디",User);
+        userid.setText(User);
+
+       todaystep=findViewById(R.id.todaystep);
+
+        if(count==0)     {
+            mKeySet = new HashSet<PermissionKey>();
+            mKeySet.add(new PermissionKey(HealthConstants.StepCount.HEALTH_DATA_TYPE, PermissionType.READ));
+            mKeySet.add(new PermissionKey(HealthConstants.Weight.HEALTH_DATA_TYPE, PermissionType.READ));
+            mKeySet.add(new PermissionKey(HealthConstants.Height.HEALTH_DATA_TYPE, PermissionType.READ));
+            mKeySet.add(new PermissionKey(HealthConstants.BloodPressure.HEALTH_DATA_TYPE, PermissionType.READ));
+            mKeySet.add(new PermissionKey(HealthConstants.BloodGlucose.HEALTH_DATA_TYPE, PermissionType.READ));
+
+            mStore = new HealthDataStore(this, mConnectionListener);
+            mStore.connectService();}
+        count++;
+        Log.d("count",String.valueOf(count));
+ 
+
+
+       step.read();
+    //   todaystep.setText(sReporter.count); //오류
+
+
+            step.stepHandler = new Handler() {
+
+                @Override
+                public void handleMessage(Message msg) {
+                    if (msg.what == 1007) {
+                        todaystep.setText(step.getstep());
+                    }
+                }
+
+            };
+
+        toolbar=findViewById(R.id.toolbar_menu);
+        drawerLayout=findViewById(R.id.drawer_layout) ;
+        mypage = findViewById(R.id.mypage);
+        logout = findViewById(R.id.logout);
+        drawerView=findViewById(R.id.drawer);
+        settime=findViewById(R.id.settime);
+        close=findViewById(R.id.toolbar_close);
+        toolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent drawer = new Intent(getApplicationContext(), DrawerActivity.class);
+//                startActivity(drawer);//액티비티 띄우기
+                drawerLayout.openDrawer(drawerView);
+
+
+            }
+        });
+        settime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent setTimeintent = new Intent(getApplicationContext(), mysetTimeActivity.class);
+                startActivity(setTimeintent);//액티비티 띄우기
+            }
+        });
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawerLayout.closeDrawer(drawerView);
+            }
+        });
+        mypage.setOnClickListener(new View.OnClickListener() { // 내 정보 버튼 클릭 시 실행
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), myprofileActivity.class);
+                startActivity(intent);//액티비티 띄우기
+            }
+        });
+
         logout.setOnClickListener(new View.OnClickListener() { // 로그아웃 버튼 클릭
 
             @Override
             public void onClick(View view) {
                 Log.d(this.getClass().getName(),"로그아웃 클릭");
-                signOut();          }
+                signOut();
+            }
         });
         profile=findViewById(R.id.myprofile); // 내 정보 버튼
         profile.setOnClickListener(new View.OnClickListener() { // 내 정보 버튼 클릭 시 실행
@@ -462,8 +461,6 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스
                 startActivity(intent);//액티비티 띄우기
             }
         });
-
-
         blood_btn=findViewById(R.id.blood_btn);
         meal_btn=findViewById(R.id.meal_btn);
         pill_btn=findViewById(R.id.pill_btn);
@@ -492,13 +489,11 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스
         bluetooth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent bluetootintent=new Intent(getApplicationContext(),ConnectBluetoothActivity.class);
+                Intent bluetootintent=new Intent(getApplicationContext(),HDPActivity.class);
                 startActivity(bluetootintent);
             }
         });
     }
-
-
     public void signOut() {
         // Firebase sign out
         FirebaseAuth.getInstance().signOut();
@@ -518,7 +513,5 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스
                         finishAffinity();
                     }
                 });
-
     }
-
 }

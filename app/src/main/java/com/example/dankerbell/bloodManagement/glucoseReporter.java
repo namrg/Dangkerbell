@@ -72,7 +72,7 @@ public class glucoseReporter {
         try {
             resolver.read(request).setResultListener(mListener);
         } catch (Exception e) {
-            Log.e(bloodActivity.APP_TAG, "Getting step count fails.", e);
+          //  Log.e(bloodActivity.APP_TAG, "Getting step count fails.", e);
         }
     }
 
@@ -120,7 +120,7 @@ public class glucoseReporter {
         // Update the step count when a change event is received
         @Override
         public void onChange(String dataTypeName) {
-            Log.d(bloodActivity.APP_TAG, "Observer receives a data changed event");
+          //  Log.d(bloodActivity.APP_TAG, "Observer receives a data changed event");
             readTodayblood();
         }
     };

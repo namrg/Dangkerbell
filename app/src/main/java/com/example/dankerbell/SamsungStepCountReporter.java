@@ -60,7 +60,7 @@ public class SamsungStepCountReporter {
         long startTime = getStartTimeOfToday();
         long endTime = startTime + ONE_DAY_IN_MILLIS;
 
-        HealthDataResolver.ReadRequest request = new ReadRequest.Builder()
+        ReadRequest request = new ReadRequest.Builder()
                     .setDataType(HealthConstants.StepCount.HEALTH_DATA_TYPE)
                     .setProperties(new String[] {HealthConstants.StepCount.COUNT})
                     .setLocalTimeRange(HealthConstants.StepCount.START_TIME, HealthConstants.StepCount.TIME_OFFSET,
@@ -100,6 +100,8 @@ public class SamsungStepCountReporter {
             Log.d("오늘 걸음수 ",String.valueOf(count));
             step.createstep(count);
             SamsungStephandler.sendEmptyMessage(1005);
+            step.read();
+
         } finally {
             result.close();
         }

@@ -32,9 +32,6 @@ public class RecyclerFoodKcalAdapter extends RecyclerView.Adapter<RecyclerFoodKc
         mData = list ;
     }
 
-
-
-
     // onCreateViewHolder() - 아이템 뷰를 위한 뷰홀더 객체 생성하여 리턴.
     @Override
     public RecyclerFoodKcalAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -45,14 +42,12 @@ public class RecyclerFoodKcalAdapter extends RecyclerView.Adapter<RecyclerFoodKc
         return vh ;
     }
 
-
     // onBindViewHolder() - position에 해당하는 데이터를 뷰홀더의 아이템뷰에 표시.
     @Override
     public void onBindViewHolder(final RecyclerFoodKcalAdapter.ViewHolder holder, final int position) {
         RecyclermyfoodItem item = mData.get(position);
         holder.foodlist.setText(item.getMyfood());
         holder.kcallist.setText(item.getMykcal());
-
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,15 +66,12 @@ public class RecyclerFoodKcalAdapter extends RecyclerView.Adapter<RecyclerFoodKc
 
     }
 
-
-
     // getItemCount() - 전체 데이터 갯수 리턴.
     @Override
     public int getItemCount() {
         return mData.size() ;
     }
     public class ViewHolder extends RecyclerView.ViewHolder implements CompoundButton.OnCheckedChangeListener {
-
         TextView foodlist ;
         TextView kcallist;
         TextView delete;
@@ -87,8 +79,6 @@ public class RecyclerFoodKcalAdapter extends RecyclerView.Adapter<RecyclerFoodKc
         ViewHolder(View itemView) {
             super(itemView) ;
             Context context=itemView.getContext();
-
-
 
             // 뷰 객체에 대한 참조. (hold strong reference)
             foodlist = itemView.findViewById(R.id.foodlist) ;

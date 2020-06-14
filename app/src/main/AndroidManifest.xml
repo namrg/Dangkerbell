@@ -10,16 +10,14 @@
 
     <application
         android:allowBackup="false"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/dangkerbell_round"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/dangkerbell_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-
         <meta-data
             android:name="com.samsung.android.health.permission.read"
-            android:value="com.samsung.health.blood_pressure; com.samsung.health.blood_glucose; com.samsung.health.weight; com.samsung.health.height; com.samsung.health.step_count" />
+            android:value="com.samsung.health.blood_pressure; com.samsung.health.blood_glucose; com.samsung.health.weight; com.samsung.health.height" />
 
         <activity android:name=".LoginInActivity">
             <intent-filter>
@@ -46,6 +44,7 @@
         <activity android:name=".pillManagement.addpillActivity"></activity>
         <activity android:name=".pillManagement.pillActivity"></activity>
         <activity android:name=".Bluetooth.ConnectBluetoothActivity"></activity>
+        <activity android:name=".HDPActivity"></activity>
     </application>
 
 </manifest>

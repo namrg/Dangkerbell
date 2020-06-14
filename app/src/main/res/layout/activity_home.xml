@@ -36,13 +36,16 @@
                     android:text="메뉴"
                     android:textColor="#7A7A7A"
                     android:textSize="15dp" />
-
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/whitelogosmall2"></ImageView>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:layout_gravity="center"
-                    android:fontFamily="@font/bmdohyeon_ttf"
+                    android:fontFamily="@font/nanumsquare_acr"
                     android:text="당커벨"
 
                     android:textColor="@color/colorAccent"
@@ -82,12 +85,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:id="@+id/fragment_container"
                 android:visibility="visible">
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:orientation="horizontal">
 
@@ -112,13 +115,6 @@
                         android:text="0"></TextView>
 
                 </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="여기는 그래프 나타남" />
-
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -130,29 +126,28 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="15dp"
                         android:columnCount="3"
                         android:rowCount="1">
 
                         <Button
                             android:id="@+id/meal_btn"
-                            android:drawableTop="@drawable/meal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/round_cornerblue"
+                            android:drawableTop="@drawable/meal"
                             android:fontFamily="@font/nanumsquare_acr"
                             android:text="식단 관리"
                             android:textColor="#ffffff"
-                            android:textSize="17dp"
-                            />
+                            android:textSize="17dp" />
 
                         <Button
                             android:id="@+id/blood_btn"
-                            android:drawableTop="@drawable/management"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="30dp"
                             android:background="@drawable/round_cornerblue"
+                            android:drawableTop="@drawable/management"
                             android:fontFamily="@font/nanumsquare_acr"
                             android:text="혈당 관리"
                             android:textColor="#ffffff"
@@ -176,7 +171,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="15dp"
                         android:gravity="center"
                         android:orientation="horizontal">
 
@@ -185,109 +180,93 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/nanumsquare_acr"
                             android:text="혈당기기가 있으신가요?"
-                            android:textSize="15dp"
+                            android:textSize="16dp"
                             android:textStyle="bold"></TextView>
 
                         <TextView
                             android:id="@+id/bluetooth"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
                             android:layout_marginLeft="10dp"
+                            android:layout_marginTop="3dp"
                             android:drawableLeft="@drawable/ic_bluetooth_black_24dp"
                             android:fontFamily="@font/nanumsquare_acr"
-                            android:gravity="center"
                             android:text="혈당기기 연결하기"></TextView>
                     </LinearLayout>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="350dp"
-                    android:layout_height="70dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="15dp"
                     android:background="@drawable/round_cornerblue"
                     android:orientation="vertical">
 
                     <LinearLayout
-                        android:id="@+id/meal"
                         android:layout_width="230dp"
-                        android:layout_height="30dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="7dp"
                         android:background="@drawable/round_corneryellow"
                         android:fontFamily="@font/nanumsquare_acr"
                         android:gravity="center"
-                        android:layout_gravity="center"
                         android:orientation="horizontal"
 
-                        android:visibility="visible" >
+                        android:visibility="visible">
+
                         <TextView
+                            android:id="@+id/today"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/today"
                             android:text="날짜"
-                            android:textSize="17dp"
-                            android:textStyle="bold"
-                            />
+                            android:textSize="16dp" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="의 건강 정보 !"
-                            android:textSize="17dp"
-                            android:textStyle="bold"
-                            />
-
+                            android:textSize="16dp" />
 
 
                     </LinearLayout>
 
+                    <TextView
+                        android:id="@+id/comment1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp"
+                        android:fontFamily="@font/nanumsquare_acr"
+
+                        android:text="" />
+
+                    <TextView
+                        android:id="@+id/comment2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="5dp"
+
+                        android:layout_marginRight="20dp"
+                        android:fontFamily="@font/nanumsquare_acr"
+                        android:text=""
+
+                        />
 
 
-
-
-
+                </LinearLayout>
 
                 </LinearLayout>
 
 
 
-            </LinearLayout>
-
-
-
-
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <androidx.viewpager.widget.ViewPager
-                    android:id="@+id/vpPager"
-                    android:background="@color/colorAccent"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-
-                <me.relex.circleindicator.CircleIndicator
-                    android:id="@+id/indicator"
-                    android:layout_width="match_parent"
-                    app:ci_drawable="@drawable/black_radius"
-                    app:ci_height="7dp"
-                    app:ci_width="7dp"
-                    app:ci_margin="4dp"
-                    android:layout_height="48dp"
-                    />
-
-
-
-            </FrameLayout>
 
 
         </com.google.android.material.appbar.AppBarLayout>
 
-
-
-
-
     </RelativeLayout>
-
 
 
     <include layout="@layout/activity_drawer"/>

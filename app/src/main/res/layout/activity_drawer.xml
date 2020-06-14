@@ -16,7 +16,10 @@
         android:layout_height="35dp"
         android:background="@color/colorAccent">
 
-
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/clearlogo"></ImageView>
         <TextView
             android:id="@+id/toolbar_menu"
             style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
@@ -24,6 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:layout_marginTop="10dp"
+            android:textSize="15dp"
             android:fontFamily="@font/nanumsquare_acr"
             android:text="환영합니당"
             android:textColor="#ffffff"
@@ -54,6 +58,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="5dp"
+            android:textSize="15dp"
+
             android:layout_marginBottom="10dp"
             android:fontFamily="@font/nanumsquare_acr"
             android:text="userid"
@@ -65,8 +71,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="님"
+            android:textSize="15dp"
+
             android:textColor="#ffffff"
-            android:textSize="17dp"></TextView>
+            ></TextView>
     </LinearLayout>
 
     <Button
@@ -76,11 +84,11 @@
         android:layout_marginLeft="10dp"
         android:background="#ffffff"
         android:drawableLeft="@drawable/ic_person_blue_24dp"
-
+        android:textSize="15dp"
         android:fontFamily="@font/nanumsquare_acr"
 
         android:text="회원정보 관리"
-        android:textSize="16dp" />
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -98,7 +106,8 @@
         android:drawableLeft="@drawable/pharmacy_black"
         android:fontFamily="@font/nanumsquare_acr"
         android:text="복약 관리"
-        android:textSize="16dp" />
+        android:textSize="15dp"
+        />
 
 
     <Button
@@ -110,7 +119,8 @@
         android:drawableLeft="@drawable/management_black"
         android:fontFamily="@font/nanumsquare_acr"
         android:text="혈당/혈압 관리"
-        android:textSize="16dp" />
+        android:textSize="15dp"
+        />
 
     <Button
         android:id="@+id/drawer_meal"
@@ -121,7 +131,8 @@
         android:drawableLeft="@drawable/meal_black"
         android:fontFamily="@font/nanumsquare_acr"
         android:text="식단 관리"
-        android:textSize="16dp" />
+        android:textSize="15dp"
+        />
 
 
     <Button
@@ -134,7 +145,8 @@
         android:drawableLeft="@drawable/notification"
         android:fontFamily="@font/nanumsquare_acr"
         android:text="시간 설정"
-        android:textSize="16dp" />
+        android:textSize="15dp"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -150,7 +162,8 @@
         android:drawableLeft="@drawable/ic_feedback_blue"
         android:fontFamily="@font/nanumsquare_acr"
         android:text="문의하기"
-        android:textSize="16dp" />
+        android:textSize="15dp"
+        />
 
 
     <Button
@@ -162,7 +175,8 @@
         android:drawableLeft="@drawable/settings_blue"
         android:fontFamily="@font/nanumsquare_acr"
         android:text="환경설정"
-        android:textSize="16dp" />
+        android:textSize="15dp"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -182,7 +196,8 @@
         android:drawableLeft="@drawable/ic_logout_blue"
         android:fontFamily="@font/nanumsquare_acr"
         android:text="로그아웃"
-        android:textSize="16dp" />
+        android:textSize="15dp"
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="2dp"

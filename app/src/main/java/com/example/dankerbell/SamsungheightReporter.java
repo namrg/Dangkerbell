@@ -84,7 +84,7 @@ public class SamsungheightReporter {
             Log.d("키 실행 안돼1!!!!!2222","ㅜㅜ");
 
         } catch (Exception e) {
-            Log.e(bloodActivity.APP_TAG, "Getting height fails.", e);
+            //Log.e(bloodActivity.APP_TAG, "Getting height fails.", e);
         }
     }
 
@@ -106,26 +106,26 @@ public class SamsungheightReporter {
                 count = data.getString(HealthConstants.Height.HEIGHT);
                 Log.d("키",String.valueOf(count));
                 Log.d("몸무게",String.valueOf(SamsungweightReporter.count));
-                height=Double.parseDouble(count);
-                weight=Double.parseDouble(SamsungweightReporter.count);
-                    Double iheight2=(height)/100;
-                    mbmi=weight/(iheight2*iheight2);
-                    mbmi=Double.parseDouble(String.format("%.2f",mbmi));
-                mprofile.updatehw(count,SamsungweightReporter.count,mbmi);
-//                if(mprofile.getMybirthday().equals("")){
-//                    height=Double.parseDouble(count);
-//                    weight=Double.parseDouble(SamsungweightReporter.count);
+//                height=Double.parseDouble(count);
+//                weight=Double.parseDouble(SamsungweightReporter.count);
 //                    Double iheight2=(height)/100;
 //                    mbmi=weight/(iheight2*iheight2);
 //                    mbmi=Double.parseDouble(String.format("%.2f",mbmi));
-//                    mprofile.createprofile("","","",height,weight,mbmi,"","","","","","","");
-//
-//                //만약에 입력을 안한애면 키랑,몸무게 insert
-//                //입력된 애면 update
-//            }
-//                else{
-//                    mprofile.updatehw(count,SamsungweightReporter.count,mbmi);
-//                }
+                mprofile.updatehw(count,SamsungweightReporter.count,mbmi);
+                if(mprofile.getMybirthday().equals("")){
+                    height=Double.parseDouble(count);
+                    weight=Double.parseDouble(SamsungweightReporter.count);
+                    Double iheight2=(height)/100;
+                    mbmi=weight/(iheight2*iheight2);
+                    mbmi=Double.parseDouble(String.format("%.2f",mbmi));
+                    mprofile.createprofile("","","",height,weight,mbmi,"","","","","","","");
+
+                //만약에 입력을 안한애면 키랑,몸무게 insert
+                //입력된 애면 update
+            }
+                else{
+                    mprofile.updatehw(count,SamsungweightReporter.count,mbmi);
+                }
                           }
         } finally {
             result.close();
@@ -141,7 +141,7 @@ public class SamsungheightReporter {
         // Update the step count when a change event is received
         @Override
         public void onChange(String dataTypeName) {
-            Log.d(bloodActivity.APP_TAG, "Observer receives a data changed event");
+           //Log.d(bloodActivity.APP_TAG, "Observer receives a data changed event");
             readTodayheight();
         }
     };

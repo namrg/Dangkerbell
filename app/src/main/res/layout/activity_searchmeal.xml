@@ -21,10 +21,10 @@
     <Button
         android:id="@+id/foodfinish"
         android:layout_width="match_parent"
-        android:layout_height="27dp"
+        android:layout_height="47dp"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
-        android:background="@drawable/round_cornerblue"
+        android:background="@color/colorAccent"
         android:fontFamily="@font/nanumsquare_acr"
         android:text="확인하기"
         android:textColor="#ffffff"

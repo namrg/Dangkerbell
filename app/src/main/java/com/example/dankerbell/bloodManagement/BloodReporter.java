@@ -44,7 +44,7 @@ public class BloodReporter<a> {
     HealthConstants.BloodPressure bm;
     private static final long ONE_DAY_IN_MILLIS = 24 * 60 * 60 * 1000L;
     private BloodObserver bloodObserver;
-    String count ="";
+    String count = "";
     String count2="";
     public BloodReporter(HealthDataStore store) {
         mStore = store;
@@ -55,6 +55,7 @@ public class BloodReporter<a> {
         // Register an observer to listen changes of step count and get today step count
         HealthDataObserver.addObserver(mStore, HealthConstants.BloodPressure.HEALTH_DATA_TYPE, mObserver);
         readTodayblood();
+        readblood();
     }
 
     // Read the today's step count on demand
@@ -83,6 +84,7 @@ public class BloodReporter<a> {
         // Set time range from start time of today to the current time
        long startTime = getStartTime();
        long endTime = startTime + ONE_DAY_IN_MILLIS;
+        Log.d("날짜", String.valueOf(getStartTimeOfToday()));
 
         ReadRequest request = new ReadRequest.Builder()
                 .setDataType(HealthConstants.BloodPressure.HEALTH_DATA_TYPE)
@@ -101,38 +103,43 @@ public class BloodReporter<a> {
     }
 
 
-    public long getStartTimeOfToday() { // 구냥 오늘날짜
-        Calendar today = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+    public long getStartTimeOfToday() {
+        Calendar today = Calendar.getInstance(TimeZone.getTimeZone("Asia/Seoul"));
         today.set(Calendar.HOUR_OF_DAY, 0);
         today.set(Calendar.MINUTE, 0);
         today.set(Calendar.SECOND, 0);
         today.set(Calendar.MILLISECOND, 0);
        Log.d("시간!!!!!!!!!!", String.valueOf(Calendar.HOUR_OF_DAY));
         Log.d("시간!!!!!!!!!!2", String.valueOf(today.HOUR_OF_DAY));
+
         Log.d("분!!!!!!!!!!", String.valueOf(Calendar.MINUTE));
 
         return today.getTimeInMillis();
     }
     public long getStartTime(){
-        SimpleDateFormat sdf = new SimpleDateFormat("yy.MM.dd", Locale.getDefault());
-
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Seoul"));
         // final Calendar calendar = Calendar.getInstance(); // 오늘날짜
-       // final String date = sdf.format(calendar.get);
-        //Log.d("날짜", String.valueOf(date));
+        //final String date = sdf.format(calendar.getTime());
 
         return calendar.getTimeInMillis();    }
     Date a=getStartTimeOfToda2();
-
-    long getTimeOffset(long currentTime) {
-        return TimeZone.getDefault().getOffset(currentTime);
+    public long getStartTimeprev(){
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Seoul"));
+        calendar.add(Calendar.DATE, -1);  // 오늘 날짜에서 하루를 뺌
+        return calendar.getTimeInMillis();
     }
+    public long getStartTimenext(){
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Seoul"));
+        calendar.add(Calendar.DATE, +1);  // 오늘 날짜에서 하루를 뺌
+        return calendar.getTimeInMillis();
+    }
+
 
     public Date getStartTimeOfToda2() {
         Calendar today = Calendar.getInstance(TimeZone.getTimeZone("Asia/Seoul"));
         SimpleDateFormat f = new SimpleDateFormat("yy.MM.dd.HH:mm");
         f.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
-        final String date = f.format(today.getTime()); // 현재시간
+        final String date = f.format(today.getTime());
         today.set(Calendar.HOUR_OF_DAY, 0);
         today.set(Calendar.MINUTE, 0);
         today.set(Calendar.SECOND, 0);
@@ -150,19 +157,11 @@ public class BloodReporter<a> {
                 for (HealthData data : result) {
                     count = data.getString(HealthConstants.BloodPressure.DIASTOLIC); //수축기
                     count2 = data.getString(HealthConstants.BloodPressure.SYSTOLIC); //이완기
-                    long time=data.getLong(HealthConstants.BloodPressure.CREATE_TIME);
-
-
-                    // count3= data.getString(HealthConstants.BloodPressure.START_TIME);
+                   // count3= data.getString(HealthConstants.BloodPressure.START_TIME);
                     Log.d("수축기", count);
                     Log.d("이완기", count2);
-                    Log.d("혈압 날짜", String.valueOf(time));
-
-                    Log.d("혈압 날짜", String.valueOf(getTimeOffset(time)));
-
-                    // Log.d("날짜", count3);
+                   // Log.d("날짜", count3);
                     final SimpleDateFormat sdf = new SimpleDateFormat("yy.MM.dd", Locale.getDefault());
-
                     final Calendar calendar = Calendar.getInstance(); // 오늘날짜
                     final String date = sdf.format(calendar.getTime());
                    // mBloodSugar.create(0.0, Double.parseDouble(count),Double.parseDouble(count2),date, "아침");
@@ -173,7 +172,8 @@ public class BloodReporter<a> {
                                 Log.d("메세지받음",glucoseReporter.count);
 
                                 //시간 받아와서 다시 설정하기
-                                mBloodSugar.create(Double.parseDouble(glucoseReporter.count), Double.parseDouble(count),Double.parseDouble(count2),date, "아침");
+                                //mBloodSugar.create(Double.parseDouble(glucoseReporter.count), Double.parseDouble(count),Double.parseDouble(count2),date, "아침");
+                              //  mBloodSugar.create(Double.parseDouble(glucoseReporter.count), Double.parseDouble(count),Double.parseDouble(count2),date, "아침");
 
                             }
                         }

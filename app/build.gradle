@@ -61,10 +61,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:21.4.2'
     implementation 'com.akexorcist:bluetoothspp:1.0.0'
     implementation 'com.jakewharton:butterknife:10.0.0'
-    implementation 'androidx.viewpager:viewpager:1.0.0'
-    implementation 'androidx.viewpager2:viewpager2:1.0.0-beta02'
 
-    implementation 'me.relex:circleindicator:1.2.2'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
     implementation files('libs/samsung-health-data-v1.4.0.jar')
     

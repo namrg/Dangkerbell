@@ -5,6 +5,7 @@ import com.example.dankerbell.Firebase.MappingInterface;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class CholesterolMapper implements MappingInterface {
     String cholesterol;
     String dangwha;
