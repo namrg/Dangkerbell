@@ -52,7 +52,7 @@
                     android:id="@+id/home_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/bmdohyeon_ttf"
+                    android:fontFamily="@font/nanumsquare_acr"
                     android:text="당커벨"
                     android:layout_gravity="center"
                     android:textColor="@color/colorAccent"
@@ -97,7 +97,7 @@
                             android:text="식단 관리"
 
                             android:textColor="@color/colorAccent"
-                            android:textSize="20dp"
+                            android:textSize="16dp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -107,7 +107,7 @@
                             android:layout_marginLeft="50dp"
                             android:fontFamily="@font/nanumsquare_acr"
                             android:text="혈당 관리"
-                            android:textSize="20dp" />
+                            android:textSize="16dp"/>
 
                         <TextView
                             android:id="@+id/pill_txt"
@@ -118,7 +118,7 @@
                             android:fontFamily="@font/nanumsquare_acr"
                             android:text="복약 관리"
 
-                            android:textSize="20dp" />
+                            android:textSize="16dp" />
 
 
                     </GridLayout>
@@ -437,7 +437,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:text="0"
-
+                        android:id="@+id/todaycalory"
                         android:textColor="#ffffff"
                         android:textSize="15dp" />
 
@@ -463,6 +463,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:fontFamily="@font/bmdohyeon_ttf"
+
                         android:text="권장칼로리"
                         android:textColor="#ffffff"
                         android:textSize="15dp" />
@@ -472,6 +473,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:text="0"
+                        android:id="@+id/mycalory"
+
                         android:textColor="#ffffff"
 
                         android:textSize="15dp" />

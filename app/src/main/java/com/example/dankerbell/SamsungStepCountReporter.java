@@ -16,12 +16,12 @@
  * to change without notice.
  */
 
-package com.example.dankerbell.bloodManagement;
+package com.example.dankerbell;
 
 import android.os.Handler;
 import android.util.Log;
 
-import com.example.dankerbell.Firebase.BloodSugarCrud;
+import com.example.dankerbell.Firebase.StepCountCrud;
 import com.samsung.android.sdk.healthdata.HealthConstants;
 import com.samsung.android.sdk.healthdata.HealthData;
 import com.samsung.android.sdk.healthdata.HealthDataObserver;
@@ -34,29 +34,26 @@ import com.samsung.android.sdk.healthdata.HealthResultHolder;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-public class heightReporter {
+public class SamsungStepCountReporter {
     private final HealthDataStore mStore;
-    BloodSugarCrud mBloodSugar = BloodSugarCrud.getInstance(); //firebase 참조 singletone
-    public static Handler bHandler =new Handler();
-
+    private StepCountObserver mStepCountObserver;
     private static final long ONE_DAY_IN_MILLIS = 24 * 60 * 60 * 1000L;
-    private HeightObserver heightObserver;
-    static String count = "";
-    public heightReporter(HealthDataStore store) {
+    static int count = 0;
+    StepCountCrud step=StepCountCrud.getInstance();
+    Handler SamsungStephandler=new Handler();
+    public SamsungStepCountReporter(HealthDataStore store) {
         mStore = store;
     }
 
-    public void start(HeightObserver listener) {
-        heightObserver = listener;
+    public void start(StepCountObserver listener) {
+        mStepCountObserver = listener;
         // Register an observer to listen changes of step count and get today step count
-        HealthDataObserver.addObserver(mStore, HealthConstants.Height.HEALTH_DATA_TYPE, mObserver);
-        HealthDataObserver.addObserver(mStore, HealthConstants.Weight.HEALTH_DATA_TYPE, mObserver);
-
-        readTodayheight();
+        HealthDataObserver.addObserver(mStore, HealthConstants.StepCount.HEALTH_DATA_TYPE, mObserver);
+        readTodayStepCount();
     }
 
     // Read the today's step count on demand
-    private void readTodayheight() {
+    private void readTodayStepCount() {
         HealthDataResolver resolver = new HealthDataResolver(mStore, null);
 
         // Set time range from start time of today to the current time
@@ -64,55 +61,54 @@ public class heightReporter {
         long endTime = startTime + ONE_DAY_IN_MILLIS;
 
         ReadRequest request = new ReadRequest.Builder()
-                    .setDataType(HealthConstants.Weight.HEALTH_DATA_TYPE)
-                    .setProperties(new String[] {HealthConstants.Height.HEIGHT})
-                    .setLocalTimeRange(HealthConstants.Height.START_TIME, HealthConstants.Height.TIME_OFFSET,
+                    .setDataType(HealthConstants.StepCount.HEALTH_DATA_TYPE)
+                    .setProperties(new String[] {HealthConstants.StepCount.COUNT})
+                    .setLocalTimeRange(HealthConstants.StepCount.START_TIME, HealthConstants.StepCount.TIME_OFFSET,
                             startTime, endTime)
                     .build();
 
         try {
             resolver.read(request).setResultListener(mListener);
         } catch (Exception e) {
-            Log.e(bloodActivity.APP_TAG, "Getting step count fails.", e);
+           // Log.e(MainActivity.APP_TAG, "Getting step count fails.", e);
         }
     }
 
     private long getStartTimeOfToday() {
         Calendar today = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        Calendar today2 = Calendar.getInstance(TimeZone.getTimeZone("Asia/Seoul"));
 
         today.set(Calendar.HOUR_OF_DAY, 0);
         today.set(Calendar.MINUTE, 0);
         today.set(Calendar.SECOND, 0);
         today.set(Calendar.MILLISECOND, 0);
+        Log.d("날짜",String.valueOf(today.getTime())); //UTC
 
+        Log.d("날짜",String.valueOf(today2.getTime())); //Asia
         return today.getTimeInMillis();
     }
 
     private final HealthResultHolder.ResultListener<ReadResult> mListener = result -> {
 
+
         try {
             for (HealthData data : result) {
-                count = data.getString(HealthConstants.Height.HEIGHT);
-
-                Log.d("키",count);
-//                Log.d(this.getClass().getName(),count);
-//                Double glu=Double.parseDouble(count);
-//                glu= Double.parseDouble(String.format("%.2f",glu));
-//                glu=glu*18;
-             //   count=String.valueOf(Math.round(glu));
-                //count=String.format("%.2f",glu);
-
-               // bHandler.sendEmptyMessage(1009);
-
+              //  count += data.getInt(HealthConstants.StepCount.COUNT);
+                count += data.getInt(HealthConstants.StepCount.COUNT);
 
             }
+            Log.d("오늘 걸음수 ",String.valueOf(count));
+            step.createstep(count);
+            SamsungStephandler.sendEmptyMessage(1005);
+            step.read();
+
         } finally {
             result.close();
         }
 
-//        if (mObserver != null) {
-//            mObserver.onChanged(count);
-//        }
+        if (mStepCountObserver != null) {
+            mStepCountObserver.onChanged(count);
+        }
     };
 
     private final HealthDataObserver mObserver = new HealthDataObserver(null) {
@@ -120,13 +116,12 @@ public class heightReporter {
         // Update the step count when a change event is received
         @Override
         public void onChange(String dataTypeName) {
-            Log.d(bloodActivity.APP_TAG, "Observer receives a data changed event");
-            readTodayheight();
+           //Log.d(MainActivity.APP_TAG, "Observer receives a data changed event");
+            readTodayStepCount();
         }
     };
 
-
-    public interface HeightObserver {
-        void onChanged(String count);
+    public interface StepCountObserver {
+        void onChanged(int count);
     }
 }

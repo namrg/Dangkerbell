@@ -17,6 +17,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,19 +26,19 @@ public class profileCrud implements CrudInterface {
     private static profileCrud instance;
     public static Handler pHandler =new Handler();
 
-    static String mygender;
-    static String mybirthday;
-    static String mydiabeteskind; // 당뇨 유형
-    static String myheight;
-    static String myweight;
-    static String mybmi;
-    static String myunderlyingdisease; //기저질환
-    static String myhighbloodpressure;
-    static String mysmoke;
-    static String myyear; //당뇨 유병기간
-    static String myhealdiabetes; //내 치료 방법
-    static String myactivity;
-    static String myweightchange;
+    static String mygender="";
+    static String mybirthday="";
+    static String mydiabeteskind=""; // 당뇨 유형
+    static String myheight="";
+    static String myweight="";
+    static String mybmi="";
+    static String myunderlyingdisease=""; //기저질환
+    static String myhighbloodpressure="";
+    static String mysmoke="";
+    static String myyear=""; //당뇨 유병기간
+    static String myhealdiabetes=""; //내 치료 방법
+    static String myactivity="";
+    static String myweightchange="";
 
     public static String getMybirthday() {
         return mybirthday;
@@ -192,6 +193,16 @@ public class profileCrud implements CrudInterface {
     @Override
     public void update() {
 
+    }
+    public void updatehw(String height,String weight,double bmi) {
+
+        // Update one field, creating the document if it does not already exist.
+        Map<String, Object> data = new HashMap<>();
+        data.put("키", height);
+        data.put("몸무게", weight);
+        data.put("bmi", bmi);
+        db.collection("user").document(User).collection("내정보").document("my profile")
+                .set(data, SetOptions.merge());
     }
 
     @Override

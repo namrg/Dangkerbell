@@ -171,7 +171,9 @@ public class BloodReporter<a> {
                                 Log.d("ㅠㅠ",glucoseReporter.count);
                                 Log.d("메세지받음",glucoseReporter.count);
 
-                                mBloodSugar.create(Double.parseDouble(glucoseReporter.count), Double.parseDouble(count),Double.parseDouble(count2),date, "아침");
+                                //시간 받아와서 다시 설정하기
+                                //mBloodSugar.create(Double.parseDouble(glucoseReporter.count), Double.parseDouble(count),Double.parseDouble(count2),date, "아침");
+                              //  mBloodSugar.create(Double.parseDouble(glucoseReporter.count), Double.parseDouble(count),Double.parseDouble(count2),date, "아침");
 
                             }
                         }

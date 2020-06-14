@@ -2,6 +2,7 @@ package com.example.dankerbell.pillManagement;
 
 import android.content.Intent;
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import androidx.annotation.NonNull;
 
@@ -24,7 +25,7 @@ import java.util.Map;
 public class pillCrud implements CrudInterface {
     private static pillCrud instance;
     private static final String TAG = "pillCrud";
-
+    //RecyclerpillAdapter recyclerpillAdapter=new RecyclerpillAdapter();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     final String User = user.getEmail();
 //    static ArrayList<String> pillName=new ArrayList<>(); //약 이름
@@ -37,7 +38,7 @@ public class pillCrud implements CrudInterface {
     int amount;
     String success="0";
     public static Handler mHandler =new Handler();
-
+    public static Handler alarmpill=new Handler();
     public static pillCrud getInstance() {
         if (instance == null) {
             instance = new pillCrud();
@@ -88,7 +89,7 @@ public class pillCrud implements CrudInterface {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 pillNamelist.add(document.getData().get("pill_name").toString());
                                 amountlist.add(Integer.parseInt(document.getData().get("amount").toString()));
-                                alarmlist.add((boolean) document.getData().get("alarmSetting"));
+                                alarmlist.add(Boolean.valueOf(document.getData().get("notify").toString()));
                                 Log.d("데이터 있음", document.getId() + " => " + document.getData());
                                 Log.d("값", pillNamelist.get(0) + " => " + pillNamelist.get(0)+" => " + alarmlist.get(0));
                                 mHandler.sendEmptyMessage(1002);
@@ -105,12 +106,14 @@ public class pillCrud implements CrudInterface {
     public void update() {}
 
     public void update(String pillName,boolean value) {
-        db.collection("takingPill").document(pillName)
-                .update("alarmSetting", value)
+        db.collection("user").document(User).collection("takingPill").document(pillName)
+                .update("notify", value)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d(TAG, "DocumentSnapshot successfully updated!");
+                        alarmpill.sendEmptyMessage(1000);
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

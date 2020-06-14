@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
 
             android:layout_gravity="center"
-            android:fontFamily="@font/bmdohyeon_ttf"
+            android:fontFamily="@font/nanumsquare_acr"
             android:text="시간 설정"
 
             android:textColor="@color/colorAccent"
@@ -66,7 +66,7 @@
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:fontFamily="@font/bmdohyeon_ttf"
+                    android:fontFamily="@font/nanumsquare_acr"
                     android:text="기상시간"
                     android:textColor="#b8b8b8"
                     android:textSize="15dp"></TextView>
@@ -94,7 +94,7 @@
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:fontFamily="@font/bmdohyeon_ttf"
+                    android:fontFamily="@font/nanumsquare_acr"
                     android:text="아침식사시간"
                     android:textColor="#b8b8b8"
                     android:textSize="15dp"></TextView>
@@ -123,7 +123,7 @@
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:fontFamily="@font/bmdohyeon_ttf"
+                    android:fontFamily="@font/nanumsquare_acr"
                     android:text="점심식사시간"
                     android:textColor="#b8b8b8"
                     android:textSize="15dp"></TextView>
@@ -150,7 +150,7 @@
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:fontFamily="@font/bmdohyeon_ttf"
+                    android:fontFamily="@font/nanumsquare_acr"
                     android:text="저녁식사시간"
                     android:textColor="#b8b8b8"
                     android:textSize="15dp"></TextView>
@@ -178,7 +178,7 @@
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:fontFamily="@font/bmdohyeon_ttf"
+                    android:fontFamily="@font/nanumsquare_acr"
                     android:text="취침시간"
                     android:textColor="#b8b8b8"
                     android:textSize="15dp"></TextView>

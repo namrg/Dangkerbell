@@ -15,6 +15,8 @@
         import com.example.dankerbell.R;
         import com.example.dankerbell.bloodManagement.bloodActivity;
         import com.google.android.gms.tasks.OnCompleteListener;
+        import com.google.android.gms.tasks.OnFailureListener;
+        import com.google.android.gms.tasks.OnSuccessListener;
         import com.google.android.gms.tasks.Task;
         import com.google.firebase.auth.FirebaseAuth;
         import com.google.firebase.auth.FirebaseUser;
@@ -23,31 +25,44 @@
         import com.google.firebase.firestore.QueryDocumentSnapshot;
         import com.google.firebase.firestore.QuerySnapshot;
 
+        import java.text.SimpleDateFormat;
+        import java.util.Calendar;
         import java.util.HashMap;
+        import java.util.Locale;
         import java.util.Map;
 
         //import static com.facebook.FacebookSdk.getApplicationContext;
 
         public class BloodSugarCrud extends AppCompatActivity implements CrudInterface  {
     private static BloodSugarCrud instance; //싱글톤
-    public String bloodsugar=" ";
-    public String bloodpressure=" "; //수축기
-    public String bloodpressure2=" "; //확장기
-            public String mbloodsugar=" ";
-    public String mbloodpressure=" ";
-            public String mbloodpressure2=" ";
+    String bloodsugar=" ";
+    String wregular=" ";
+    String wultra=" ";
+    String wNPH=" ";
 
-            public String lbloodsugar=" ";
-    public String lbloodpressure=" ";
-    public String lbloodpressure2=" ";
+            public String getBloodsugar() {
+                return bloodsugar;
+            }
 
-            public String dbloodsugar=" ";
-    public String dbloodpressure=" ";
-            public String dbloodpressure2=" ";
+            String mbloodsugar=" ";
+    String mregular=" ";
+    String multra=" ";
+    String mNPH=" ";
 
-            public String sbloodsugar=" ";
-    public String sbloodpressure=" ";
-            public String sbloodpressure2=" ";
+    String lbloodsugar=" ";
+    String lregular=" ";
+    String lultra=" ";
+    String lNPH=" ";
+
+    String dbloodsugar=" ";
+    String dregular=" ";
+    String dultra=" ";
+    String dNPH=" ";
+
+    String sbloodsugar=" ";
+    String sregular=" ";
+ String sultra=" ";
+    String sNPH=" ";
 
             public static Handler mHandler1 =new Handler();
 
@@ -55,52 +70,78 @@
                 return mbloodsugar;
             }
 
-            public String getMbloodpressure() {
-                return mbloodpressure;
-            }
-
-            public String getLbloodsugar() {
+            public String getlbloodsugar() {
                 return lbloodsugar;
             }
 
-            public String getLbloodpressure() {
-                return lbloodpressure;
-            }
 
-            public String getDbloodsugar() {
+            public String getdbloodsugar() {
                 return dbloodsugar;
             }
 
-            public String getDbloodpressure() {
-                return dbloodpressure;
-            }
 
-            public String getSbloodsugar() {
+            public String getsbloodsugar() {
                 return sbloodsugar;
             }
 
-            public String getSbloodpressure() {
-                return sbloodpressure;
+            public String getWregular() {
+                return wregular;
             }
 
-            public String getBloodpressure2() {
-                return bloodpressure2;
+            public String getWultra() {
+                return wultra;
             }
 
-            public String getMbloodpressure2() {
-                return mbloodpressure2;
+            public String getwNPH() {
+                return wNPH;
             }
 
-            public String getLbloodpressure2() {
-                return lbloodpressure2;
+            public String getMregular() {
+                return mregular;
             }
 
-            public String getDbloodpressure2() {
-                return dbloodpressure2;
+            public String getMultra() {
+                return multra;
             }
 
-            public String getSbloodpressure2() {
-                return sbloodpressure2;
+            public String getmNPH() {
+                return mNPH;
+            }
+
+            public String getLregular() {
+                return lregular;
+            }
+
+            public String getLultra() {
+                return lultra;
+            }
+
+            public String getlNPH() {
+                return lNPH;
+            }
+
+            public String getDregular() {
+                return dregular;
+            }
+
+            public String getDultra() {
+                return dultra;
+            }
+
+            public String getdNPH() {
+                return dNPH;
+            }
+
+            public String getSregular() {
+                return sregular;
+            }
+
+            public String getSultra() {
+                return sultra;
+            }
+
+            public String getsNPH() {
+                return sNPH;
             }
 
             //FirebaseFirestore db
@@ -112,31 +153,35 @@
         }
         return instance;
     }
+            SimpleDateFormat monthformat = new SimpleDateFormat("MM", Locale.getDefault());
+            SimpleDateFormat monthofdayformat = new SimpleDateFormat("dd", Locale.getDefault());
 
+            final Calendar calendar = Calendar.getInstance(); // 오늘날짜
+            final String day = monthofdayformat.format(calendar.getTime());
+            String month=monthformat.format(calendar.getTime());
 
-    public void create(double bloodsugar, double syspressure,double diapressure,String date, String time) {
+    public void create(double bloodsugar, double regular,double NPH,double Ultra,String date, String time) {
         //오버로딩
         Map<String, Object> updateData = new HashMap<>();
 
         //if(add){
-        BloodSugarMapper post = new BloodSugarMapper(bloodsugar, syspressure, diapressure,date, time);
+        BloodSugarMapper post = new BloodSugarMapper(bloodsugar, regular, NPH,Ultra,date, time);
         updateData = post.toMap();
         //}
-//        db.collection(User)
-//        .add(updateData)
-//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//        @Override
-//        public void onSuccess(DocumentReference documentReference) {
-//            Log.d("혈당 데이터 추가", "DocumentSnapshot added with ID: " + documentReference.getId());
-//        }
-//    })
-//            .addOnFailureListener(new OnFailureListener() {
-//        @Override
-//        public void onFailure(@NonNull Exception e) {
-//            Log.w("혈당 데이터 추가", "Error adding document", e);
-//        }
-//    });
-
+        db.collection("user").document(User).collection("bloodsugar").document(month).collection(day).document(time)
+                .set(updateData)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("데이터 추가", "DocumentSnapshot successfully written!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("데이터 추가", "Error writing document", e);
+                    }
+                });
     }
 
     @Override
@@ -164,8 +209,8 @@
 
 
 
-    public void wakeupread(final String date){
-        db.collection("user").document(User).collection("wakeupbloodSugar").document(date)
+    public void wakeupread(String m,String d){
+        db.collection("user").document(User).collection("bloodsugar").document(m).collection(d).document("기상후")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -174,23 +219,25 @@
                     DocumentSnapshot document = task.getResult();
                     if(document.exists()){
                         bloodsugar=document.getData().get("bloodsugar").toString();
-                        bloodpressure=document.getData().get("systolicpressure").toString();
-                        bloodpressure2=document.getData().get("diastlicpressure").toString();
+                        wregular=document.getData().get("regular").toString();
+                        wNPH=document.getData().get("NPH").toString();
+                        wultra=document.getData().get("UltraLente").toString();
+                        Log.d("받아오는 혈당",bloodsugar);
 
                     }
                     else{ bloodsugar="";
-                          bloodpressure="";
-                          bloodpressure2="";
+                          wregular="";
+                          wNPH="";
+                          wultra="";
                     }
                     Log.d("받아오는 혈당",bloodsugar);
-                    Log.d("날짜",date);
                     mHandler1.sendEmptyMessage(1000);
                 }
             }
         });
     }
-            public void morningread(final String date){
-                db.collection("user").document(User).collection("morningbloodSugar").document(date)
+            public void morningread(String m,String d){
+                db.collection("user").document(User).collection("bloodsugar").document(m).collection(d).document("아침")
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
@@ -199,22 +246,25 @@
                                     DocumentSnapshot document = task.getResult();
                                     if(document.exists()){
                                         mbloodsugar=document.getData().get("bloodsugar").toString();
-                                        mbloodpressure=document.getData().get("systolicpressure").toString();
-                                        mbloodpressure2=document.getData().get("diastlicpressure").toString();
+                                        mregular=document.getData().get("regular").toString();
+                                        mNPH=document.getData().get("NPH").toString();
+                                        multra=document.getData().get("UltraLente").toString();
+
                                     }
                                     else{ mbloodsugar="";
-                                        mbloodpressure="";
-                                    mbloodpressure2="";}
+
+                                        mregular="";
+                                        mNPH="";
+                                        multra="";}
                                     Log.d("받아오는 혈당",mbloodsugar);
-                                    Log.d("날짜",date);
                                     mHandler1.sendEmptyMessage(1000);
                                 }
                             }
                         });
             }
 
-            public void lunchread(final String date){
-                db.collection("user").document(User).collection("lunchbloodSugar").document(date)
+            public void lunchread(String m,String d){
+                db.collection("user").document(User).collection("bloodsugar").document(m).collection(d).document("점심")
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
@@ -223,21 +273,22 @@
                                     DocumentSnapshot document = task.getResult();
                                     if(document.exists()){
                                         lbloodsugar=document.getData().get("bloodsugar").toString();
-                                        lbloodpressure=document.getData().get("systolicpressure").toString();
-                                        lbloodpressure2=document.getData().get("diastlicpressure").toString();
+                                        lregular=document.getData().get("regular").toString();
+                                        lNPH=document.getData().get("NPH").toString();
+                                        lultra=document.getData().get("UltraLente").toString();
                                     }
                                     else{ lbloodsugar="";
-                                        lbloodpressure="";
-                                    lbloodpressure2="";}
+                                        lregular="";
+                                        lNPH="";
+                                        lultra="";}
                                     Log.d("받아오는 혈당",lbloodsugar);
-                                    Log.d("날짜",date);
                                     mHandler1.sendEmptyMessage(1000);
                                 }
                             }
                         });
             }
-            public void dinnerread(final String date){
-                db.collection("user").document(User).collection("dinnerbloodSugar").document(date)
+            public void dinnerread(String m,String d){
+                db.collection("user").document(User).collection("bloodsugar").document(m).collection(d).document("저녁")
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
@@ -246,21 +297,23 @@
                                     DocumentSnapshot document = task.getResult();
                                     if(document.exists()){
                                         dbloodsugar=document.getData().get("bloodsugar").toString();
-                                        dbloodpressure=document.getData().get("systolicpressure").toString();
-                                        dbloodpressure2=document.getData().get("diastlicpressure").toString();                                              }
+                                        dregular=document.getData().get("regular").toString();
+                                        dNPH=document.getData().get("NPH").toString();
+                                        dultra=document.getData().get("UltraLente").toString();
+                                    }
                                     else{ dbloodsugar="";
-                                        dbloodpressure="";
-                                        dbloodpressure2="";
+                                        dregular="";
+                                        dNPH="";
+                                        dultra="";
                                     }
                                     Log.d("받아오는 혈당",dbloodsugar);
-                                    Log.d("날짜",date);
                                     mHandler1.sendEmptyMessage(1000);
                                 }
                             }
                         });
             }
-            public void sleepread(final String date){
-                db.collection("user").document(User).collection("sleepbloodSugar").document(date)
+            public void sleepread(String m,String d){
+                db.collection("user").document(User).collection("bloodsugar").document(m).collection(d).document("취침전")
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
@@ -269,15 +322,17 @@
                                     DocumentSnapshot document = task.getResult();
                                     if(document.exists()){
                                         sbloodsugar=document.getData().get("bloodsugar").toString();
-                                        sbloodpressure=document.getData().get("systolicpressure").toString();
-                                        sbloodpressure2=document.getData().get("diastlicpressure").toString();                                              }
+                                        sregular=document.getData().get("regular").toString();
+                                        sNPH=document.getData().get("NPH").toString();
+                                        sultra=document.getData().get("UltraLente").toString();
+                                    }
                                     else{
                                         sbloodsugar="";
-                                        sbloodpressure="";
-                                        sbloodpressure2="";
+                                        sregular="";
+                                        sNPH="";
+                                        sultra="";
                                     }
                                     Log.d("받아오는 혈당",sbloodsugar);
-                                    Log.d("날짜",date);
                                     mHandler1.sendEmptyMessage(1000);
                                 }
                             }
@@ -285,44 +340,32 @@
             }
 
 
-            public void morning(final String date){//
-                db.collection(User).document("morningbloodSugar"+date).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()){
-                            DocumentSnapshot document = task.getResult();
-                            if(document.exists()){
-                                mbloodpressure=document.getData().get("bloodpressure").toString();
-                                mbloodsugar=document.getData().get("bloodsugar").toString();}
-                            else{
-                                mbloodpressure="";
-                                mbloodsugar="";
-                            }
-                            Log.d("받아오는 혈압",mbloodpressure);
-                            Log.d("날짜",date);
-                            mHandler1.sendEmptyMessage(1000);
-                        }
-
-                    }
-                });
-            }
-            public String getmBloodpressure(){
-                return mbloodpressure;
-            }
+//            public void morning(final String date){//
+//                db.collection(User).document("morningbloodSugar"+date).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                        if (task.isSuccessful()){
+//                            DocumentSnapshot document = task.getResult();
+//                            if(document.exists()){
+//                                mbloodpressure=document.getData().get("bloodpressure").toString();
+//                                mbloodsugar=document.getData().get("bloodsugar").toString();}
+//                            else{
+//                                mbloodpressure="";
+//                                mbloodsugar="";
+//                            }
+//                            Log.d("받아오는 혈압",mbloodpressure);
+//                            Log.d("날짜",date);
+//                            mHandler1.sendEmptyMessage(1000);
+//                        }
+//
+//                    }
+//                });
+//            }
 
 
-            public String getmBloodsugar(){
-                return mbloodsugar;
-            }
-
-    public String getBloodpressure(){
-                return bloodpressure;
-            }
 
 
-    public String getBloodsugar(){
-        return bloodsugar;
-    }
+
 
 
 

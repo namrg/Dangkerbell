@@ -36,13 +36,16 @@
                     android:text="메뉴"
                     android:textColor="#7A7A7A"
                     android:textSize="15dp" />
-
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/whitelogosmall2"></ImageView>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:layout_gravity="center"
-                    android:fontFamily="@font/bmdohyeon_ttf"
+                    android:fontFamily="@font/nanumsquare_acr"
                     android:text="당커벨"
 
                     android:textColor="@color/colorAccent"
@@ -84,12 +87,34 @@
                 android:orientation="vertical"
                 android:visibility="visible">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
                     android:layout_marginTop="10dp"
-                    android:text="여기는 그래프 나타남" />
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nanumsquare_acr"
+                        android:text="오늘의 걸음수 !"
+                        android:textSize="15dp"
+                        android:textStyle="bold"></TextView>
+
+                    <TextView
+                        android:id="@+id/todaystep"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:drawableLeft="@drawable/walk"
+                        android:fontFamily="@font/nanumsquare_acr"
+                        android:gravity="center"
+
+                        android:text="0"></TextView>
+
+                </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -101,16 +126,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="15dp"
                         android:columnCount="3"
                         android:rowCount="1">
 
                         <Button
                             android:id="@+id/meal_btn"
-
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/round_cornerblue"
+                            android:drawableTop="@drawable/meal"
                             android:fontFamily="@font/nanumsquare_acr"
                             android:text="식단 관리"
                             android:textColor="#ffffff"
@@ -118,11 +143,11 @@
 
                         <Button
                             android:id="@+id/blood_btn"
-
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="30dp"
                             android:background="@drawable/round_cornerblue"
+                            android:drawableTop="@drawable/management"
                             android:fontFamily="@font/nanumsquare_acr"
                             android:text="혈당 관리"
                             android:textColor="#ffffff"
@@ -134,9 +159,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="30dp"
                             android:background="@drawable/round_cornerblue"
+                            android:drawableTop="@drawable/pharmacy"
                             android:fontFamily="@font/nanumsquare_acr"
                             android:text="복약 관리"
-
                             android:textColor="#ffffff"
                             android:textSize="17dp" />
 
@@ -146,7 +171,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="15dp"
                         android:gravity="center"
                         android:orientation="horizontal">
 
@@ -163,19 +188,77 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
+                            android:layout_marginTop="3dp"
                             android:drawableLeft="@drawable/ic_bluetooth_black_24dp"
                             android:fontFamily="@font/nanumsquare_acr"
                             android:text="혈당기기 연결하기"></TextView>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/round_cornerblue"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="230dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="7dp"
+                        android:background="@drawable/round_corneryellow"
+                        android:fontFamily="@font/nanumsquare_acr"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+
+                        android:visibility="visible">
+
+                        <TextView
+                            android:id="@+id/today"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="날짜"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="의 건강 정보 !"
+                            android:textSize="16dp" />
+
 
                     </LinearLayout>
 
+                    <TextView
+                        android:id="@+id/comment1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp"
+                        android:fontFamily="@font/nanumsquare_acr"
+
+                        android:text="" />
+
+                    <TextView
+                        android:id="@+id/comment2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="5dp"
+
+                        android:layout_marginRight="20dp"
+                        android:fontFamily="@font/nanumsquare_acr"
+                        android:text=""
+
+                        />
+
+
                 </LinearLayout>
 
-
-            </LinearLayout>
-
-
-
+                </LinearLayout>
 
 
 

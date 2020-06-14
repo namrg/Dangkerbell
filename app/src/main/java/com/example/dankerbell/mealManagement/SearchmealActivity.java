@@ -24,7 +24,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.dankerbell.Firebase.FoodlistCrud;
 import com.example.dankerbell.R;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 
 import static com.example.dankerbell.Firebase.FoodlistCrud.getFood;
 import static com.example.dankerbell.Firebase.FoodlistCrud.mealHandler;
@@ -45,16 +49,20 @@ public class SearchmealActivity extends AppCompatActivity implements RecyclerVie
     static final ArrayList<String> dfoodarraylist=new ArrayList<>();
     static final ArrayList<String> dkcalarraylist=new ArrayList<>();
 
+    String food,kcal;
 
     TextView foodfinish;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(R.style.AppTheme2);
+        SimpleDateFormat sdf = new SimpleDateFormat("yy.MM.dd", Locale.getDefault());
+        final Calendar calendar = Calendar.getInstance(); // 오늘날짜
+        final String date = sdf.format(calendar.getTime());
         setContentView(R.layout.activity_searchmeal);
         RecyclerView mRecyclerView = findViewById(R.id.recycler1);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
+        FoodlistCrud foodlistCrud=FoodlistCrud.getInstance();
         final mealActivity ma=new mealActivity();
         foodfinish=findViewById(R.id.foodfinish);
       //  final TextView t=findViewById(R.id.morningfood1);
@@ -65,17 +73,29 @@ public class SearchmealActivity extends AppCompatActivity implements RecyclerVie
                 for (int j=0; j<mList.size();j++){
                     if (mList.get(j).isSelected() == true){
                         if(ma.op=="아침"){
-                            mfoodarraylist.add(mList.get(j).getFood()); // 선택된 음식
-                            mkcalarraylist.add(mList.get(j).getKcal());
+                            food=mList.get(j).getFood();
+                            kcal=mList.get(j).getKcal();
+                            foodlistCrud.create(ma.op,date,food,kcal);
+//                            mfoodarraylist.add(mList.get(j).getFood()); // 선택된 음식
+//                            mkcalarraylist.add(mList.get(j).getKcal());
+
                         }
                         else if(ma.op=="점심"){
-                            lfoodarraylist.add(mList.get(j).getFood()); // 선택된 음식
-                            lkcalarraylist.add(mList.get(j).getKcal());
+                            food=mList.get(j).getFood();
+                            kcal=mList.get(j).getKcal();
+                            foodlistCrud.create(ma.op,date,food,kcal);
                         }
+//                            lfoodarraylist.add(mList.get(j).getFood()); // 선택된 음식
+//                            lkcalarraylist.add(mList.get(j).getKcal());
                         else{
-                            dfoodarraylist.add(mList.get(j).getFood()); // 선택된 음식
-                            dkcalarraylist.add(mList.get(j).getKcal());                        }
-                    }
+                            food=mList.get(j).getFood();
+                            kcal=mList.get(j).getKcal();
+                            foodlistCrud.create(ma.op,date,food,kcal);
+//                            dfoodarraylist.add(mList.get(j).getFood()); // 선택된 음식
+//                            dkcalarraylist.add(mList.get(j).getKcal());                        }
+                        }
+                        }
+
                 }
                 mHandler2.sendEmptyMessage(100);
                 Log.d(this.getClass().getName(),"메세지 보냄");
@@ -138,12 +158,8 @@ public void init(){
             search.setSearchableInfo(manager.getSearchableInfo(getComponentName()));
 
             search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
                 @Override
                 public boolean onQueryTextSubmit(String s) {
-
-
-
                     return false;
                 }
 
@@ -152,7 +168,6 @@ public void init(){
 
                     return false;
                 }
-
             });
 
         }

@@ -10,15 +10,26 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.dankerbell.Firebase.FoodlistCrud;
 import com.example.dankerbell.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class RecyclerDBAdapter3 extends RecyclerView.Adapter<RecyclerDBAdapter3.ViewHolder> {
     private static RecyclerDBAdapter3 instance; //싱글톤
-
-
+    FoodlistCrud foodlistCrud=FoodlistCrud.getInstance();
+    SimpleDateFormat sdf = new SimpleDateFormat("yy.MM.dd", Locale.getDefault());
+    final Calendar calendar = Calendar.getInstance(); // 오늘날짜
+    final String date = sdf.format(calendar.getTime());
+    static int dinnerkcal=0;
     private ArrayList<RecyclermyfoodItem> mData = null ;
+
+    public static int getDinnerkcal() {
+        return dinnerkcal;
+    }
 
     Context context;
     // 생성자에서 데이터 리스트 객체를 전달받음.
@@ -47,6 +58,7 @@ public class RecyclerDBAdapter3 extends RecyclerView.Adapter<RecyclerDBAdapter3.
         RecyclermyfoodItem item = mData.get(position);
         holder.foodlist.setText(item.getMyfood());
         holder.kcallist.setText(item.getMykcal());
+        dinnerkcal+=Integer.parseInt(item.getMykcal());
 
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +68,8 @@ public class RecyclerDBAdapter3 extends RecyclerView.Adapter<RecyclerDBAdapter3.
                 for(int i=0;i<mData.size();i++){
                     if(mData.get(position).isDeleted()){ // true
                         Log.d("삭제 한 행 ",mData.get(i).getMyfood());
+                        foodlistCrud.delete(mData.get(i).getMyfood(),date,"저녁",mData.get(i).getMykcal());
+                        dinnerkcal-=Integer.parseInt(mData.get(i).getMykcal());
                         mData.remove(position);
                         notifyItemRemoved(position);
                         notifyItemRangeChanged(position, mData.size());

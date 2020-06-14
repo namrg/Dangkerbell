@@ -48,7 +48,11 @@
                     android:text="메뉴"
                     android:textColor="#7A7A7A"
                     android:textSize="15dp" />
-
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/whitelogosmall2"></ImageView>
                 <TextView
                     android:id="@+id/home_txt"
                     android:layout_width="wrap_content"
@@ -91,23 +95,22 @@
                         tools:layout_gravity="center">
 
                         <TextView
+                            android:id="@+id/meal_txt"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:fontFamily="@font/nanumsquare_acr"
                             android:text="식단 관리"
-                            android:id="@+id/meal_txt"
-
-                            android:textSize="20dp" />
+                            android:textSize="16dp"  />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="50dp"
                             android:id="@+id/blood_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="15dp"
+                            android:layout_marginLeft="50dp"
 
                             android:fontFamily="@font/nanumsquare_acr"
                             android:text="혈당 관리"
-                            android:textSize="20dp" />
+                            android:textSize="16dp"  />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -117,7 +120,7 @@
                             android:text="복약 관리"
                             android:textStyle="bold"
                             android:textColor="@color/colorAccent"
-                            android:textSize="20dp" />
+                            android:textSize="16dp"  />
 
 
                     </GridLayout>

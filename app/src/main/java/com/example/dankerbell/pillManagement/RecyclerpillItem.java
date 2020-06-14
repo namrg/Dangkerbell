@@ -1,7 +1,5 @@
 package com.example.dankerbell.pillManagement;
 
-import android.text.BoringLayout;
-
 public class RecyclerpillItem {
     String medname;//약 이름
     int pill_amount;//복용량
@@ -36,8 +34,7 @@ public class RecyclerpillItem {
     }
 
     public void setNotify(Boolean notify) {
-        this.notify = notify;
-    }
+        this.notify = notify; }
 
     public boolean isDel() {
         return del;

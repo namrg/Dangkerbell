@@ -1,6 +1,8 @@
 package com.example.dankerbell.pillManagement;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +22,6 @@ import static com.example.dankerbell.Firebase.CrudInterface.db;
 public class RecyclerpillAdapter extends RecyclerView.Adapter<RecyclerpillAdapter.ViewHolder> {
     private static RecyclerpillAdapter instance; //싱글톤
     pillCrud mPill = pillCrud.getInstance();
-
     private ArrayList<RecyclerpillItem> mData = null ;
 
     Context context;
@@ -53,6 +54,7 @@ public class RecyclerpillAdapter extends RecyclerView.Adapter<RecyclerpillAdapte
         for(int i=0;i<mData.size();i++){
             if(mData.get(i).isNotify()){ //true
                 Log.d("알람 켜져 있음 ",mData.get(position).getMedname());
+
                 holder.alarm.setVisibility(View.VISIBLE);
                 holder.alarm_off.setVisibility(View.GONE);
             }
@@ -62,31 +64,47 @@ public class RecyclerpillAdapter extends RecyclerView.Adapter<RecyclerpillAdapte
                 holder.alarm.setVisibility(View.GONE);
             }
         }
+
+
+        mPill.alarmpill = new Handler(){
+
+            @Override public void handleMessage(Message msg){
+                if (msg.what==1001){
+                   Log.d("메세지받음","실행OK");
+
+                }
+            }
+        };
         holder.alarm.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 String pillname = mData.get(position).getMedname();
+                mData.get(position).setNotify(false);
                 boolean value = mData.get(position).isNotify();
-                mPill.update(pillname, value);
+                Log.d("알람 유무 ",String.valueOf(value));
                 Log.d("알람 끄기 클릭 ",mData.get(position).getMedname());
                 holder.alarm_off.setVisibility(View.VISIBLE);
                 holder.alarm.setVisibility(View.GONE);
-                notifyItemChanged(position);
+               notifyItemChanged(position);
+                mPill.update(pillname, value);
             }
         });
         holder.alarm_off.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String pillname = mData.get(position).getMedname();
+                mData.get(position).setNotify(true);
                 boolean value = mData.get(position).isNotify();
                 mPill.update(pillname, value);
+                Log.d("알람 유무 ",String.valueOf(value));
                 Log.d("알람 켜기 클릭 ",mData.get(position).getMedname());
                 holder.alarm_off.setVisibility(View.GONE);
                 holder.alarm.setVisibility(View.VISIBLE);
                 notifyItemChanged(position);
             }
         });
+
 
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override

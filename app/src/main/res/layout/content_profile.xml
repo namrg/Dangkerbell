@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/activity_profile">
+    tools:showIn="@layout/activity_profile2">
 
 
         <LinearLayout
@@ -23,9 +23,8 @@
                 <TextView
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/bmdohyeon_ttf"
+                    android:fontFamily="@font/nanumsquare_acr"
                     android:text="성별"
-                    android:textColor="#b8b8b8"
                     android:textSize="15dp"></TextView>
 
                 <RadioButton
@@ -67,9 +66,8 @@
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:fontFamily="@font/bmdohyeon_ttf"
+                    android:fontFamily="@font/nanumsquare_acr"
                     android:text="생년월일"
-                    android:textColor="#b8b8b8"
                     android:textSize="15dp"></TextView>
 
                 <TextView
@@ -98,9 +96,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:layout_marginLeft="20dp"
-                    android:fontFamily="@font/bmdohyeon_ttf"
+                    android:fontFamily="@font/nanumsquare_acr"
                     android:text="당뇨유형"
-                    android:textColor="#b8b8b8"
                     android:textSize="15dp"></TextView>
 
 
@@ -130,9 +127,8 @@
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:fontFamily="@font/bmdohyeon_ttf"
+                    android:fontFamily="@font/nanumsquare_acr"
                     android:text="키"
-                    android:textColor="#b8b8b8"
                     android:textSize="15dp"></TextView>
 
                 <EditText
@@ -164,10 +160,9 @@
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:fontFamily="@font/bmdohyeon_ttf"
+                    android:fontFamily="@font/nanumsquare_acr"
                     android:text="몸무게"
 
-                    android:textColor="#b8b8b8"
                     android:textSize="15dp"></TextView>
 
                 <EditText
@@ -225,9 +220,8 @@
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="18dp"
-                    android:fontFamily="@font/bmdohyeon_ttf"
+                    android:fontFamily="@font/nanumsquare_acr"
                     android:text="기저질환"
-                    android:textColor="#b8b8b8"
                     android:textSize="15dp"></TextView>
 
                 <EditText
@@ -249,9 +243,8 @@
                 <TextView
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/bmdohyeon_ttf"
+                    android:fontFamily="@font/nanumsquare_acr"
                     android:text="고혈압"
-                    android:textColor="#b8b8b8"
                     android:textSize="15dp"></TextView>
 
                 <RadioButton
@@ -290,9 +283,8 @@
                 <TextView
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/bmdohyeon_ttf"
+                    android:fontFamily="@font/nanumsquare_acr"
                     android:text="흡연"
-                    android:textColor="#b8b8b8"
                     android:textSize="15dp"></TextView>
 
                 <RadioButton
@@ -332,9 +324,8 @@
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:fontFamily="@font/bmdohyeon_ttf"
+                    android:fontFamily="@font/nanumsquare_acr"
                     android:text="당뇨유병기간"
-                    android:textColor="#b8b8b8"
                     android:textSize="15dp"></TextView>
 
                 <TextView
@@ -373,9 +364,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:layout_marginLeft="20dp"
-                    android:fontFamily="@font/bmdohyeon_ttf"
+                    android:fontFamily="@font/nanumsquare_acr"
                     android:text="당뇨            치료방법"
-                    android:textColor="#b8b8b8"
                     android:textSize="15dp"></TextView>
 
 
@@ -403,9 +393,8 @@
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="25dp"
-                    android:fontFamily="@font/bmdohyeon_ttf"
+                    android:fontFamily="@font/nanumsquare_acr"
                     android:text="활동량"
-                    android:textColor="#b8b8b8"
                     android:textSize="15dp"></TextView>
 
                 <RadioButton
@@ -458,9 +447,8 @@
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="25dp"
-                    android:fontFamily="@font/bmdohyeon_ttf"
+                    android:fontFamily="@font/nanumsquare_acr"
                     android:text="체중변화"
-                    android:textColor="#b8b8b8"
                     android:textSize="15dp"></TextView>
 
                 <RadioButton
