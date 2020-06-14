@@ -93,7 +93,6 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스 use
             mReporter = new BloodReporter(mStore);
             gluecoseReporter=new glucoseReporter(mStore);
             wReporter=new SamsungweightReporter(mStore);
-
             hReporter=new SamsungheightReporter(mStore);
 
             if (isPermissionAcquired()) {
@@ -383,7 +382,6 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스 use
 
        todaystep=findViewById(R.id.todaystep);
 
-        if(count==0)     {
             mKeySet = new HashSet<PermissionKey>();
             mKeySet.add(new PermissionKey(HealthConstants.StepCount.HEALTH_DATA_TYPE, PermissionType.READ));
             mKeySet.add(new PermissionKey(HealthConstants.Weight.HEALTH_DATA_TYPE, PermissionType.READ));
@@ -392,11 +390,7 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스 use
             mKeySet.add(new PermissionKey(HealthConstants.BloodGlucose.HEALTH_DATA_TYPE, PermissionType.READ));
 
             mStore = new HealthDataStore(this, mConnectionListener);
-            mStore.connectService();}
-        count++;
-        Log.d("count",String.valueOf(count));
- 
-
+            mStore.connectService();
 
        step.read();
     //   todaystep.setText(sReporter.count); //오류
