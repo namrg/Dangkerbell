@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import im.dacer.androidcharts.LineView;
 
 public class LineFragment extends Fragment {
-
+    private static final String MODEL_PATH = "converted_model.tflite";
     @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                        Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_line, container, false);
@@ -23,6 +23,8 @@ public class LineFragment extends Fragment {
         initLineView(lineViewFloat);
         return rootView;
     }
+    //데이터 로드
+    //로드 후 1주일치 이상이 아니면 예측 보여주지 않음
 
     private void initLineView(LineView lineView) {
         //label
