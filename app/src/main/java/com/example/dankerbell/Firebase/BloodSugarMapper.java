@@ -65,11 +65,11 @@ public class BloodSugarMapper implements MappingInterface {
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
        // result.put("userId", userId);
-        result.put("bloodsugar", bloodsugar);
-        result.put("regular", regular);
-        result.put("NPH", NPH);
-        result.put("UltraLente", Ultra);
-        result.put("date", date);
+        result.put("bloodglucose", bloodsugar);
+        result.put("regularInsuline", regular);
+        result.put("NPHInsuline", NPH);
+        result.put("UltralenteInsuline", Ultra);
+        result.put("dateTime", date);
         result.put("time", time);
 //        if((time == "아침")) { // 날짜가 오늘 날짜인 것 추가해야함
 //            Log.d("date", date);

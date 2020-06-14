@@ -218,10 +218,10 @@
                 if (task.isSuccessful()){
                     DocumentSnapshot document = task.getResult();
                     if(document.exists()){
-                        bloodsugar=document.getData().get("bloodsugar").toString();
-                        wregular=document.getData().get("regular").toString();
-                        wNPH=document.getData().get("NPH").toString();
-                        wultra=document.getData().get("UltraLente").toString();
+                        bloodsugar=document.getData().get("bloodglucose").toString();
+                        wregular=document.getData().get("regularInsuline").toString();
+                        wNPH=document.getData().get("NPHInsuline").toString();
+                        wultra=document.getData().get("UltralenteInsuline").toString();
                         Log.d("받아오는 혈당",bloodsugar);
 
                     }
@@ -245,10 +245,11 @@
                                 if (task.isSuccessful()){
                                     DocumentSnapshot document = task.getResult();
                                     if(document.exists()){
-                                        mbloodsugar=document.getData().get("bloodsugar").toString();
-                                        mregular=document.getData().get("regular").toString();
-                                        mNPH=document.getData().get("NPH").toString();
-                                        multra=document.getData().get("UltraLente").toString();
+                                        mbloodsugar=document.getData().get("bloodglucose").toString();
+                                        mregular=document.getData().get("regularInsuline").toString();
+                                        mNPH=document.getData().get("NPHInsuline").toString();
+                                        multra=document.getData().get("UltralenteInsuline").toString();
+
 
                                     }
                                     else{ mbloodsugar="";
@@ -272,10 +273,11 @@
                                 if (task.isSuccessful()){
                                     DocumentSnapshot document = task.getResult();
                                     if(document.exists()){
-                                        lbloodsugar=document.getData().get("bloodsugar").toString();
-                                        lregular=document.getData().get("regular").toString();
-                                        lNPH=document.getData().get("NPH").toString();
-                                        lultra=document.getData().get("UltraLente").toString();
+                                        lbloodsugar=document.getData().get("bloodglucose").toString();
+                                        lregular=document.getData().get("regularInsuline").toString();
+                                        lNPH=document.getData().get("NPHInsuline").toString();
+                                        lultra=document.getData().get("UltralenteInsuline").toString();
+
                                     }
                                     else{ lbloodsugar="";
                                         lregular="";
@@ -296,10 +298,10 @@
                                 if (task.isSuccessful()){
                                     DocumentSnapshot document = task.getResult();
                                     if(document.exists()){
-                                        dbloodsugar=document.getData().get("bloodsugar").toString();
-                                        dregular=document.getData().get("regular").toString();
-                                        dNPH=document.getData().get("NPH").toString();
-                                        dultra=document.getData().get("UltraLente").toString();
+                                        dbloodsugar=document.getData().get("bloodglucose").toString();
+                                        dregular=document.getData().get("regularInsuline").toString();
+                                        dNPH=document.getData().get("NPHInsuline").toString();
+                                        dultra=document.getData().get("UltralenteInsuline").toString();
                                     }
                                     else{ dbloodsugar="";
                                         dregular="";
@@ -321,10 +323,11 @@
                                 if (task.isSuccessful()){
                                     DocumentSnapshot document = task.getResult();
                                     if(document.exists()){
-                                        sbloodsugar=document.getData().get("bloodsugar").toString();
-                                        sregular=document.getData().get("regular").toString();
-                                        sNPH=document.getData().get("NPH").toString();
-                                        sultra=document.getData().get("UltraLente").toString();
+                                        sbloodsugar=document.getData().get("bloodglucose").toString();
+                                        sregular=document.getData().get("regularInsuline").toString();
+                                        sNPH=document.getData().get("NPHInsuline").toString();
+                                        sultra=document.getData().get("UltralenteInsuline").toString();
+
                                     }
                                     else{
                                         sbloodsugar="";
