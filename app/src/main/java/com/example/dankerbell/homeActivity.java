@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.app.FragmentManager;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -50,6 +51,7 @@ import java.util.Map;
 import java.util.Set;
 
 import butterknife.BindView;
+import im.dacer.androidcharts.LineView;
 
 public class homeActivity extends AppCompatActivity { // 홈화면 클래스 userid 및 걸음수
     bloodActivity bloodActivity=new bloodActivity();
@@ -76,7 +78,7 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스 use
     BloodReporter mReporter;
     glucoseReporter gluecoseReporter;
     SamsungheightReporter hReporter;
-   SamsungweightReporter wReporter;
+    SamsungweightReporter wReporter;
     @Override
     public void onDestroy() {
         mStore.disconnectService();
@@ -304,6 +306,10 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스 use
 
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.container, new LineFragment()).commit();
+
         mprofile.read();
         setContentView(R.layout.activity_home);
         userid=findViewById(R.id.userid); // !!!!!!!
