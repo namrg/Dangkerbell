@@ -60,6 +60,7 @@
                     android:layout_gravity="center"
                     android:fontFamily="@font/nanumsquare_acr"
                     android:text="당커벨"
+                    android:layout_marginRight="25dp"
                     android:textColor="@color/colorAccent"
                     android:textSize="20dp"
                     android:textStyle="bold" />
@@ -100,7 +101,7 @@
                             android:fontFamily="@font/nanumsquare_acr"
                             android:text="식단 관리"
                             android:id="@+id/meal_txt"
-                            android:textSize="16dp" />
+                            android:textSize="17dp" />
 
                         <TextView
                             android:textStyle="bold"
@@ -110,7 +111,7 @@
                             android:textColor="@color/colorAccent"
                             android:fontFamily="@font/nanumsquare_acr"
                             android:text="혈당 관리"
-                            android:textSize="16dp" />
+                            android:textSize="17dp" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -119,7 +120,7 @@
                             android:fontFamily="@font/nanumsquare_acr"
                             android:text="복약 관리"
                             android:id="@+id/pill_txt"
-                            android:textSize="16dp" />
+                            android:textSize="17dp" />
 
 
                     </GridLayout>

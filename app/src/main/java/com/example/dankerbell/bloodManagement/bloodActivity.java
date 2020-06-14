@@ -17,17 +17,26 @@ import android.widget.GridLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.dankerbell.Firebase.BloodSugarCrud;
+import com.example.dankerbell.LoginInActivity;
 import com.example.dankerbell.ProfileActivity;
 import com.example.dankerbell.R;
 import com.example.dankerbell.bloodManagement.BloodReporter;
 import com.example.dankerbell.bloodManagement.glucoseReporter;
 import com.example.dankerbell.homeActivity;
 import com.example.dankerbell.mealManagement.mealActivity;
+import com.example.dankerbell.myprofileActivity;
+import com.example.dankerbell.mysetTimeActivity;
 import com.example.dankerbell.pillManagement.pillActivity;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.samsung.android.sdk.healthdata.HealthConnectionErrorResult;
@@ -49,13 +58,15 @@ import butterknife.ButterKnife;
 
 public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
     BloodSugarCrud mBloodSugar = BloodSugarCrud.getInstance(); //firebase 참조 singletone
+    private GoogleSignInClient mGoogleSignInClient;
 
     TextView toolbar;
     TextView close;
     DrawerLayout drawerLayout;
     View drawerView;
-    Button logout;
     Button mypage;
+    Button logout,settime;
+    TextView userid;
 
     TextView home; //
     TextView meal_txt; // 상단에 식단관리 TextView
@@ -101,7 +112,6 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
     EditText sleepsugaredit; // 취침 전 혈당입력칸 / 혈압 입력칸
 
 
-    TextView userid;
 
     GridLayout morningtextgrid,morningeditgrid,lunchtextgrid,luncheditgrid,dinnertextgrid,dinnereditgrid,sleeptextgrid,sleepeditgrid,waketextgrid,wakeeditgrid;
 
@@ -136,7 +146,10 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
         inputcol=findViewById(R.id.inputcol);
         drawer_meal=findViewById(R.id.drawer_meal);
         drawer_pill=findViewById(R.id.drawer_pill);
+        settime=findViewById(R.id.settime);
 
+        userid=findViewById(R.id.userid); // !!!!!!!
+        userid.setText(User);
 
 
         final SimpleDateFormat sdf = new SimpleDateFormat("yy.MM.dd", Locale.getDefault());
@@ -169,6 +182,37 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
         drawerView=findViewById(R.id.drawer);
         close=findViewById(R.id.toolbar_close);
 
+        drawer_blood=findViewById(R.id.drawer_blood);
+        drawer_meal=findViewById(R.id.drawer_meal);
+        drawer_pill=findViewById(R.id.drawer_pill);
+        settime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent setTimeintent = new Intent(getApplicationContext(), mysetTimeActivity.class);
+                startActivity(setTimeintent);//액티비티 띄우기
+            }
+        });
+        drawer_pill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent pill = new Intent(getApplicationContext(), pillActivity.class);
+                startActivity(pill);//혈당관리 클래스 전환
+            }
+        });
+        drawer_blood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent blood = new Intent(getApplicationContext(), bloodActivity.class);
+                startActivity(blood);//혈당관리 클래스 전환
+            }
+        });
+        drawer_meal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent meal = new Intent(getApplicationContext(), mealActivity.class);
+                startActivity(meal);//식단관리 클래스 전환
+            }
+        });
 
         toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,7 +231,7 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
         mypage.setOnClickListener(new View.OnClickListener() { // 내 정보 버튼 클릭 시 실행
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                Intent intent = new Intent(getApplicationContext(), myprofileActivity.class);
                 startActivity(intent);//액티비티 띄우기
             }
         });
@@ -197,7 +241,7 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
             @Override
             public void onClick(View view) {
                 Log.d(this.getClass().getName(),"로그아웃 클릭");
-                //signOut();
+                signOut();
             }
         });
         mchol.read(date);
@@ -960,5 +1004,25 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
 
         builder.show();
 
+    }
+        public void signOut() {
+                        // Firebase sign out
+                        FirebaseAuth.getInstance().signOut();
+                        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                                .requestIdToken(getString(R.string.default_web_client_id))
+                                .requestEmail()
+                                .build();
+                        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+                        // Google sign out
+                        mGoogleSignInClient.signOut().addOnCompleteListener(this,
+                                new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        Intent loginintent = new Intent(getApplicationContext(), LoginInActivity.class);
+                                        startActivity(loginintent);//액티비티 띄우기 새로 추가 - 로그인 전환
+                                        finishAffinity();
+                                    }
+                                });
     }
 }

@@ -312,12 +312,13 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스 use
         mprofile.read();
         setContentView(R.layout.activity_home);
         userid=findViewById(R.id.userid); // !!!!!!!
-        drawer_blood=findViewById(R.id.drawer_blood);
-        drawer_meal=findViewById(R.id.drawer_meal);
-        drawer_pill=findViewById(R.id.drawer_pill);
+
         today=findViewById(R.id.today);
         comment1=findViewById(R.id.comment1);
         comment2=findViewById(R.id.comment2);
+        drawer_blood=findViewById(R.id.drawer_blood);
+        drawer_meal=findViewById(R.id.drawer_meal);
+        drawer_pill=findViewById(R.id.drawer_pill);
         drawer_pill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
