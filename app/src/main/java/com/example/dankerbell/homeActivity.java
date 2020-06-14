@@ -353,14 +353,14 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스 use
             @Override public void handleMessage(Message msg){
 
                 if (msg.what==1007){
-                    Double bmi=Double.parseDouble(mprofile.getMybmi());
+                   // Double bmi=);
                     if(mprofile.getMybmi().equals("")){ //bmi없으면
                         comment1.setText("매일 일정한 시간에 규칙적으로 식사해야 해요. 설탕,꿀 등 단순당 섭취를 주의해주세요.지방을 적당량 섭취하고, 콜레스테롤 섭취를 제한해주세요. ");
                         comment2.setText("내 정보를 입력하시면 더 정확한 건강정보를 볼 수 있습니다!");
                         comment2.setTextSize(17);
                     }
                     else {
-                        if (bmi > 35) {
+                        if (Double.parseDouble(mprofile.getMybmi()) > 35) {
                             comment1.setText("인슐린 저항성은 체지방이 증가할수록 높아집니다. 운동 습관을 점검하고, 운동을 통해 체지방률을 낮추어야 합니다. 탄수화물 과다섭취는 금물이에요 !");
                             comment2.setText("");
 
