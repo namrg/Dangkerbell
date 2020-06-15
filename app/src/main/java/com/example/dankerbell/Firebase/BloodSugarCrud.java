@@ -157,8 +157,8 @@
             SimpleDateFormat monthofdayformat = new SimpleDateFormat("dd", Locale.getDefault());
 
             final Calendar calendar = Calendar.getInstance(); // 오늘날짜
-            final String day = monthofdayformat.format(calendar.getTime());
-            String month=monthformat.format(calendar.getTime());
+            public final String day = monthofdayformat.format(calendar.getTime());
+            public String month=monthformat.format(calendar.getTime());
 
     public void create(double bloodsugar, double regular,double NPH,double Ultra,String date, String time) {
         //오버로딩
@@ -183,6 +183,30 @@
                     }
                 });
     }
+
+            public void create(double bloodsugar, double regular,double NPH,double Ultra,String date,String month, String day, String time) {
+                //오버로딩
+                Map<String, Object> updateData = new HashMap<>();
+
+                //if(add){
+                BloodSugarMapper post = new BloodSugarMapper(bloodsugar, regular, NPH,Ultra,date, time);
+                updateData = post.toMap();
+                //}
+                db.collection("user").document(User).collection("bloodsugar").document(month).collection(day).document(time)
+                        .set(updateData)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d("데이터 추가", "DocumentSnapshot successfully written!");
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w("데이터 추가", "Error writing document", e);
+                            }
+                        });
+            }
 
     @Override
     public void create() {
