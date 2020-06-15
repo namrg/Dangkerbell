@@ -1,6 +1,7 @@
 package com.example.dankerbell.pillManagement;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.dankerbell.AlarmManagement.AlarmActivity;
 import com.example.dankerbell.R;
 
 import java.util.ArrayList;
@@ -82,12 +84,12 @@ public class RecyclerpillAdapter extends RecyclerView.Adapter<RecyclerpillAdapte
                 String pillname = mData.get(position).getMedname();
                 mData.get(position).setNotify(false);
                 boolean value = mData.get(position).isNotify();
+                mPill.update(pillname, value);
+                notifyItemChanged(position);
                 Log.d("알람 유무 ",String.valueOf(value));
                 Log.d("알람 끄기 클릭 ",mData.get(position).getMedname());
                 holder.alarm_off.setVisibility(View.VISIBLE);
                 holder.alarm.setVisibility(View.GONE);
-               notifyItemChanged(position);
-                mPill.update(pillname, value);
             }
         });
         holder.alarm_off.setOnClickListener(new View.OnClickListener() {
@@ -97,11 +99,13 @@ public class RecyclerpillAdapter extends RecyclerView.Adapter<RecyclerpillAdapte
                 mData.get(position).setNotify(true);
                 boolean value = mData.get(position).isNotify();
                 mPill.update(pillname, value);
+                notifyItemChanged(position);
                 Log.d("알람 유무 ",String.valueOf(value));
                 Log.d("알람 켜기 클릭 ",mData.get(position).getMedname());
                 holder.alarm_off.setVisibility(View.GONE);
                 holder.alarm.setVisibility(View.VISIBLE);
-                notifyItemChanged(position);
+                Intent alarmintent = new Intent(context.getApplicationContext(), AlarmActivity.class);
+                context.startActivity(alarmintent);
             }
         });
 

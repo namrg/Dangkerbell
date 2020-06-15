@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.dankerbell">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <application
         android:allowBackup="false"
         android:icon="@mipmap/dangkerbell_round"
@@ -16,35 +17,38 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@xml/actions" />
+        <meta-data
             android:name="com.samsung.android.health.permission.read"
             android:value="com.samsung.health.blood_pressure; com.samsung.health.blood_glucose; com.samsung.health.weight; com.samsung.health.height" />
 
         <activity android:name=".LoginInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-                <action android:name="android.intent.action.SEARCH" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+
+                <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
 
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-
-        <activity android:name=".homeActivity">
-        </activity>
-        <activity android:name=".ProfileActivity"/>
-        <activity android:name=".setTimeActivity"/>
-        <activity android:name=".mysetTimeActivity"/>
-        <activity android:name=".myprofileActivity"/>
-        <activity android:name=".bloodManagement.bloodActivity"></activity>
-        <activity android:name=".mealManagement.mealActivity"></activity>
-        <activity android:name=".mealManagement.SearchmealActivity"></activity>
-        <activity android:name=".pillManagement.addpillActivity"></activity>
-        <activity android:name=".pillManagement.pillActivity"></activity>
-        <activity android:name=".Bluetooth.ConnectBluetoothActivity"></activity>
-        <activity android:name=".HDPActivity"></activity>
+        <activity android:name=".homeActivity"></activity>
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".setTimeActivity" />
+        <activity android:name=".mysetTimeActivity" />
+        <activity android:name=".myprofileActivity" />
+        <activity android:name=".bloodManagement.bloodActivity" />
+        <activity android:name=".mealManagement.mealActivity" />
+        <activity android:name=".mealManagement.SearchmealActivity" />
+        <activity android:name=".pillManagement.addpillActivity" />
+        <activity android:name=".pillManagement.pillActivity" />
+<!--        <activity android:name=".Bluetooth.BluethoothMainActivity" />-->
+        <activity android:name=".Bluetooth.Bluetooth" />
+        <activity android:name=".AlarmManagement.AlarmActivity" />
     </application>
 
 </manifest>
