@@ -1,13 +1,11 @@
 package com.example.dankerbell;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -18,7 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.dankerbell.Bluetooth.BluetoothCommunicationActivity;
+import com.example.dankerbell.Bluetooth.BluethoothMainActivity;
+import com.example.dankerbell.Bluetooth.Bluetooth;
 import com.example.dankerbell.Bluetooth.ConnectBluetoothActivity;
 //import com.example.dankerbell.Firebase.StepCountCrud;
 import com.example.dankerbell.Firebase.BloodSugarCrud;
@@ -29,7 +28,6 @@ import com.example.dankerbell.bloodManagement.bloodActivity;
 import com.example.dankerbell.bloodManagement.glucoseReporter;
 import com.example.dankerbell.mealManagement.mealActivity;
 import com.example.dankerbell.pillManagement.pillActivity;
-import com.example.dankerbell.pillManagement.pillCrud;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -52,9 +50,6 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-
-import butterknife.BindView;
-import im.dacer.androidcharts.LineView;
 
 public class homeActivity extends AppCompatActivity { // 홈화면 클래스 userid 및 걸음수
     bloodActivity bloodActivity=new bloodActivity();
@@ -187,7 +182,7 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스 use
             @Override public void handleMessage(Message msg){
 
                 if (msg.what==1007){
-                   // Double bmi=;
+                    //Double bmi=;
                     if(mprofile.getMybmi().equals("")){ //bmi없으면
                         comment1.setText("매일 일정한 시간에 규칙적으로 식사해야 해요. 설탕,꿀 등 단순당 섭취를 주의해주세요.지방을 적당량 섭취하고, 콜레스테롤 섭취를 제한해주세요. ");
                         comment2.setText("내 정보를 입력하시면 더 정확한 건강정보를 볼 수 있습니다!");
@@ -319,7 +314,7 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스 use
         bluetooth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent bluetootintent=new Intent(getApplicationContext(),BluetoothCommunicationActivity.class);
+                Intent bluetootintent=new Intent(getApplicationContext(), Bluetooth.class);
                 startActivity(bluetootintent);
             }
         });

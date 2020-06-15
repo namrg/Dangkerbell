@@ -31,7 +31,7 @@ public class pillMapper implements MappingInterface {
         this.takingPillTime = takingPillTime;
         this.pilltime = pilltime;
         this.times = times;
-        this.notify = true;
+        this.notify = false;
     }
 
     @Override
