@@ -58,7 +58,6 @@ public class RecyclerDBAdapter2 extends RecyclerView.Adapter<RecyclerDBAdapter2.
         RecyclermyfoodItem item = mData.get(position);
         holder.foodlist.setText(item.getMyfood());
         holder.kcallist.setText(item.getMykcal());
-        lunchkcal+=Integer.parseInt(item.getMykcal());
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,7 +67,6 @@ public class RecyclerDBAdapter2 extends RecyclerView.Adapter<RecyclerDBAdapter2.
                     if(mData.get(position).isDeleted()){ // true
                         Log.d("삭제 한 행 ",mData.get(i).getMyfood());
                         foodlistCrud.delete(mData.get(i).getMyfood(),date,"점심",mData.get(i).getMykcal());
-                        lunchkcal-=Integer.parseInt(mData.get(i).getMykcal());
 
                         mData.remove(position);
                         notifyItemRemoved(position);

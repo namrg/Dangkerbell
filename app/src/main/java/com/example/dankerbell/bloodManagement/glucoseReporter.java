@@ -32,7 +32,9 @@ import com.samsung.android.sdk.healthdata.HealthDataResolver.ReadResult;
 import com.samsung.android.sdk.healthdata.HealthDataStore;
 import com.samsung.android.sdk.healthdata.HealthResultHolder;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.TimeZone;
 
 public class glucoseReporter {
@@ -77,7 +79,7 @@ public class glucoseReporter {
     }
 
     private long getStartTimeOfToday() {
-        Calendar today = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        Calendar today = Calendar.getInstance(TimeZone.getTimeZone("Asia/Seoul"));
 
         today.set(Calendar.HOUR_OF_DAY, 0);
         today.set(Calendar.MINUTE, 0);
@@ -88,7 +90,19 @@ public class glucoseReporter {
     }
 
     private final HealthResultHolder.ResultListener<ReadResult> mListener = result -> {
+        final SimpleDateFormat sdf = new SimpleDateFormat("yy.MM.dd", Locale.getDefault());
+        final SimpleDateFormat timeinclude = new SimpleDateFormat("yy-MM-dd HH:MM", Locale.getDefault());
+        SimpleDateFormat monthformat = new SimpleDateFormat("MM", Locale.getDefault());
+        SimpleDateFormat monthofdayformat = new SimpleDateFormat("dd", Locale.getDefault());
 
+        final Calendar calendar = Calendar.getInstance(); // 오늘날짜
+        final String day = monthofdayformat.format(calendar.getTime());
+        String month=monthformat.format(calendar.getTime());
+
+        final String timeminutedate=timeinclude.format(calendar.getTime());
+
+
+        final String date = sdf.format(calendar.getTime());
         try {
             for (HealthData data : result) {
                 count = data.getString(HealthConstants.BloodGlucose.GLUCOSE);
@@ -96,12 +110,15 @@ public class glucoseReporter {
                 Log.d("혈당",count);
                 Log.d(this.getClass().getName(),count);
                 Double glu=Double.parseDouble(count);
-                glu= Double.parseDouble(String.format("%.2f",glu));
+                glu=Double.parseDouble(String.format("%.2f",glu));
                 glu=glu*18;
                 count=String.valueOf(Math.round(glu));
+                glu=Double.parseDouble(count);
+
                 //count=String.format("%.2f",glu);
                 Log.d("혈당2",count);
-
+                mBloodSugar.updateglucose(glu,month,day,date);
+                mBloodSugar.create(glu,1.0,1.0,1.0,date,"아침");
                 bHandler.sendEmptyMessage(1009);
 
 

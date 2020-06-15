@@ -111,21 +111,25 @@ public class SamsungheightReporter {
 //                    Double iheight2=(height)/100;
 //                    mbmi=weight/(iheight2*iheight2);
 //                    mbmi=Double.parseDouble(String.format("%.2f",mbmi));
+                height=Double.parseDouble(count);
+                weight=Double.parseDouble(SamsungweightReporter.count);
+                Double iheight2=(height)/100;
+                mbmi=weight/(iheight2*iheight2);
+                mbmi=Double.parseDouble(String.format("%.2f",mbmi));
+                Log.d("weight",String.valueOf(weight));
                 mprofile.updatehw(count,SamsungweightReporter.count,mbmi);
-                if(mprofile.getMybirthday().equals("")){
-                    height=Double.parseDouble(count);
-                    weight=Double.parseDouble(SamsungweightReporter.count);
-                    Double iheight2=(height)/100;
-                    mbmi=weight/(iheight2*iheight2);
-                    mbmi=Double.parseDouble(String.format("%.2f",mbmi));
-                    mprofile.createprofile("","","",height,weight,mbmi,"","","","","","","");
 
-                //만약에 입력을 안한애면 키랑,몸무게 insert
-                //입력된 애면 update
-            }
-                else{
-                    mprofile.updatehw(count,SamsungweightReporter.count,mbmi);
-                }
+
+//                if(mprofile.getMybirthday().equals("")){
+//
+//                    mprofile.createprofile("","","",height,weight,mbmi,"","","","","","","");
+//
+//                //만약에 입력을 안한애면 키랑,몸무게 insert
+//                //입력된 애면 update
+//            }
+//                else{
+//                    mprofile.updatehw(count,SamsungweightReporter.count,mbmi);
+//                }
                           }
         } finally {
             result.close();

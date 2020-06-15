@@ -21,6 +21,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.dankerbell.Bluetooth.BluetoothCommunicationActivity;
 import com.example.dankerbell.Bluetooth.ConnectBluetoothActivity;
 //import com.example.dankerbell.Firebase.StepCountCrud;
+import com.example.dankerbell.Firebase.BloodSugarCrud;
 import com.example.dankerbell.Firebase.StepCountCrud;
 import com.example.dankerbell.Firebase.profileCrud;
 import com.example.dankerbell.bloodManagement.BloodReporter;
@@ -42,8 +43,10 @@ import com.samsung.android.sdk.healthdata.HealthDataStore;
 import com.samsung.android.sdk.healthdata.HealthPermissionManager;
 import com.samsung.android.sdk.healthdata.HealthPermissionManager.PermissionKey;
 import com.samsung.android.sdk.healthdata.HealthPermissionManager.PermissionType;
+import com.samsung.android.sdk.healthdata.HealthResultHolder;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Locale;
@@ -56,6 +59,7 @@ import im.dacer.androidcharts.LineView;
 public class homeActivity extends AppCompatActivity { // 홈화면 클래스 userid 및 걸음수
     bloodActivity bloodActivity=new bloodActivity();
     profileCrud mprofile=profileCrud.getInstance();
+   BloodSugarCrud mbloodsugar=BloodSugarCrud.getInstance();
 
     String date=bloodActivity.getDate();
     TextView today;
@@ -68,229 +72,22 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스 use
     View drawerView;
     Button logout,settime;
     Button mypage;
+    SimpleDateFormat monthformat = new SimpleDateFormat("MM", Locale.getDefault());
+    SimpleDateFormat monthofdayformat = new SimpleDateFormat("dd", Locale.getDefault());
 
+    final Calendar calendar = Calendar.getInstance(); // 오늘날짜
+    final String day = monthofdayformat.format(calendar.getTime());
+    String month=monthformat.format(calendar.getTime());
     private Set<HealthPermissionManager.PermissionKey> mKeySet;
-    int m=0;
     public static final String APP_TAG = "Dangkerbell";
     private HealthDataStore mStore;
 
     SamsungStepCountReporter sReporter;
-    BloodReporter mReporter;
+   // BloodReporter mReporter;
     glucoseReporter gluecoseReporter;
     SamsungheightReporter hReporter;
     SamsungweightReporter wReporter;
-    @Override
-    public void onDestroy() {
-        mStore.disconnectService();
-        super.onDestroy();
-    }
-    private final HealthDataStore.ConnectionListener mConnectionListener = new HealthDataStore.ConnectionListener() {
 
-        @Override
-        public void onConnected() {
-            Log.d(APP_TAG, "Health data service is connected.");
-            sReporter = new SamsungStepCountReporter(mStore);
-            mReporter = new BloodReporter(mStore);
-            gluecoseReporter=new glucoseReporter(mStore);
-            wReporter=new SamsungweightReporter(mStore);
-            hReporter=new SamsungheightReporter(mStore);
-
-            if (isPermissionAcquired()) {
-                sReporter.start(stepCountObserver); //걸음수
-                mReporter.start(bObserver);
-                gluecoseReporter.start(gObserver); //혈당
-                wReporter.start(wObserver); //몸무게
-                hReporter.start(hObserver); //키
-            } else {
-                requestPermission();
-            }
-        }
-
-        @Override
-        public void onConnectionFailed(HealthConnectionErrorResult error) {
-            Log.d(APP_TAG, "Health data service is not available.");
-            showConnectionFailureDialog(error);
-        }
-
-        @Override
-        public void onDisconnected() {
-            Log.d(APP_TAG, "Health data service is disconnected.");
-            if (!isFinishing()) {
-                mStore.connectService();
-            }
-        }
-    };
-
-    private void showPermissionAlarmDialog() {
-        if (isFinishing()) {
-            return;
-        }
-
-        AlertDialog.Builder alert = new AlertDialog.Builder(homeActivity.this);
-        alert.setTitle(R.string.notice)
-                .setMessage(R.string.msg_perm_acquired)
-                .setPositiveButton(R.string.ok, null)
-                .show();
-    }
-
-    private void showConnectionFailureDialog(final HealthConnectionErrorResult error) {
-        if (isFinishing()) {
-            return;
-        }
-
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-
-        if (error.hasResolution()) {
-            switch (error.getErrorCode()) {
-                case HealthConnectionErrorResult.PLATFORM_NOT_INSTALLED:
-                    alert.setMessage(R.string.msg_req_install);
-                    break;
-                case HealthConnectionErrorResult.OLD_VERSION_PLATFORM:
-                    alert.setMessage(R.string.msg_req_upgrade);
-                    break;
-                case HealthConnectionErrorResult.PLATFORM_DISABLED:
-                    alert.setMessage(R.string.msg_req_enable);
-                    break;
-                case HealthConnectionErrorResult.USER_AGREEMENT_NEEDED:
-                    alert.setMessage(R.string.msg_req_agree);
-                    break;
-                default:
-                    alert.setMessage(R.string.msg_req_available);
-                    break;
-            }
-        } else {
-            alert.setMessage(R.string.msg_conn_not_available);
-        }
-
-        alert.setPositiveButton(R.string.ok, (dialog, id) -> {
-            if (error.hasResolution()) {
-                error.resolve(homeActivity.this);
-            }
-        });
-
-        if (error.hasResolution()) {
-            alert.setNegativeButton(R.string.cancel, null);
-        }
-
-        alert.show();
-    }
-
-    private boolean isPermissionAcquired() {
-
-        HealthPermissionManager pmsManager = new HealthPermissionManager(mStore);
-        try {
-            // Check whether the permissions that this application needs are acquired
-            Map<PermissionKey, Boolean> resultMap = pmsManager.isPermissionAcquired(mKeySet);
-            //Log.d("혈당2",mReporter.count);
-
-            return resultMap.get(mKeySet);
-
-        } catch (Exception e) {
-            Log.e(APP_TAG, "Permission request fails.", e);
-        }
-        return false;
-    }
-
-    private void requestPermission() {
-
-        HealthPermissionManager pmsManager = new HealthPermissionManager(mStore);
-
-
-        try {
-
-            // Show user permission UI for allowing user to change options
-            pmsManager.requestPermissions(mKeySet, homeActivity.this)
-                    .setResultListener(result -> {
-                        Log.d(APP_TAG, "Permission callback is received.");
-                        Map<PermissionKey, Boolean> resultMap = result.getResultMap();
-
-                        if (resultMap.containsValue(Boolean.FALSE)) {
-                            //Log.d("혈당5",mReporter.count);
-
-                           updateStepCountView("");
-                            showPermissionAlarmDialog();
-                        } else {
-//                            Log.d("혈압6",mReporter.count);
-//                            Log.d("혈당",gluecoseReporter.count);
-  //                            mStepCountTv.setText(mReporter.count);
-                            wReporter.start(wObserver);
-                            sReporter.start(stepCountObserver);
-                            mReporter.start(bObserver);
-                            gluecoseReporter.start(gObserver);
-                           hReporter.start(hObserver);
-                        }
-                    });
-        } catch (Exception e) {
-            Log.e(APP_TAG, "Permission setting fails.", e);
-        }
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    private SamsungStepCountReporter.StepCountObserver stepCountObserver = new SamsungStepCountReporter.StepCountObserver() {
-        @Override
-        public void onChanged(int count) {
-            homeActivity.this.updateStepCountView(String.valueOf(count));
-        }
-    };
-    private SamsungheightReporter.HeightObserver hObserver=new SamsungheightReporter.HeightObserver() {
-            @Override
-        public void onChanged(String count) {
-            homeActivity.this.updateStepCountView(String.valueOf(count));
-
-        }
-    };
-    private BloodReporter.BloodObserver bObserver = new BloodReporter.BloodObserver() {
-
-
-
-        @Override
-
-        public void onChanged(String count) {
-
-            Log.d(APP_TAG, "Step reported : " + count);
-
-            homeActivity.this.updateStepCountView(String.valueOf(count));
-
-        }
-
-    };
-    private glucoseReporter.BloodglucoseObserver gObserver = new glucoseReporter.BloodglucoseObserver() {
-        @Override
-        public void onChanged(String count) {
-            Log.d(APP_TAG, "Step reported : " + count);
-            homeActivity.this.updateStepCountView(String.valueOf(count));
-        }
-    };
-
-    private SamsungweightReporter.WeightObserver wObserver=new SamsungweightReporter.WeightObserver() {
-        @Override
-        public void onChanged(String count) {
-            Log.d(APP_TAG, "Step reported : " + count);
-            homeActivity.this.updateStepCountView(String.valueOf(count));
-
-        }
-    };
-//
-    private void updateStepCountView(final String count) {
-        todaystep.setText(count);
-
-    }
-//    @Override
-//    public boolean onOptionsItemSelected(android.view.MenuItem item) {
-//
-//        if (item.getItemId() == R.id.connect) {
-//            requestPermission();
-//        }
-//
-//        return true;
-//    }
 
     //구글 로그인
     private GoogleSignInClient mGoogleSignInClient;
@@ -302,16 +99,29 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스 use
     TextView todaystep;
     TextView userid;
     Button drawer_pill,drawer_meal,drawer_blood;
-
+    ArrayList<String> blood=new ArrayList<>();
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.container, new LineFragment()).commit();
+        mKeySet = new HashSet<PermissionKey>();
+        mKeySet.add(new PermissionKey(HealthConstants.Weight.HEALTH_DATA_TYPE, PermissionType.READ));
+        mKeySet.add(new PermissionKey(HealthConstants.BloodGlucose.HEALTH_DATA_TYPE, PermissionType.READ));
+        mKeySet.add(new PermissionKey(HealthConstants.StepCount.HEALTH_DATA_TYPE, PermissionType.READ));
+        mKeySet.add(new PermissionKey(HealthConstants.Height.HEALTH_DATA_TYPE, PermissionType.READ));
+
+        mbloodsugar.morningread(month,day);
+        mbloodsugar.wakeupread(month,day);
+        mbloodsugar.lunchread(month,day);
+        mbloodsugar.dinnerread(month,day);
+        mbloodsugar.sleepread(month,day);
 
         mprofile.read();
         setContentView(R.layout.activity_home);
+        mStore = new HealthDataStore(this, mConnectionListener);
+        mStore.connectService();
         userid=findViewById(R.id.userid); // !!!!!!!
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.container, new LineFragment()).commit();
 
         today=findViewById(R.id.today);
         comment1=findViewById(R.id.comment1);
@@ -348,12 +158,14 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스 use
 
         date = sdf.format(calendar.getTime());
         today.setText(date);
+
+
         //bmi<18.5 저체중     bmi>35 과체중
         mprofile.pHandler = new Handler(){
             @Override public void handleMessage(Message msg){
 
                 if (msg.what==1007){
-                   // Double bmi=);
+                   // Double bmi=;
                     if(mprofile.getMybmi().equals("")){ //bmi없으면
                         comment1.setText("매일 일정한 시간에 규칙적으로 식사해야 해요. 설탕,꿀 등 단순당 섭취를 주의해주세요.지방을 적당량 섭취하고, 콜레스테롤 섭취를 제한해주세요. ");
                         comment2.setText("내 정보를 입력하시면 더 정확한 건강정보를 볼 수 있습니다!");
@@ -378,20 +190,29 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스 use
                 }
             }
         };
+        mbloodsugar.mHandler1 = new Handler(){
+            @Override public void handleMessage(Message msg){
+                if (msg.what==1000){
+                    Log.d("혈당,인슐린 메세지","메세지 받음");
+                    String mL=mbloodsugar.getMbloodsugar();
+                    blood.add(mbloodsugar.getBloodsugar()); //기상후
+                    blood.add(mbloodsugar.getMbloodsugar()); //아침
+                    blood.add(mbloodsugar.getlbloodsugar()); //점심
+                    blood.add(mbloodsugar.getdbloodsugar()); //저녁
+                    blood.add(mbloodsugar.getsbloodsugar()); //저녁
+                    Log.d("메시지 수신 후 혈당",mbloodsugar.getMbloodsugar());
+
+                }
+            }
+        };
         Log.d("우저아이디",User);
         userid.setText(User);
 
        todaystep=findViewById(R.id.todaystep);
 
-            mKeySet = new HashSet<PermissionKey>();
-            mKeySet.add(new PermissionKey(HealthConstants.StepCount.HEALTH_DATA_TYPE, PermissionType.READ));
-            mKeySet.add(new PermissionKey(HealthConstants.Weight.HEALTH_DATA_TYPE, PermissionType.READ));
-            mKeySet.add(new PermissionKey(HealthConstants.Height.HEALTH_DATA_TYPE, PermissionType.READ));
-            mKeySet.add(new PermissionKey(HealthConstants.BloodPressure.HEALTH_DATA_TYPE, PermissionType.READ));
-            mKeySet.add(new PermissionKey(HealthConstants.BloodGlucose.HEALTH_DATA_TYPE, PermissionType.READ));
 
-            mStore = new HealthDataStore(this, mConnectionListener);
-            mStore.connectService();
+
+
 
        step.read();
     //   todaystep.setText(sReporter.count); //오류
@@ -490,11 +311,230 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스 use
         bluetooth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent bluetootintent=new Intent(getApplicationContext(),HDPActivity.class);
+                Intent bluetootintent=new Intent(getApplicationContext(),BluetoothCommunicationActivity.class);
                 startActivity(bluetootintent);
             }
         });
     }
+    @Override
+    public void onDestroy() {
+        mStore.disconnectService();
+        super.onDestroy();
+    }
+    private final HealthDataStore.ConnectionListener mConnectionListener = new HealthDataStore.ConnectionListener() {
+
+        @Override
+        public void onConnected() {
+            Log.d(APP_TAG, "Health data service is connected.");
+            wReporter=new SamsungweightReporter(mStore);
+
+            hReporter=new SamsungheightReporter(mStore);
+
+            sReporter = new SamsungStepCountReporter(mStore);
+            // mReporter = new BloodReporter(mStore);
+            gluecoseReporter=new glucoseReporter(mStore);
+
+            if (isPermissionAcquired()) {
+                wReporter.start(wObserver); //몸무게
+
+                hReporter.start(hObserver); //키
+
+                sReporter.start(stepCountObserver); //걸음수
+                // mReporter.start(bObserver);
+                gluecoseReporter.start(gObserver); //혈당
+            } else {
+                requestPermission();
+            }
+        }
+
+        @Override
+        public void onConnectionFailed(HealthConnectionErrorResult error) {
+            Log.d(APP_TAG, "Health data service is not available.");
+            showConnectionFailureDialog(error);
+        }
+
+        @Override
+        public void onDisconnected() {
+            Log.d(APP_TAG, "Health data service is disconnected.");
+            if (!isFinishing()) {
+                mStore.connectService();
+            }
+        }
+    };
+
+    private void showPermissionAlarmDialog() { //?
+        if (isFinishing()) {
+            return;
+        }
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(homeActivity.this);
+        alert.setTitle(R.string.notice)
+                .setMessage(R.string.msg_perm_acquired)
+                .setPositiveButton(R.string.ok, null)
+                .show();
+    }
+
+    private void showConnectionFailureDialog(final HealthConnectionErrorResult error) {
+        if (isFinishing()) {
+            return;
+        }
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+        if (error.hasResolution()) {
+            switch (error.getErrorCode()) {
+                case HealthConnectionErrorResult.PLATFORM_NOT_INSTALLED:
+                    alert.setMessage(R.string.msg_req_install);
+                    break;
+                case HealthConnectionErrorResult.OLD_VERSION_PLATFORM:
+                    alert.setMessage(R.string.msg_req_upgrade);
+                    break;
+                case HealthConnectionErrorResult.PLATFORM_DISABLED:
+                    alert.setMessage(R.string.msg_req_enable);
+                    break;
+                case HealthConnectionErrorResult.USER_AGREEMENT_NEEDED:
+                    alert.setMessage(R.string.msg_req_agree);
+                    break;
+                default:
+                    alert.setMessage(R.string.msg_req_available);
+                    break;
+            }
+        } else {
+            alert.setMessage(R.string.msg_conn_not_available);
+        }
+
+        alert.setPositiveButton(R.string.ok, (dialog, id) -> {
+            if (error.hasResolution()) {
+                error.resolve(homeActivity.this);
+            }
+        });
+
+        if (error.hasResolution()) {
+            alert.setNegativeButton(R.string.cancel, null);
+        }
+
+        alert.show();
+    }
+
+    private boolean isPermissionAcquired() {
+
+        HealthPermissionManager pmsManager = new HealthPermissionManager(mStore);
+        try {
+            // Check whether the permissions that this application needs are acquired
+            Map<PermissionKey, Boolean> resultMap = pmsManager.isPermissionAcquired(mKeySet);
+            //Log.d("혈당2",mReporter.count);
+
+            return resultMap.get(mKeySet);
+
+        } catch (Exception e) {
+            Log.e(APP_TAG, "Permission request fails.", e);
+        }
+        return false;
+    }
+
+    private void requestPermission() {
+//        mKeySet.add(new PermissionKey(HealthConstants.BloodGlucose.HEALTH_DATA_TYPE, PermissionType.READ));
+//        mKeySet.add(new PermissionKey(HealthConstants.BloodPressure.HEALTH_DATA_TYPE,PermissionType.READ));
+        //PermissionKey permKey = new PermissionKey(HealthConstants.BloodPressure.HEALTH_DATA_TYPE, PermissionType.READ);
+        HealthPermissionManager pmsManager = new HealthPermissionManager(mStore);
+        // mStepCountTv.setText(mReporter.count);
+
+        try {
+
+            // Show user permission UI for allowing user to change options
+            pmsManager.requestPermissions(mKeySet, homeActivity.this)
+                    .setResultListener(result -> {
+                        Log.d(APP_TAG, "Permission callback is received.");
+                        Map<PermissionKey, Boolean> resultMap = result.getResultMap();
+
+                        if (resultMap.containsValue(Boolean.FALSE)) {
+
+                            updateStepCountView("");
+                            showPermissionAlarmDialog();
+                        } else {
+                            wReporter.start(wObserver); //몸무게
+
+                            //    mStepCountTv.setText(mReporter.count);
+
+                            sReporter.start(stepCountObserver); //걸음수
+                            // mReporter.start(bObserver);
+                            gluecoseReporter.start(gObserver); //혈당
+                            hReporter.start(hObserver); //키
+
+
+                        }
+                    });
+        } catch (Exception e) {
+            Log.e(APP_TAG, "Permission setting fails.", e);
+        }
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    private SamsungStepCountReporter.StepCountObserver stepCountObserver = new SamsungStepCountReporter.StepCountObserver() {
+        @Override
+        public void onChanged(int count) {
+            homeActivity.this.updateStepCountView(String.valueOf(count));
+        }
+    };
+    private SamsungheightReporter.HeightObserver hObserver=new SamsungheightReporter.HeightObserver() {
+        @Override
+        public void onChanged(String count) {
+            homeActivity.this.updateStepCountView(String.valueOf(count));
+
+        }
+    };
+    //    private BloodReporter.BloodObserver bObserver = new BloodReporter.BloodObserver() {
+//
+//
+//
+//        @Override
+//
+//        public void onChanged(String count) {
+//
+//            Log.d(APP_TAG, "Step reported : " + count);
+//
+//            homeActivity.this.updateStepCountView(String.valueOf(count));
+//
+//        }
+//
+//    };
+    private glucoseReporter.BloodglucoseObserver gObserver = new glucoseReporter.BloodglucoseObserver() {
+        @Override
+        public void onChanged(String count) {
+            Log.d(APP_TAG, "Step reported : " + count);
+            homeActivity.this.updateStepCountView(String.valueOf(count));
+        }
+    };
+
+    private SamsungweightReporter.WeightObserver wObserver=new SamsungweightReporter.WeightObserver() {
+        @Override
+        public void onChanged(String count) {
+            Log.d(APP_TAG, "Step reported : " + count);
+            homeActivity.this.updateStepCountView(String.valueOf(count));
+
+        }
+    };
+    //
+    private void updateStepCountView(final String count) {
+        todaystep.setText(count);
+
+    }
+    //    @Override
+//    public boolean onOptionsItemSelected(android.view.MenuItem item) {
+//
+//        if (item.getItemId() == R.id.connect) {
+//            requestPermission();
+//        }
+//
+//        return true;
+//    }
     public void signOut() {
         // Firebase sign out
         FirebaseAuth.getInstance().signOut();

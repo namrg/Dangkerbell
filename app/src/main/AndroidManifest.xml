@@ -17,7 +17,7 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.samsung.android.health.permission.read"
-            android:value="com.samsung.health.blood_pressure; com.samsung.health.blood_glucose; com.samsung.health.weight; com.samsung.health.height com.samsung.health.step_count;" />
+            android:value="com.samsung.health.blood_glucose; com.samsung.health.weight; com.samsung.health.height; com.samsung.health.step_count;" />
 
         <activity android:name=".LoginInActivity">
             <intent-filter>
@@ -45,6 +45,8 @@
         <activity android:name=".pillManagement.pillActivity"></activity>
         <activity android:name=".Bluetooth.ConnectBluetoothActivity"></activity>
         <activity android:name=".HDPActivity"></activity>
+        <activity android:name=".Bluetooth.BluetoothCommunicationActivity"></activity>
+
     </application>
 
 </manifest>

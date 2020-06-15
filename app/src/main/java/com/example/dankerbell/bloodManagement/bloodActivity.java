@@ -59,7 +59,6 @@ import butterknife.ButterKnife;
 public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
     BloodSugarCrud mBloodSugar = BloodSugarCrud.getInstance(); //firebase 참조 singletone
     private GoogleSignInClient mGoogleSignInClient;
-
     TextView toolbar;
     TextView close;
     DrawerLayout drawerLayout;
@@ -153,7 +152,7 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
 
 
         final SimpleDateFormat sdf = new SimpleDateFormat("yy.MM.dd", Locale.getDefault());
-        final SimpleDateFormat timeinclude = new SimpleDateFormat("yy.MM.dd.HH:MM", Locale.getDefault());
+        final SimpleDateFormat timeinclude = new SimpleDateFormat("yy-MM-dd HH:MM", Locale.getDefault());
         SimpleDateFormat monthformat = new SimpleDateFormat("MM", Locale.getDefault());
         SimpleDateFormat monthofdayformat = new SimpleDateFormat("dd", Locale.getDefault());
 
