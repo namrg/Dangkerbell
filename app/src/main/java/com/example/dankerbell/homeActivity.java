@@ -99,7 +99,8 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스 use
     TextView todaystep;
     TextView userid;
     Button drawer_pill,drawer_meal,drawer_blood;
-    ArrayList<String> blood=new ArrayList<>();
+    static ArrayList<String> blood=new ArrayList<>();
+
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -120,8 +121,29 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스 use
         mStore = new HealthDataStore(this, mConnectionListener);
         mStore.connectService();
         userid=findViewById(R.id.userid); // !!!!!!!
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.container, new LineFragment()).commit();
+
+        //ForecastingBG ann = new ForecastingBG();
+
+        mbloodsugar.mHandler1 = new Handler(){
+            @Override public void handleMessage(Message msg){
+                if (msg.what==1000){
+                    Log.d("혈당,인슐린 메세지","메세지 받음");
+                    String mL=mbloodsugar.getMbloodsugar();
+                    blood.add(mbloodsugar.getBloodsugar()); //기상후
+                    blood.add(mbloodsugar.getMbloodsugar()); //아침
+                    blood.add(mbloodsugar.getlbloodsugar()); //점심
+                    blood.add(mbloodsugar.getdbloodsugar()); //저녁
+                    blood.add(mbloodsugar.getsbloodsugar()); //저녁
+                    Log.d("메시지 수신 후 혈당",mbloodsugar.getMbloodsugar());
+
+                    FragmentManager fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.container, new LineFragment()).commitAllowingStateLoss();
+                }
+            }
+        };
+
+
+
 
         today=findViewById(R.id.today);
         comment1=findViewById(R.id.comment1);
@@ -184,27 +206,13 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스 use
                         } else {
                             comment1.setText("매일 일정한 시간에 규칙적으로 식사해야 해요.");
                             comment2.setText("소금 섭취를 줄이고, 단순당 섭취에 주의해주세요.");
-                            comment3.setText("지방을 적당량 섭취하고, 콜레스테롤 섭취를 제한한다..");
+//                            comment3.setText("지방을 적당량 섭취하고, 콜레스테롤 섭취를 제한한다..");
                         }
                     }
                 }
             }
         };
-        mbloodsugar.mHandler1 = new Handler(){
-            @Override public void handleMessage(Message msg){
-                if (msg.what==1000){
-                    Log.d("혈당,인슐린 메세지","메세지 받음");
-                    String mL=mbloodsugar.getMbloodsugar();
-                    blood.add(mbloodsugar.getBloodsugar()); //기상후
-                    blood.add(mbloodsugar.getMbloodsugar()); //아침
-                    blood.add(mbloodsugar.getlbloodsugar()); //점심
-                    blood.add(mbloodsugar.getdbloodsugar()); //저녁
-                    blood.add(mbloodsugar.getsbloodsugar()); //저녁
-                    Log.d("메시지 수신 후 혈당",mbloodsugar.getMbloodsugar());
 
-                }
-            }
-        };
         Log.d("우저아이디",User);
         userid.setText(User);
 
