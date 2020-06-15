@@ -94,6 +94,7 @@ public class SamsungStepCountReporter {
         try {
             for (HealthData data : result) {
               //  count += data.getInt(HealthConstants.StepCount.COUNT);
+                count=0;
                 count += data.getInt(HealthConstants.StepCount.COUNT);
 
             }

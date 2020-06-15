@@ -26,6 +26,7 @@ import com.example.dankerbell.LoginInActivity;
 import com.example.dankerbell.ProfileActivity;
 import com.example.dankerbell.R;
 import com.example.dankerbell.bloodManagement.bloodActivity;
+import com.example.dankerbell.homeActivity;
 import com.example.dankerbell.myprofileActivity;
 import com.example.dankerbell.mysetTimeActivity;
 import com.example.dankerbell.pillManagement.pillActivity;
@@ -133,6 +134,14 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), myprofileActivity.class);
                 startActivity(intent);//액티비티 띄우기
+            }
+        });
+        home = findViewById(R.id.home_txt);
+        home.setOnClickListener(new View.OnClickListener() { // 당커벨 클릭 시 홈화면으로 전환
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), homeActivity.class);
+                startActivity(intent);//
             }
         });
 
@@ -306,7 +315,6 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
                         }
 
                             com.example.dankerbell.mealManagement.RecyclerDBAdapter mymorningAdapter = new com.example.dankerbell.mealManagement.RecyclerDBAdapter(mealActivity.this,mymorningList);
-                            mkcal=mymorningAdapter.getMorningkcal();
                             Log.d("아침칼로리",String.valueOf(mkcal));
 
                             mRecyclerView2.setAdapter(mymorningAdapter); // 어댑터
@@ -318,7 +326,6 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
                             addFoodKcalItem(foodlistCrud.mylunchfood.get(i),foodlistCrud.mylunchkcal.get(i),false);
                         }
                         com.example.dankerbell.mealManagement.RecyclerDBAdapter2 mylunchAdapter = new com.example.dankerbell.mealManagement.RecyclerDBAdapter2(mealActivity.this,mylunchList);
-                        lkcal=mylunchAdapter.getLunchkcal();
                             Log.d("점심칼로리",String.valueOf(lkcal));
 
                             Recyclerlunch.setAdapter(mylunchAdapter);
@@ -329,7 +336,6 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
                         for(int i=0;i<foodlistCrud.mydinnerfood.size();i++){
                             addFoodKcalItem(foodlistCrud.mydinnerfood.get(i),foodlistCrud.mydinnerkcal.get(i),false);}
                         com.example.dankerbell.mealManagement.RecyclerDBAdapter3 mydinnerAdapter = new com.example.dankerbell.mealManagement.RecyclerDBAdapter3(mealActivity.this,mydinnerList);
-                        dkcal=mydinnerAdapter.getDinnerkcal();
                         Recyclerdinner.setAdapter(mydinnerAdapter);
                     }}
                     if(getfood.isEmpty()){
@@ -340,8 +346,7 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
                             Log.d("칼로리", String.valueOf(i)+FoodlistCrud.getKcal());
                         }
                     }
-                    int totalkcal=mkcal+lkcal+dkcal;
-                    todaycalory.setText(String.valueOf(totalkcal));
+                    todaycalory.setText(String.valueOf(foodlistCrud.getTotalkcal()));
                     morningsearch1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -645,7 +650,6 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
                     addFoodKcalItem(foodlistCrud.mymorningfood.get(i),foodlistCrud.mymorningkcal.get(i),false);
                 }
                 com.example.dankerbell.mealManagement.RecyclerDBAdapter mymorningAdapter = new com.example.dankerbell.mealManagement.RecyclerDBAdapter(mealActivity.this,mymorningList);
-                mkcal=mymorningAdapter.getMorningkcal();
 
                 mRecyclerView2.setAdapter(mymorningAdapter); // 어댑터
             }}
@@ -656,7 +660,6 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
                     addFoodKcalItem(foodlistCrud.mylunchfood.get(i),foodlistCrud.mylunchkcal.get(i),false);
                 }
                 com.example.dankerbell.mealManagement.RecyclerDBAdapter2 mylunchAdapter = new com.example.dankerbell.mealManagement.RecyclerDBAdapter2(mealActivity.this,mylunchList);
-                lkcal=mylunchAdapter.getLunchkcal();
 
                 Recyclerlunch.setAdapter(mylunchAdapter);
             }}
@@ -666,11 +669,9 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
                 for(int i=0;i<foodlistCrud.mydinnerfood.size();i++){
                     addFoodKcalItem(foodlistCrud.mydinnerfood.get(i),foodlistCrud.mydinnerkcal.get(i),false);}
                 com.example.dankerbell.mealManagement.RecyclerDBAdapter3 mydinnerAdapter = new com.example.dankerbell.mealManagement.RecyclerDBAdapter3(mealActivity.this,mydinnerList);
-                dkcal=mydinnerAdapter.getDinnerkcal();
                 Recyclerdinner.setAdapter(mydinnerAdapter);
             }}
-            int totalkcal=mkcal+lkcal+dkcal;
-            todaycalory.setText(String.valueOf(totalkcal));
+            todaycalory.setText(String.valueOf(foodlistCrud.getTotalkcal()));
     }
     public void signOut() {
         // Firebase sign out
