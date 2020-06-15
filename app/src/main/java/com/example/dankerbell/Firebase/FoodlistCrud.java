@@ -54,7 +54,7 @@ public class FoodlistCrud implements CrudInterface {
     }
     public static String time="";
     static int totalkcal=0;
-    int morningkcal=0,lunchkcal=0,dinnerkcal=0;
+    static int morningkcal=0,lunchkcal=0,dinnerkcal=0;
     @Override
     public void create(){}
     public void create(String time,String date,String food,String kcal) {
@@ -107,6 +107,7 @@ public class FoodlistCrud implements CrudInterface {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         mymorningfood.clear();
+                        morningkcal=0;
                         mymorningkcal.clear();
                         if (task.isSuccessful()) {
                             Log.d("task", String.valueOf(task.getResult()));
@@ -116,7 +117,7 @@ public class FoodlistCrud implements CrudInterface {
                                 Log.d("아침 데이터 읽기", document.getId() + " => " + document.getData().get("Kcal"));
                                 mymorningkcal.add(document.getData().get("Kcal").toString());
                                 morningkcal+=Integer.parseInt(document.getData().get("Kcal").toString());
-                                Log.d("모닝칼로리",String.valueOf(morningkcal));
+                                Log.d("디비모닝칼로리",String.valueOf(morningkcal));
 //                                if(!document.getData().get("Kcal").equals("")) {
 //                                    Log.d("아침 데이터 읽기", document.getId() + " => " + document.getData().get("Kcal"));
 //
@@ -165,6 +166,7 @@ public class FoodlistCrud implements CrudInterface {
     public void readmylunchmeal(String date){ // 내 점심 읽기
         mylunchfood.clear();
         mylunchkcal.clear();
+        lunchkcal=0;
         db.collection("user").document(User).collection("점심"+date)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -177,7 +179,7 @@ public class FoodlistCrud implements CrudInterface {
                                     mylunchfood.add(document.getData().get(document.getId()).toString());
                                     mylunchkcal.add(document.getData().get("Kcal").toString());
                                     lunchkcal+=Integer.parseInt(document.getData().get("Kcal").toString());
-                                    Log.d("점심칼로리",String.valueOf(lunchkcal));
+                                    Log.d("디비점심칼로리",String.valueOf(lunchkcal));
 
                                 }
                                 else{
@@ -195,6 +197,7 @@ public class FoodlistCrud implements CrudInterface {
 
     }
     public void readmydinnermeal(String date){ // 내 저녁 읽기
+        dinnerkcal=0;
         mydinnerfood.clear();
         mydinnerkcal.clear();
         db.collection("user").document(User).collection("저녁"+date)
@@ -209,7 +212,7 @@ public class FoodlistCrud implements CrudInterface {
                                     mydinnerfood.add(document.getData().get(document.getId()).toString());
                                     mydinnerkcal.add(document.getData().get("Kcal").toString());
                                     dinnerkcal+=Integer.parseInt(document.getData().get("Kcal").toString());
-                                    Log.d("저녁칼로리",String.valueOf(dinnerkcal));
+                                    Log.d("디비저녁칼로리",String.valueOf(dinnerkcal));
 
                                 }
                                 else{
@@ -257,6 +260,8 @@ public class FoodlistCrud implements CrudInterface {
                         Log.d("삭제 성공", "DocumentSnapshot successfully deleted!");
                         int k=Integer.parseInt(kcal);
                         totalkcal=totalkcal-k;
+                        Log.d("삭제후 kcal", String.valueOf(totalkcal));
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -265,6 +270,8 @@ public class FoodlistCrud implements CrudInterface {
                         Log.w("삭제 실패", "Error deleting document", e);
                     }
                 });
+        mealHandler.sendEmptyMessage(1001);
+
     }
     @Override
     public void update() {
@@ -276,4 +283,8 @@ public class FoodlistCrud implements CrudInterface {
 
     }
 
+    public static int getTotalkcal() {
+        totalkcal=morningkcal+lunchkcal+dinnerkcal;
+        return totalkcal;
+    }
 }

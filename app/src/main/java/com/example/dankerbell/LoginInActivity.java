@@ -141,7 +141,7 @@ public class LoginInActivity extends AppCompatActivity implements View.OnClickLi
                             String User = user.getEmail();
                             Map<String, Object> data = new HashMap<>();
                             db.collection("user").document(User).set(data);
-
+                            /// ㅙㄴ들러
                             updateUI(user);
                             Intent Homeintent = new Intent(getApplicationContext(), homeActivity.class); // 새로추가 구글 로그인 성공 후 화면전환
                             startActivity(Homeintent);//액티비티 띄우기 새로 추가 - 홈화면 전환

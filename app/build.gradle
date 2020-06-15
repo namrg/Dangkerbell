@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.dankerbell"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -24,6 +24,9 @@ android {
     compileOptions {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
+    }
+    aaptOptions {
+        noCompress "tflite"
     }
 }
 
@@ -67,5 +70,11 @@ dependencies {
     
     //그래프
     implementation 'im.dacer:AndroidCharts:1.0.4'
+    //json
+    implementation 'com.google.code.gson:gson:2.8.5'
+    //tflite
+    implementation('org.tensorflow:tensorflow-lite:0.0.0-nightly') { changing = true }
+    implementation('org.tensorflow:tensorflow-lite-gpu:0.0.0-nightly') { changing = true }
+    implementation('org.tensorflow:tensorflow-lite-support:0.0.0-nightly') { changing = true }
 }
 apply plugin: 'com.google.gms.google-services'

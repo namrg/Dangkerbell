@@ -148,15 +148,12 @@ public class SamsungweightReporter<a> {
 
             try {
                 for (HealthData data : result) {
-                    count = data.getString(HealthConstants.Weight.WEIGHT); //수축기
-                   // count2 = data.getString(HealthConstants.BloodPressure.SYSTOLIC); //이완기
-                   // count3= data.getString(HealthConstants.BloodPressure.START_TIME);
+                    count = data.getString(HealthConstants.Weight.WEIGHT);
                     Log.d("몸무게1", count);
                    // Log.d("날짜", count3);
                     final SimpleDateFormat sdf = new SimpleDateFormat("yy.MM.dd", Locale.getDefault());
                     final Calendar calendar = Calendar.getInstance(); // 오늘날짜
                     final String date = sdf.format(calendar.getTime());
-                   // mBloodSugar.create(0.0, Double.parseDouble(count),Double.parseDouble(count2),date, "아침");
 
 
                 }

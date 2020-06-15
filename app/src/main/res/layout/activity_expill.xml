@@ -59,6 +59,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nanumsquare_acr"
                     android:text="당커벨"
+                    android:layout_marginRight="25dp"
+
                     android:layout_gravity="center"
                     android:textColor="@color/colorAccent"
                     android:textSize="20dp"
@@ -101,7 +103,7 @@
                             android:text="식단 관리"
                             android:id="@+id/meal_txt"
 
-                            android:textSize="20dp" />
+                            android:textSize="17dp" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -111,7 +113,7 @@
 
                             android:fontFamily="@font/nanumsquare_acr"
                             android:text="혈당 관리"
-                            android:textSize="20dp" />
+                            android:textSize="17dp" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -121,7 +123,7 @@
                             android:text="복약 관리"
                             android:textStyle="bold"
                             android:textColor="@color/colorAccent"
-                            android:textSize="20dp" />
+                            android:textSize="17dp" />
 
 
                     </GridLayout>
@@ -279,9 +281,10 @@
 
 
         </RelativeLayout>
-        <include layout="@layout/activity_drawer"/>
 
 
 
     </LinearLayout>
+    <include layout="@layout/activity_drawer"/>
+
 </androidx.drawerlayout.widget.DrawerLayout>
