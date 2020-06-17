@@ -26,7 +26,11 @@
                     android:fontFamily="@font/nanumsquare_acr"
                     android:text="성별"
                     android:textSize="15dp"></TextView>
-
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/gender_group" >
                 <RadioButton
                     android:id="@+id/woman"
                     android:layout_width="90dp"
@@ -38,21 +42,21 @@
                     android:textColor="#b8b8b8"
                     android:textSize="15dp" />
 
+
                 <RadioButton
                     android:id="@+id/man"
-                    android:onClick="GenderRadio"
-
                     android:layout_width="90dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="right"
 
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_horizontal|end"
                     android:fontFamily="@font/nanumsquare_acr"
+
+                    android:onClick="GenderRadio"
                     android:text="남성"
 
                     android:textColor="#b8b8b8"
                     android:textSize="15dp" />
-
-
+            </RadioGroup>
             </LinearLayout>
 
 
@@ -246,7 +250,11 @@
                     android:fontFamily="@font/nanumsquare_acr"
                     android:text="고혈압"
                     android:textSize="15dp"></TextView>
-
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:id = "@+id/pre_group">
                 <RadioButton
                     android:id="@+id/hypertension"
                     android:layout_width="90dp"
@@ -271,7 +279,7 @@
 
                     android:textColor="#b8b8b8"
                     android:textSize="15dp" />
-
+                </RadioGroup>
 
             </LinearLayout>
             <LinearLayout
@@ -286,7 +294,11 @@
                     android:fontFamily="@font/nanumsquare_acr"
                     android:text="흡연"
                     android:textSize="15dp"></TextView>
-
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:id = "@+id/somke_group">
                 <RadioButton
                     android:id="@+id/smoke"
                     android:layout_width="90dp"
@@ -311,7 +323,7 @@
 
                     android:textColor="#b8b8b8"
                     android:textSize="15dp" />
-
+                </RadioGroup>
 
             </LinearLayout>
             <LinearLayout
@@ -396,7 +408,11 @@
                     android:fontFamily="@font/nanumsquare_acr"
                     android:text="활동량"
                     android:textSize="15dp"></TextView>
-
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:id = "@+id/action_group">
                 <RadioButton
                     android:id="@+id/lessact"
                     android:layout_width="70dp"
@@ -435,13 +451,14 @@
                     android:textColor="#B8B8B8"
                     android:textSize="15dp" />
 
-
+                </RadioGroup>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="90dp"
@@ -450,7 +467,11 @@
                     android:fontFamily="@font/nanumsquare_acr"
                     android:text="체중변화"
                     android:textSize="15dp"></TextView>
-
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:id = "@+id/weight_group">
                 <RadioButton
                     android:id="@+id/loseweight"
                     android:layout_width="70dp"
@@ -489,7 +510,7 @@
                     android:textColor="#B8B8B8"
                     android:textSize="15dp" />
 
-
+                </RadioGroup>
             </LinearLayout>
 
 

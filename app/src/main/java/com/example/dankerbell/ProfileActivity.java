@@ -15,6 +15,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -67,6 +68,7 @@ public class ProfileActivity extends AppCompatActivity { // 회원정보등록 �
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile2); // 회원정보 입력 창
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarprofile);
+
 
         woman=findViewById(R.id.woman); // 성별 중 여자
         man=findViewById(R.id.man); // 성별 중 남자
@@ -211,7 +213,6 @@ public class ProfileActivity extends AppCompatActivity { // 회원정보등록 �
                     startActivity(homeintent);//홈화면 전환
                 }
 
-
             }
         });
 
@@ -263,6 +264,7 @@ public class ProfileActivity extends AppCompatActivity { // 회원정보등록 �
         builder.show();
 
     }
+
     public void GenderRadio(View v){
         boolean checked=((RadioButton) v).isChecked();
         switch (v.getId()){
@@ -272,8 +274,8 @@ public class ProfileActivity extends AppCompatActivity { // 회원정보등록 �
 
                 }
                 else{
-                    gender="남자";
-                }
+                   gender="남자";
+               }
                 break;
             case R.id.man:
                 if(checked){
@@ -282,9 +284,10 @@ public class ProfileActivity extends AppCompatActivity { // 회원정보등록 �
                 }
                 else{
                     gender="여자";
-                }
-                break;
-        }
+               }
+              break;
+       }
+
     }
     public void highbloodRadio(View v){
         boolean checked=((RadioButton) v).isChecked();
