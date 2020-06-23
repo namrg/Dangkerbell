@@ -2,6 +2,7 @@ package com.example.dankerbell;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -13,11 +14,10 @@ import android.widget.TextView;
 import android.app.FragmentManager;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.dankerbell.Bluetooth.BluethoothMainActivity;
-import com.example.dankerbell.Bluetooth.Bluetooth;
 import com.example.dankerbell.Bluetooth.ConnectBluetoothActivity;
 //import com.example.dankerbell.Firebase.StepCountCrud;
 import com.example.dankerbell.Firebase.BloodSugarCrud;
@@ -46,10 +46,15 @@ import com.samsung.android.sdk.healthdata.HealthResultHolder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
+
+import io.opencensus.internal.StringUtils;
 
 public class homeActivity extends AppCompatActivity { // 홈화면 클래스 userid 및 걸음수
     bloodActivity bloodActivity=new bloodActivity();
@@ -73,6 +78,7 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스 use
     final Calendar calendar = Calendar.getInstance(); // 오늘날짜
     final String day = monthofdayformat.format(calendar.getTime());
     String month=monthformat.format(calendar.getTime());
+
     private Set<HealthPermissionManager.PermissionKey> mKeySet;
     public static final String APP_TAG = "Dangkerbell";
     private HealthDataStore mStore;
@@ -89,22 +95,28 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스 use
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     final String User = user.getEmail();
     StepCountCrud step=StepCountCrud.getInstance();
-    int count=0;
+    static int count=0;
     TextView comment1,comment2,comment3;
     TextView todaystep;
     TextView userid;
     Button drawer_pill,drawer_meal,drawer_blood;
-    static ArrayList<String> blood=new ArrayList<>();
+    static ArrayList<String> blood = new ArrayList<>(); //그래프 그리기를 위한 static bgl list
+    ArrayList<String> tmp = new ArrayList<>(); //blood 의 불변성을 유지시키기 위한 임시 list
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(count==0) {
+            mKeySet = new HashSet<PermissionKey>();
+            mKeySet.add(new PermissionKey(HealthConstants.Weight.HEALTH_DATA_TYPE, PermissionType.READ));
+            mKeySet.add(new PermissionKey(HealthConstants.BloodGlucose.HEALTH_DATA_TYPE, PermissionType.READ));
+            mKeySet.add(new PermissionKey(HealthConstants.StepCount.HEALTH_DATA_TYPE, PermissionType.READ));
+            mKeySet.add(new PermissionKey(HealthConstants.Height.HEALTH_DATA_TYPE, PermissionType.READ));
 
-        mKeySet = new HashSet<PermissionKey>();
-        mKeySet.add(new PermissionKey(HealthConstants.Weight.HEALTH_DATA_TYPE, PermissionType.READ));
-        mKeySet.add(new PermissionKey(HealthConstants.BloodGlucose.HEALTH_DATA_TYPE, PermissionType.READ));
-        mKeySet.add(new PermissionKey(HealthConstants.StepCount.HEALTH_DATA_TYPE, PermissionType.READ));
-        mKeySet.add(new PermissionKey(HealthConstants.Height.HEALTH_DATA_TYPE, PermissionType.READ));
-
+            mStore = new HealthDataStore(this, mConnectionListener);
+            mStore.connectService();
+            count++;
+        }
         mbloodsugar.morningread(month,day);
         mbloodsugar.wakeupread(month,day);
         mbloodsugar.lunchread(month,day);
@@ -113,29 +125,47 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스 use
 
         mprofile.read();
         setContentView(R.layout.activity_home);
-        mStore = new HealthDataStore(this, mConnectionListener);
-        mStore.connectService();
+
         userid=findViewById(R.id.userid); // !!!!!!!
 
-        //ForecastingBG ann = new ForecastingBG();
 
         mbloodsugar.mHandler1 = new Handler(){
             @Override public void handleMessage(Message msg){
                 if (msg.what==1000){
-                    Log.d("혈당,인슐린 메세지","메세지 받음");
+                    Log.d("Handler","메세지 받음");
                     String mL=mbloodsugar.getMbloodsugar();
-                    blood.add(mbloodsugar.getBloodsugar()); //기상후
-                    blood.add(mbloodsugar.getMbloodsugar()); //아침
-                    blood.add(mbloodsugar.getlbloodsugar()); //점심
-                    blood.add(mbloodsugar.getdbloodsugar()); //저녁
-                    blood.add(mbloodsugar.getsbloodsugar()); //저녁
-                    Log.d("메시지 수신 후 혈당",mbloodsugar.getMbloodsugar());
+                    tmp.add(mbloodsugar.getBloodsugar()); //기상후
+                    tmp.add(mbloodsugar.getMbloodsugar()); //아침
+                    tmp.add(mbloodsugar.getlbloodsugar()); //점심
+                    tmp.add(mbloodsugar.getdbloodsugar()); //저녁
+                    tmp.add(mbloodsugar.getsbloodsugar()); //저녁
+                    Log.d("메시지 수신 후 기상 후 혈당",mbloodsugar.getMbloodsugar());
+
+                    boolean missing = false; // null값이 입력이 되지 못한 값인지, 미래의 측정치인지를 구별
+                    for(int i = tmp.size()-1 ; i > 0; i--){
+                        if(tmp.get(i).isEmpty() && missing == false){
+                            tmp.remove(i);
+                        }
+                        else missing = true;
+                    }
+//                    List<String> lamda = tmp.stream().filter(str->{
+//                        if (str.isEmpty() && missing = false) {
+//                            return false;
+//                        }
+//                        missing = true;
+//                        return true;
+//                    }).collect(Collectors.toList());
+                    blood = tmp;
+
+                    Log.d("blood의 길이:", String.valueOf(blood.size()));
 
                     FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction().replace(R.id.container, new LineFragment()).commitAllowingStateLoss();
                 }
             }
         };
+
+
 
 
 
@@ -310,14 +340,7 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스 use
                 startActivity(pill);//복약관리 클래스 전환
             }
         });
-        bluetooth=findViewById(R.id.bluetooth);
-        bluetooth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent bluetootintent=new Intent(getApplicationContext(), Bluetooth.class);
-                startActivity(bluetootintent);
-            }
-        });
+
     }
     @Override
     public void onDestroy() {

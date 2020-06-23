@@ -36,7 +36,7 @@
 
         public class BloodSugarCrud extends AppCompatActivity implements CrudInterface  {
     private static BloodSugarCrud instance; //싱글톤
-    String bloodsugar=" ";
+    String bloodsugar="";
     String wregular=" ";
     String wultra=" ";
     String wNPH=" ";
@@ -45,22 +45,22 @@
                 return bloodsugar;
             }
 
-            String mbloodsugar=" ";
+            String mbloodsugar="";
     String mregular="";
     String multra="";
     String mNPH="";
 
-    String lbloodsugar=" ";
+    String lbloodsugar="";
     String lregular=" ";
     String lultra=" ";
     String lNPH=" ";
 
-    String dbloodsugar=" ";
+    String dbloodsugar="";
     String dregular=" ";
     String dultra=" ";
     String dNPH=" ";
 
-    String sbloodsugar=" ";
+    String sbloodsugar="";
     String sregular=" ";
  String sultra=" ";
     String sNPH=" ";
@@ -294,7 +294,7 @@
                                         mNPH="";
                                         multra="";}
                                     Log.d("받아오는 혈당",mbloodsugar);
-                                    mHandler1.sendEmptyMessage(1000);
+                         //           mHandler1.sendEmptyMessage(1000);
                                 }
                             }
                         });
@@ -320,7 +320,7 @@
                                         lNPH="";
                                         lultra="";}
                                     Log.d("받아오는 혈당",lbloodsugar);
-                                    mHandler1.sendEmptyMessage(1000);
+                                   // mHandler1.sendEmptyMessage(1000);
                                 }
                             }
                         });
@@ -345,7 +345,7 @@
                                         dultra="";
                                     }
                                     Log.d("받아오는 혈당",dbloodsugar);
-                                    mHandler1.sendEmptyMessage(1000);
+                                    //mHandler1.sendEmptyMessage(1000);
                                 }
                             }
                         });
@@ -371,7 +371,7 @@
                                         sultra="";
                                     }
                                     Log.d("받아오는 혈당",sbloodsugar);
-                                    mHandler1.sendEmptyMessage(1000);
+                                    //mHandler1.sendEmptyMessage(1000);
                                 }
                             }
                         });
