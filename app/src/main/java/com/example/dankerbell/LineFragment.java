@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import im.dacer.androidcharts.LineView;
 
 import static com.example.dankerbell.homeActivity.blood;
+import static com.example.dankerbell.homeActivity.yesterday;
 
 public class LineFragment extends Fragment {
     static LineFragment instance;
@@ -102,13 +103,17 @@ public class LineFragment extends Fragment {
 
         for (int i = 0; i < blood.size(); i++) {
             Log.i(String.valueOf(getActivity()), "받아온 값 :" + i + ">>" + blood.get(i));
-            if (i == 0 && blood.get(i).isEmpty()) { //하루의 첫번째 값(기상후)이 null이라면
+            if (i == 0 && blood.get(i).isEmpty()&&(blood.size()==1)) { //당일에 아무 기록도 되어있지 않는다면
                 //전날 예측을 출력
-                if(!(yespred==0.0f))
+                if (!(yespred == 0.0f)) {
                     predBG.add(yespred);
-                break;
-            } else if (blood.get(i).isEmpty()) { //값이 null이면
-                if (!blood.get(i - 1).isEmpty()) {
+                    break;
+                }
+            } else if(blood.get(0).isEmpty()&&(blood.size()>1)&&(i==0)){//기상 후 기록만 없다면
+                realBG.add(Float.parseFloat(yesterday));//어제의 마지막 혈당 수치 보여줌
+            }
+            else if ((blood.get(i).isEmpty())&&(i>0)) { //값이 null이면
+                if (!blood.get(i - 1).isEmpty()) { //이전값이 비어있지 않는다면
                     realBG.add(Float.parseFloat(blood.get(i - 1))); //이전 time의 혈당 값으로 저장
                 }
             } else {
