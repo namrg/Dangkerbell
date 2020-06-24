@@ -253,7 +253,7 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
                 foodlistCrud.readmylunchmeal(yesterday);
                 foodlistCrud.readmydinnermeal(yesterday);
                 //   foodlistCrud.getTotalk();
-
+//
                 FoodlistCrud.mealHandler = new Handler(){
                     @Override public void handleMessage(Message msg){
                         if (msg.what==1001){

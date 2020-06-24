@@ -119,7 +119,7 @@ public class addpillActivity extends AppCompatActivity {
             return false;
         }
     }
-    void stringerror(){
+    void stringerror(){ //다이얼로그
         Log.d(this.getClass().getName(),"정보 다 입력하고 저장하기 클릭");
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("숫자로만 입력해주세요.");

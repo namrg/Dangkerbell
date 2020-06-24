@@ -63,7 +63,7 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
     Button mypage;
     Button logout,settime;
     TextView userid;
-
+//
     TextView home; //
     TextView meal_txt; // 상단에 식단관리 TextView
     TextView pill_txt; // 상단에 복약관리 TextView
