@@ -43,15 +43,12 @@ import com.samsung.android.sdk.healthdata.HealthConnectionErrorResult;
 import com.samsung.android.sdk.healthdata.HealthConstants;
 import com.samsung.android.sdk.healthdata.HealthDataStore;
 import com.samsung.android.sdk.healthdata.HealthPermissionManager;
-
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -307,6 +304,24 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
                 mBloodSugar.dinnerread(yesterdaymonth,yesterdayday);
                 mBloodSugar.sleepread(yesterdaymonth,yesterdayday);
                 mchol.read(yesterday);
+                int result=date.compareTo(yesterday);
+                if(result>0|result<0){// today>day
+                    editcol.setVisibility(View.GONE);
+                    lunchbloodedit.setVisibility(View.GONE);
+                    morningbloodedit.setVisibility(View.GONE);
+                    wakeupbloodedit.setVisibility(View.GONE);
+                    dinnerbloodedit.setVisibility(View.GONE);
+                    sleepbloodedit.setVisibility(View.GONE);
+                }
+                else{
+                    editcol.setVisibility(View.VISIBLE);
+                    lunchbloodedit.setVisibility(View.VISIBLE);
+                    morningbloodedit.setVisibility(View.VISIBLE);
+                    wakeupbloodedit.setVisibility(View.VISIBLE);
+                    dinnerbloodedit.setVisibility(View.VISIBLE);
+                    sleepbloodedit.setVisibility(View.VISIBLE);
+
+                }
                 mchol.cholHandler = new Handler(){
 
                     @Override public void handleMessage(Message msg){
@@ -417,14 +432,29 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
                 String tomorrowday = monthofdayformat.format(calendar.getTime());
 
                 currentdate.setText(tomorrow);
-
                 mchol.read(tomorrow); // !!!!!!!!!!
                 mBloodSugar.wakeupread(tomorrowmonth,tomorrowday);
                 mBloodSugar.morningread(tomorrowmonth,tomorrowday);
                 mBloodSugar.lunchread(tomorrowmonth,tomorrowday);
                 mBloodSugar.dinnerread(tomorrowmonth,tomorrowday);
                 mBloodSugar.sleepread(tomorrowmonth,tomorrowday);
-
+                int result=date.compareTo(tomorrow);
+                if(result>0|result<0){// today>day
+                    editcol.setVisibility(View.GONE);
+                    lunchbloodedit.setVisibility(View.GONE);
+                    morningbloodedit.setVisibility(View.GONE);
+                    wakeupbloodedit.setVisibility(View.GONE);
+                    dinnerbloodedit.setVisibility(View.GONE);
+                    sleepbloodedit.setVisibility(View.GONE);
+                }
+                else{
+                    editcol.setVisibility(View.VISIBLE);
+                    lunchbloodedit.setVisibility(View.VISIBLE);
+                    morningbloodedit.setVisibility(View.VISIBLE);
+                    wakeupbloodedit.setVisibility(View.VISIBLE);
+                    dinnerbloodedit.setVisibility(View.VISIBLE);
+                    sleepbloodedit.setVisibility(View.VISIBLE);
+                }
                        mchol.cholHandler = new Handler(){
 
                     @Override public void handleMessage(Message msg){

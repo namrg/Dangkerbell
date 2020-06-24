@@ -73,7 +73,6 @@ public class RecyclerpillAdapter extends RecyclerView.Adapter<RecyclerpillAdapte
             @Override public void handleMessage(Message msg){
                 if (msg.what==1001){
                    Log.d("메세지받음","실행OK");
-
                 }
             }
         };

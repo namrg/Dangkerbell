@@ -46,7 +46,6 @@ public class RecyclerDBAdapter extends RecyclerView.Adapter<RecyclerDBAdapter.Vi
         RecyclerDBAdapter.ViewHolder vh = new RecyclerDBAdapter.ViewHolder(view) ;
         return vh ;
     }
-
     // onBindViewHolder() - position에 해당하는 데이터를 뷰홀더의 아이템뷰에 표시.
     @Override
     public void onBindViewHolder(final RecyclerDBAdapter.ViewHolder holder, final int position) {
@@ -67,16 +66,10 @@ public class RecyclerDBAdapter extends RecyclerView.Adapter<RecyclerDBAdapter.Vi
                         mData.remove(position);
                         notifyItemRemoved(position);
                         notifyItemRangeChanged(position, mData.size());
-                    }
-                    }
-            }
-        });
-    }
-
+                    } } }}); }
     public void clear(){
         mData.clear();
-        notifyDataSetChanged();
-    }
+        notifyDataSetChanged(); }
 
     // getItemCount() - 전체 데이터 갯수 리턴.
     @Override
@@ -100,6 +93,4 @@ public class RecyclerDBAdapter extends RecyclerView.Adapter<RecyclerDBAdapter.Vi
 
         }
     }
-
-
 }

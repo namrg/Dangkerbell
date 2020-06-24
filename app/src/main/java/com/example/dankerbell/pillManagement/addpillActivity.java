@@ -1,5 +1,7 @@
 package com.example.dankerbell.pillManagement;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -74,13 +76,13 @@ public class addpillActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String pillname = mPillname.getText().toString();
                 Log.d("약이름",pillname);
-                int amount = Integer.parseInt(mamount.getText().toString());
+                String amountstring=mamount.getText().toString();
                 String unit_amount = mUnit_amount.getSelectedItem().toString();
                 Log.d("복용 단위",unit_amount);
-                int count = Integer.parseInt(mcount.getText().toString());
+                String countstring=mcount.getText().toString();
                 String pilltime = mpillTime.getSelectedItem().toString();
                 Log.d("복용시간",pilltime);
-                int times = Integer.parseInt(mTimes.getText().toString());
+                String timestring=mTimes.getText().toString();
                 String takingTime = " ";
                 if (mWakeup.isChecked() == true)
                     takingTime += mWakeup.getText().toString();
@@ -92,11 +94,56 @@ public class addpillActivity extends AppCompatActivity {
                     takingTime += "," + mEvening.getText().toString();
                 if (mNight.isChecked() == true)
                     takingTime += mNight.getText().toString();
+                if(pillname.length()==0|unit_amount.length()==0|pilltime.length()==0|takingTime.equals("")|takingTime.length()==0|amountstring.equals("")|amountstring.length()==0|countstring.equals("")|countstring.length()==0){
+                    notifyshow();
+                }
+                else if(!isStringDouble(amountstring)|!isStringDouble(timestring)|!isStringDouble(countstring)){
+                    stringerror();
+                }
+                else{
+                    int amount=Integer.parseInt(amountstring);
+                    int count=Integer.parseInt(countstring);
+                    int times = Integer.parseInt(timestring);
 
-                mPill.create(User, pillname, amount, unit_amount, count, takingTime, pilltime, times);
+                    mPill.create(User, pillname, amount, unit_amount, count, takingTime, pilltime, times);
                 Intent pillintent = new Intent(getApplicationContext(), pillActivity.class);
-                startActivity(pillintent);
+                startActivity(pillintent);}
             }
         });
+    }
+    public static boolean isStringDouble(String s) {
+        try {
+            Integer.parseInt(s);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+    void stringerror(){
+        Log.d(this.getClass().getName(),"정보 다 입력하고 저장하기 클릭");
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("숫자로만 입력해주세요.");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int id)
+            {
+            }
+        });
+        builder.show();
+    }
+    void notifyshow(){
+        Log.d(this.getClass().getName(),"정보 다 입력하지 않고 저장하기 클릭");
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("빈칸을 채워주세요.");
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int id)
+            {
+            }
+        });
+        builder.show();
+
     }
 }

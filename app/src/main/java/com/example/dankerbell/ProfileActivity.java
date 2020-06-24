@@ -203,7 +203,7 @@ public class ProfileActivity extends AppCompatActivity { // 회원정보등록 �
                 myear=String.valueOf(np.getValue());
                 mbmi=Double.parseDouble(String.format("%.2f",mbmi));
                 //추가
-                if (mdiabeteskind.equals("")|mheal.equals("")|mdisease.equals("")|iweight==0.0|iheight==0.0|gender.equals("")|birthday.equals("")|mbmi==0.0|highblood.equals("")|smoking.equals("")|myear.equals("")| activity.equals("")|weightchange.equals("")) {
+                if (mdiabeteskind.equals("")|mdiabeteskind.length()==0|mheal.equals("")|mheal.length()==0|mdisease.equals("")|mdisease.length()==0|iweight==0.0|iheight==0.0|gender.equals("")|gender.length()==0|birthday.equals("")|birthday.length()==0|mbmi==0.0|highblood.equals("")|highblood.length()==0|smoking.equals("")|smoking.length()==0|myear.equals("")|myear.length()==0 |activity.equals("")|activity.length()==0|weightchange.equals("")|weight.length()==0) {
                     notifyshow();
 
                 } else {

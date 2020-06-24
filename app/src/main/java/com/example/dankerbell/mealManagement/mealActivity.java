@@ -177,7 +177,6 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
                 startActivity(meal);//식단관리 클래스 전환
             }
         });
-
         mRecyclerView2 = findViewById(R.id.recycler2); // 아침 recycler
         Recyclerlunch=findViewById(R.id.recycler_lunch);
         Recyclerdinner=findViewById(R.id.recycler_dinner);
@@ -195,7 +194,14 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
         logout = findViewById(R.id.logout);
         drawerView=findViewById(R.id.drawer);
         close=findViewById(R.id.toolbar_close);
-
+        final TextView morningmealless2=findViewById(R.id.morningmealless2);
+        final TextView morningmealmore=findViewById(R.id.morningmealmore); // 아침 식단 펼치기
+        final TextView morningmealless=findViewById(R.id.morningmealless); // 아침 식단 접기
+        final LinearLayout morningmeal=findViewById(R.id.morningmeal); // 아침 식단 총 layout
+        // final TextView morningfinish=findViewById(R.id.morningfinish); // 아침식단 체크 버튼
+        final TextView morningsearch1=findViewById(R.id.searchmorning);
+        final TextView searchlunch=findViewById(R.id.searchlunch); // 돋보기 아이콘
+        final TextView searchdinner=findViewById(R.id.searchdinner); //
         toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -218,7 +224,6 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
             }
         });
         logout.setOnClickListener(new View.OnClickListener() { // 로그아웃 버튼 클릭
-
             @Override
             public void onClick(View view) {
                 Log.d(this.getClass().getName(),"로그아웃 클릭");
@@ -264,6 +269,21 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
 
                         }
                     }};
+                int result=date.compareTo(yesterday);
+                Log.d("date",String.valueOf(date));
+                Log.d("yesterday",String.valueOf(yesterday));
+                Log.d("result",String.valueOf(result));
+                morningmealless2.setVisibility(View.GONE);
+                if(result>0|result<0){// today>day
+                    morningsearch1.setVisibility(View.GONE);
+                    searchlunch.setVisibility(View.GONE);
+                    searchdinner.setVisibility(View.GONE);
+                    }
+                else{
+                    morningsearch1.setVisibility(View.VISIBLE);
+                    searchlunch.setVisibility(View.VISIBLE);
+                    searchdinner.setVisibility(View.VISIBLE);
+                }
             }
         });
         next.setOnClickListener(new View.OnClickListener() {
@@ -287,23 +307,25 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
                         }
                         if(msg.what==1002){
                             Log.d(tomorrow+"총칼로리",String.valueOf(foodlistCrud.totalkcal));
-
                             todaycalory.setText(String.valueOf(foodlistCrud.totalkcal));
-
                         }
                     }};
-
                 currentdate.setText(tomorrow);
+                morningmealless2.setVisibility(View.GONE);
+
+                int result=date.compareTo(tomorrow);
+                if(result>0|result<0){// today>day
+                    morningsearch1.setVisibility(View.GONE);
+                    searchlunch.setVisibility(View.GONE);
+                    searchdinner.setVisibility(View.GONE);
+                }
+                else{
+                    morningsearch1.setVisibility(View.VISIBLE);
+                    searchlunch.setVisibility(View.VISIBLE);
+                    searchdinner.setVisibility(View.VISIBLE);
+                }
             }
         });
-        final TextView morningmealless2=findViewById(R.id.morningmealless2);
-        final TextView morningmealmore=findViewById(R.id.morningmealmore); // 아침 식단 펼치기
-        final TextView morningmealless=findViewById(R.id.morningmealless); // 아침 식단 접기
-        final LinearLayout morningmeal=findViewById(R.id.morningmeal); // 아침 식단 총 layout
-       // final TextView morningfinish=findViewById(R.id.morningfinish); // 아침식단 체크 버튼
-        final TextView morningsearch1=findViewById(R.id.searchmorning);
-        final TextView searchlunch=findViewById(R.id.searchlunch); // 돋보기 아이콘
-        final TextView searchdinner=findViewById(R.id.searchdinner); // 돋보기 아이콘
         FoodlistCrud.readfoodList();
         mymorningList.clear();
         mylunchList.clear();
@@ -312,7 +334,6 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
         foodlistCrud.readmylunchmeal(date);
         foodlistCrud.readmydinnermeal(date);
         // foodlistCrud.getTotalk();
-
         FoodlistCrud.mealHandler = new Handler(){
             @Override public void handleMessage(Message msg){
                 if (msg.what==1001){ // 파이어베이스 데이터를 받아오는 메소드에서 메세지 받음
@@ -326,10 +347,8 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
                                     addFoodKcalItem(foodlistCrud.mymorningfood.get(i),foodlistCrud.mymorningkcal.get(i),false);
                                 }
                             }
-
                             com.example.dankerbell.mealManagement.RecyclerDBAdapter mymorningAdapter = new com.example.dankerbell.mealManagement.RecyclerDBAdapter(mealActivity.this,mymorningList);
                             Log.d("아침칼로리",String.valueOf(mkcal));
-
                             mRecyclerView2.setAdapter(mymorningAdapter); // 어댑터
                         }}
                     else{
@@ -338,7 +357,6 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
                         com.example.dankerbell.mealManagement.RecyclerDBAdapter mymorningAdapter = new com.example.dankerbell.mealManagement.RecyclerDBAdapter(mealActivity.this,mymorningList);
                         mymorningAdapter.clear();
                         Recyclerlunch.setAdapter(mymorningAdapter);
-
                     }
                     if(!foodlistCrud.mylunchfood.isEmpty()){
                         op="점심db";
@@ -412,7 +430,6 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
                             startActivity(searchintent);// 음식검색화면으로 이동
                         }
                     });
-
                 }
                 if(msg.what==1002){
                     Log.d(date+"총칼로리",String.valueOf(foodlistCrud.totalkcal));
@@ -428,7 +445,6 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
                 }
             }
         };
-
         if(op.equals("아침")){
             mAdapter1 = new com.example.dankerbell.mealManagement.RecyclerFoodKcalAdapter(mealActivity.this,mymorningList);
             mRecyclerView2.setAdapter(mAdapter1);
@@ -441,13 +457,11 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
             mAdapter3 = new com.example.dankerbell.mealManagement.RecyclerFoodKcalAdapter3(mealActivity.this,mydinnerList);
             Recyclerdinner.setAdapter(mAdapter3);
         }
-
         if(searchmeal.mfoodarraylist.isEmpty()&&op.equals("아침")){
             Log.d(this.getClass().getName(),"선택한아침배열없음");
         }
         else if(searchmeal.lfoodarraylist.isEmpty() && op.equals("점심")){
             Log.d(this.getClass().getName(),"선택한점심배열없음");
-
         }
         else if(searchmeal.dfoodarraylist.isEmpty() && op.equals("저녁")){
             Log.d(this.getClass().getName(),"선택한저녁배열없음");
@@ -478,35 +492,26 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
         }
         if(mprofile.getMyactivity().equals("")){
             mycalory.setText(String.valueOf(recommendcal)); //0
-//0
         }
         else {
             height=Double.parseDouble(mprofile.getMyheight())/100;
             activity=mprofile.getMyactivity();
             Log.d("키 m단위",String.valueOf(height));
-
             if(mprofile.getMygender()=="여자"){
                 recommendcal=(int)(height*height*21); //권장체중
-
             }
             else{
                 recommendcal=(int)(height*height*22); //권장체중
-
             }
-
             if(activity.equals("적음"))
                 recommendcal=recommendcal*25;
             else if(activity.equals("보통"))
                 recommendcal=recommendcal*35;
             else if(activity.equals("많음"))
                 recommendcal=recommendcal*40;
-
             Log.d("권장칼로리",String.valueOf(recommendcal));
-
             mycalory.setText(String.valueOf(recommendcal));
-
         }
-
 //        morningfinish.setOnClickListener(new View.OnClickListener() { // 아침식단 체크버튼 클릭 시 실행
 //            @Override
 //            public void onClick(View view) {
@@ -519,7 +524,6 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
 //                Log.d("런치배열", String.valueOf(mylunchList.size()));
 //            }
 //        });
-
         final TextView lunchmealmore=findViewById(R.id.lunchmealmore); // 점식식단 펼치기
         final TextView lunchmealless=findViewById(R.id.lunchmealless); // 점심식단 접기
         final LinearLayout lunchmeal=findViewById(R.id.lunchmeal); // 점심식단 펼치기 클릭하면 나타나는 화면
@@ -536,17 +540,13 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
       //  dinnerfinish.setVisibility(View.VISIBLE);
         morningmealless2.setVisibility(View.VISIBLE);
         mRecyclerView2.setVisibility(View.VISIBLE);
-
         morningmealmore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) { // 아침 펼치기 클릭 시 실행
                 Log.d(this.getClass().getName(),"펼치기 클릭");
                 morningmealmore.setVisibility(View.GONE); // 펼치기 버튼 사라짐
-        //        morningfinish.setVisibility(View.VISIBLE);
-               //      morningmealless.setVisibility(View.VISIBLE); // 접기 버튼 생성
                 morningmealless2.setVisibility(View.VISIBLE); // 접기 버튼 생성
                 morningmeal.setVisibility(View.VISIBLE); // 아침식단 작성 layout 생성
-            //    mRecyclerView2.setVisibility(View.VISIBLE);
             }
         });
         morningmealless2.setOnClickListener(new View.OnClickListener() {
@@ -554,12 +554,8 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
             public void onClick(View view) { // 아침 접기 클릭 시 실행
                 Log.d(this.getClass().getName(),"접기 클릭");
                 morningmealmore.setVisibility(View.VISIBLE); //펼치기 버튼 생성
-           //     morningfinish.setVisibility(View.GONE);
                 morningmealless2.setVisibility(View.GONE); // 접기 버튼 생성
-                //    morningmealless.setVisibility(View.GONE); // 접기 버튼 사라짐
                 morningmeal.setVisibility(View.GONE); // 아침식단 작성 layout 사라짐
-                mRecyclerView2.setVisibility(View.GONE);
-
             }
         });
 //        lunchfinish.setOnClickListener(new View.OnClickListener() { // 점심식단 체크버튼 클릭 시 실행

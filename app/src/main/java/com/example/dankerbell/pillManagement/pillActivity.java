@@ -82,7 +82,22 @@ public class pillActivity extends AppCompatActivity { // 복약관리 클래스
         userid=findViewById(R.id.userid); // !!!!!!!
         userid.setText(User);
 
-
+        blood_txt=findViewById(R.id.blood_txt); // 상단에 있는 혈당관리 TextView
+        meal_txt=findViewById(R.id.pill_txt); // 상단에 있는 복약관리 TextView
+        blood_txt.setOnClickListener(new View.OnClickListener() { // 상단에 있는 혈당관리 클릭 시 실행
+            @Override
+            public void onClick(View view) {
+                Intent bloodintent = new Intent(getApplicationContext(), bloodActivity.class);
+                startActivity(bloodintent);// 혈당관리 화면으로 이동하도록 bloodActivity로 전환
+            }
+        });
+//        meal_txt.setOnClickListener(new View.OnClickListener() { // 상단에 있는 식단관리 클릭 시 실행
+//            @Override
+//            public void onClick(View view) {
+//                Intent mealintent = new Intent(getApplicationContext(), mealActivity.class);
+//                startActivity(mealintent);// 복약관리 화면으로 이동하도록 mealActivity로 전환
+//            }
+//        });
         toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -195,7 +210,7 @@ public class pillActivity extends AppCompatActivity { // 복약관리 클래스
         RecyclerpillItem item=new RecyclerpillItem(medname,amount,notify,false);
         item.setMedname(medname);
         item.setPill_amount(amount);
-        item.setNotify(notify);
+        item.setNotify(false);
         mypillList.add(item);
     }
         //데이터 삭제

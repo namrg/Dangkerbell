@@ -71,7 +71,7 @@ public class myprofileActivity extends AppCompatActivity {
         mprofile.pHandler = new Handler(){
             @Override public void handleMessage(Message msg){
                 if (msg.what==1007){
-                    if(!mgender.equals("")) {
+                    if(!mgender.equals("")|mgender.length()!=0) {
                         mgender.setText(mprofile.getMygender());
                         mbmi.setText(mprofile.getMybmi());
                         mbirth.setText(mprofile.getMybirthday());

@@ -49,8 +49,8 @@ public class AlarmActivity extends AppCompatActivity {
     Date mywakeupTime ,mymorningTime, mylunchTime, mydinnerTime, mysleepTime;
     ArrayList<pillInfo> pillInfos = new ArrayList<>();
 
-   // @Override
-   protected void onCreate(Bundle savedInstanceState) {
+    // @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_main);
         final TimePicker picker;
@@ -125,7 +125,7 @@ public class AlarmActivity extends AppCompatActivity {
 //               mysleeptime = token1.toString();
 //       }
 
-       // 앞서 설정한 값으로 보여주기
+        // 앞서 설정한 값으로 보여주기
         // 없으면 디폴트 값은 현재시간
         SharedPreferences sharedPreferences = getSharedPreferences("medicine alarm", MODE_PRIVATE);
         long millis = sharedPreferences.getLong("nextNotifyTime", Calendar.getInstance().getTimeInMillis());
@@ -137,8 +137,8 @@ public class AlarmActivity extends AppCompatActivity {
         String date_text = new SimpleDateFormat("yyyy년 MM월 dd일 EE요일 a hh시 mm분 ", Locale.getDefault()).format(nextDate);
         Toast.makeText(getApplicationContext(),"[처음 실행시] 다음 알람은 " + date_text + "으로 알람이 설정되었습니다!", Toast.LENGTH_SHORT).show();
 
-       Intent pillintent = new Intent(getApplicationContext(), pillActivity.class); // 새로추가 구글 로그인 성공 후 화면전환
-       startActivity(pillintent);//액티비티 띄우기 새로 추가 - 홈화면 전환
+        Intent pillintent = new Intent(getApplicationContext(), pillActivity.class); // 새로추가 구글 로그인 성공 후 화면전환
+        startActivity(pillintent);//액티비티 띄우기 새로 추가 - 홈화면 전환
 
         // 이전 설정값으로 TimePicker 초기화
         Date currentTime = nextNotifyTime.getTime();
@@ -151,7 +151,7 @@ public class AlarmActivity extends AppCompatActivity {
 
 
 //        Button button = (Button) findViewById(R.id.button);
- //       button.setOnClickListener(new View.OnClickListener() {
+        //       button.setOnClickListener(new View.OnClickListener() {
    /*         @Override
             public void onClick(View arg0) {
 
