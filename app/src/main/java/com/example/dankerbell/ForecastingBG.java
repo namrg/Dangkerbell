@@ -20,11 +20,12 @@ import com.google.firebase.ml.custom.FirebaseModelOutputs;
 import java.util.ArrayList;
 
 import static com.example.dankerbell.homeActivity.blood;
+import static com.example.dankerbell.homeActivity.yesterday;
 
 
-public class  ForecastingBG {
+public class ForecastingBG {
     static Activity activity;
-      public static Handler fbgHandler =new Handler();
+    public static Handler fbgHandler = new Handler();
     private static final String model_path = "model.tflite";
     FirebaseCustomLocalModel model; //tflite 모델
     FirebaseModelInterpreter interpreter;
@@ -41,7 +42,7 @@ public class  ForecastingBG {
         output shape = [1 1]
         output dtype = float
          */
-        input = new float[][]{{0,0,0,0,0,0,0}}; //regIns, NPHIns, UltraIns, Hypo, Meal, Exercise, bgl
+        input = new float[][]{{0, 0, 0, 0, 0, 0, 0}}; //regIns, NPHIns, UltraIns, Hypo, Meal, Exercise, bgl
         output = new float[][]{{1}};
 
         //입력값
@@ -49,8 +50,8 @@ public class  ForecastingBG {
         homeActivity h = new homeActivity();
         ArrayList<String> dlist = h.blood; //home activity의 blood static arraylist에 있음
 
-        for(String a: blood){
-            Log.e("blood가 가진 값","|"+ a+"|");
+        for (String a : blood) {
+            Log.e("blood가 가진 값", "|" + a + "|");
         }
 
         //입력값
@@ -62,10 +63,9 @@ public class  ForecastingBG {
 //        input[0][5] = ;
         try {
             input[0][input[0].length - 1] = Float.parseFloat(blood.get(blood.size() - 1)); //혈당 값 저장
-        }catch (Exception e){
-            Log.e("blood is null","!");
-            //어제값으로 저장..
-            //input[0][input[0].length - 1] = Float.parseFloat(blood.get(blood.size() - 1)); //혈당 값 저장
+        } catch (Exception e) {
+            Log.e("blood is null", "!");
+            input[0][input[0].length - 1] = Float.parseFloat(yesterday); //어제혈당
         }
 
         //모델 로드
@@ -86,14 +86,14 @@ public class  ForecastingBG {
                 .add(input)  // add() as many input arrays as your model requires
                 .build();
 
-        if(input == null || output == null){
-            Log.i(getClass().getName(),"input / output is null");
+        if (input == null || output == null) {
+            Log.i(getClass().getName(), "input / output is null");
         }
 
     }
 
     //모델실행
-    synchronized void runModel(){
+    synchronized void runModel() {
         interpreter.run(inputs, inputOutputOptions)
                 .addOnSuccessListener(
                         new OnSuccessListener<FirebaseModelOutputs>() {
@@ -103,8 +103,8 @@ public class  ForecastingBG {
                                 float[] probabilities = output[0];
                                 setPrediction(output[0][0]);
                                 Log.i(getClass().getName(), "Success run model");
-                                Log.i(getClass().getName(), String.valueOf("출력결과 :"+ String.valueOf(output[0][0])));
-                                Log.i(getClass().getName(), String.valueOf("getprediction :"+ getPrediction()));
+                                Log.i(getClass().getName(), String.valueOf("출력결과 :" + String.valueOf(output[0][0])));
+                                Log.i(getClass().getName(), String.valueOf("getprediction :" + getPrediction()));
                                 fbgHandler.sendEmptyMessage(1000);
                             }
                         })
@@ -112,18 +112,20 @@ public class  ForecastingBG {
                         new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Log.e(getClass().getName(), "Fail to run model : "+e.getMessage());
+                                Log.e(getClass().getName(), "Fail to run model : " + e.getMessage());
                                 fbgHandler.sendEmptyMessage(2000);
                             }
                         });
         //output[0][0];//예측 결과
     }
-    synchronized void setPrediction(float val){
+
+    synchronized void setPrediction(float val) {
         this.prediction = val;
-        Log.e(getClass().getName(), "setprediction : "+ this.prediction);
+        Log.e(getClass().getName(), "setprediction : " + this.prediction);
 
     }
-    synchronized float getPrediction(){
+
+    synchronized float getPrediction() {
         return prediction;
     }
 

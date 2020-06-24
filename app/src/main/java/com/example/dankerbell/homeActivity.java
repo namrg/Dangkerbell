@@ -102,6 +102,7 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스 use
     Button drawer_pill,drawer_meal,drawer_blood;
     static ArrayList<String> blood = new ArrayList<>(); //그래프 그리기를 위한 static bgl list
     ArrayList<String> tmp = new ArrayList<>(); //blood 의 불변성을 유지시키기 위한 임시 list
+    static String yesterday;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void onCreate(final Bundle savedInstanceState) {
@@ -134,6 +135,7 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스 use
         mbloodsugar.mHandler1 = new Handler(){
             @Override public void handleMessage(Message msg){
                 if (msg.what==1000){
+                    tmp.clear();
                     Log.d("Handler","메세지 받음");
                     String mL=mbloodsugar.getMbloodsugar();
                     tmp.add(mbloodsugar.getBloodsugar()); //기상후
@@ -156,7 +158,8 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스 use
 //                        missing = true;
 //                        return true;
 //                    }).collect(Collectors.toList());
-                    blood = tmp;
+                    blood.clear();
+                    blood.addAll(tmp);
                     Log.d("blood의 길이:", String.valueOf(blood.size()));
                     FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction().replace(R.id.container, new LineFragment()).commitAllowingStateLoss();
@@ -168,6 +171,20 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스 use
                     Log.d("어제 점심 혈당",mbloodsugar.getYlbloodsuagar());
                     Log.d("어제 저녁 혈당",mbloodsugar.getYdbloodsugar());
                     Log.d("어제 취침 혈당",mbloodsugar.getYsbloodsugar());
+                }
+                ArrayList<String> yes = new ArrayList<>();
+                yes.add(mbloodsugar.getYwbloodsugar());
+                yes.add(mbloodsugar.getYmbloodsugar());
+                yes.add(mbloodsugar.getYlbloodsuagar());
+                yes.add(mbloodsugar.getYdbloodsugar());
+                yes.add(mbloodsugar.getYsbloodsugar());
+                for(int i = yes.size()-1 ; i >= 0; i--){
+                    Log.d("어제 i번째 혈당",i+" : "+yes.get(i));
+                    if(!yes.get(i).isEmpty()){
+                        yesterday = yes.get(i);
+                        Log.d("어제 마지막 혈당",yesterday);
+                        break;
+                    }
                 }
             }
         };
@@ -349,7 +366,11 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스 use
     }
     @Override
     public void onDestroy() {
-        mStore.disconnectService();
+        try{
+            mStore.disconnectService();
+        }catch(Exception e){
+            Log.e("class",e.toString());
+        }
         super.onDestroy();
     }
     private final HealthDataStore.ConnectionListener mConnectionListener = new HealthDataStore.ConnectionListener() {
