@@ -312,7 +312,7 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
                     }};
                 currentdate.setText(tomorrow);
                 morningmealless2.setVisibility(View.GONE);
-
+//
                 int result=date.compareTo(tomorrow);
                 if(result>0|result<0){// today>day
                     morningsearch1.setVisibility(View.GONE);

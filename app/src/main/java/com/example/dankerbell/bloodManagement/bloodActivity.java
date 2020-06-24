@@ -297,7 +297,7 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
                 String yesterday = sdf.format(calendar.getTime());
                 String yesterdaymonth = monthformat.format(calendar.getTime());
                 String yesterdayday = monthofdayformat.format(calendar.getTime());
-
+//
                 mBloodSugar.wakeupread(yesterdaymonth,yesterdayday);
                 mBloodSugar.morningread(yesterdaymonth,yesterdayday);
                 mBloodSugar.lunchread(yesterdaymonth,yesterdayday);
