@@ -270,7 +270,7 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스 use
 
 
        step.read();
-    //   todaystep.setText(sReporter.count); //오류
+//       todaystep.setText(sReporter.count); //오류
 
 
             step.stepHandler = new Handler() {

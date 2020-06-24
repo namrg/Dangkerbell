@@ -382,9 +382,7 @@
                 });
     }
 
-
-
-    public void wakeupread(String m,String d){
+    public void wakeupread(String m, String d) {
         db.collection("user").document(User).collection("bloodsugar").document(m).collection(d).document("기상후")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -577,9 +575,7 @@
 
     @Override
     public void update() {
-//
-
-}
+    }
 
     @Override
     public void delete() {

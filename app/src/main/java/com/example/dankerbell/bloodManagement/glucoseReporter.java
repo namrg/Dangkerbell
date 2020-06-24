@@ -65,19 +65,21 @@ public class glucoseReporter {
         long endTime = startTime + ONE_DAY_IN_MILLIS;
 
         ReadRequest request = new ReadRequest.Builder()
-                    .setDataType(HealthConstants.BloodGlucose.HEALTH_DATA_TYPE)
-                    .setProperties(new String[] {HealthConstants.BloodGlucose.GLUCOSE})
-                    .setLocalTimeRange(HealthConstants.BloodGlucose.START_TIME, HealthConstants.BloodGlucose.TIME_OFFSET,
-                            startTime, endTime)
-                    .build();
+                .setDataType(HealthConstants.BloodGlucose.HEALTH_DATA_TYPE)
+                .setProperties(new String[] {HealthConstants.BloodGlucose.GLUCOSE})
+                .setLocalTimeRange(HealthConstants.BloodGlucose.START_TIME, HealthConstants.BloodGlucose.TIME_OFFSET,
+                        startTime, endTime)
+                .build();
 
         try {
             resolver.read(request).setResultListener(mListener);
         } catch (Exception e) {
-          //  Log.e(bloodActivity.APP_TAG, "Getting step count fails.", e);
+            //  Log.e(bloodActivity.APP_TAG, "Getting step count fails.", e);
         }
     }
-
+    long getTimeOffset(long currentTime) {
+        return TimeZone.getDefault().getOffset(currentTime);
+    }
     private long getStartTimeOfToday() {
         Calendar today = Calendar.getInstance(TimeZone.getTimeZone("Asia/Seoul"));
 
@@ -90,6 +92,8 @@ public class glucoseReporter {
     }
 
     private final HealthResultHolder.ResultListener<ReadResult> mListener = result -> {
+        Log.d(this.getClass().getName(),"혈당 왜 실행안돼 ?");
+
         final SimpleDateFormat sdf = new SimpleDateFormat("yy.MM.dd", Locale.getDefault());
         final SimpleDateFormat timeinclude = new SimpleDateFormat("yy-MM-dd HH:MM", Locale.getDefault());
         SimpleDateFormat monthformat = new SimpleDateFormat("MM", Locale.getDefault());
@@ -98,29 +102,28 @@ public class glucoseReporter {
         final Calendar calendar = Calendar.getInstance(); // 오늘날짜
         final String day = monthofdayformat.format(calendar.getTime());
         String month=monthformat.format(calendar.getTime());
-
         final String timeminutedate=timeinclude.format(calendar.getTime());
-
-
         final String date = sdf.format(calendar.getTime());
         try {
             for (HealthData data : result) {
                 count = data.getString(HealthConstants.BloodGlucose.GLUCOSE);
-
                 Log.d("혈당",count);
                 Log.d(this.getClass().getName(),count);
                 Double glu=Double.parseDouble(count);
                 glu=Double.parseDouble(String.format("%.2f",glu));
                 glu=glu*18;
+                long a=getTimeOffset(getStartTimeOfToday());
+                Log.d("날짜를 받아와용",String.valueOf(a));
                 count=String.valueOf(Math.round(glu));
                 glu=Double.parseDouble(count);
 
                 //count=String.format("%.2f",glu);
                 Log.d("혈당2",count);
-                if (mBloodSugar.getBloodsugar().length()==0){
-                    mBloodSugar.updateglucose(glu,month,day,date);
+//                mBloodSugar.updateglucose(glu,month,day,date);
+                mBloodSugar.create(glu,-1.0,-1.0,-1.0,date,"점심");
+             //   mBloodSugar.updateglucose(glu,month,day,date);
 
-                }
+
                 bHandler.sendEmptyMessage(1009);
 
 
@@ -139,7 +142,7 @@ public class glucoseReporter {
         // Update the step count when a change event is received
         @Override
         public void onChange(String dataTypeName) {
-          //  Log.d(bloodActivity.APP_TAG, "Observer receives a data changed event");
+            //  Log.d(bloodActivity.APP_TAG, "Observer receives a data changed event");
             readTodayblood();
         }
     };
