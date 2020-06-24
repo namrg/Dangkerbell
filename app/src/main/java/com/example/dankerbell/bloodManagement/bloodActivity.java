@@ -280,15 +280,11 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
                     dinnersugartext.setText(mBloodSugar.getdbloodsugar());
                     sleepsugartext.setText(mBloodSugar.getsbloodsugar());
                 }
-
             }
         };
-
         currentdate.setText(date);
         prev=findViewById(R.id.prev);
         next=findViewById(R.id.next);
-
-
         prev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) { // 상단에 날짜 중 < 버튼 클릭
@@ -738,7 +734,6 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
                 }
                 else{
                     mBloodSugar.create(Double.parseDouble(morningsugar), Double.parseDouble(mregular),Double.parseDouble(mNPH),Double.parseDouble(mUltra) ,timeminutedate, time);
-
                 }
             }
 
@@ -863,8 +858,7 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
 
                 String dinnersugar = (String)dinnersugaredit.getText().toString(); // 입력한 저녁 혈당을 lunchsugaredit에 입력
                 dinnersugartext.setText(dinnersugar);
-
-
+                
                 String dregular = (String)dinnerregularinsulinedit.getText().toString();
                 dinnerregularinsulintext.setText(dregular); // 입력한 아침 인슐린 입력
 
@@ -873,8 +867,6 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
 
                 String dUltra = (String)dinnerUltrainsulinedit.getText().toString();
                 dinnerUltrainsulintext.setText(dUltra); // 입력한 아침 혈압을 dinnerpressuretext에 입력
-
-
 
                 time = "저녁";
                 if(dinnersugar.equals("")|dregular.equals("")|dNPH.equals("")|dUltra.equals("")){
