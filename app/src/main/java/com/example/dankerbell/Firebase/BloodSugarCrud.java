@@ -65,7 +65,34 @@
  String sultra=" ";
     String sNPH=" ";
 
+
+    // ---어제
+            String ywbloodsugar="";
+            String ymbloodsugar="";
+            String ylbloodsuagar="";
+            String ydbloodsugar="";
+            String ysbloodsugar="";
             public static Handler mHandler1 =new Handler();
+
+            public String getYwbloodsugar() {
+                return ywbloodsugar;
+            }
+
+            public String getYmbloodsugar() {
+                return ymbloodsugar;
+            }
+
+            public String getYlbloodsuagar() {
+                return ylbloodsuagar;
+            }
+
+            public String getYdbloodsugar() {
+                return ydbloodsugar;
+            }
+
+            public String getYsbloodsugar() {
+                return ysbloodsugar;
+            }
 
             public String getMbloodsugar() {
                 return mbloodsugar;
@@ -145,7 +172,6 @@
                 return sNPH;
             }
 
-            //FirebaseFirestore db
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     final String User = user.getEmail();
     public static BloodSugarCrud getInstance() {
@@ -154,14 +180,138 @@
         }
         return instance;
     }
+            final SimpleDateFormat timeinclude = new SimpleDateFormat("yy-MM-dd HH:MM", Locale.getDefault());
             SimpleDateFormat monthformat = new SimpleDateFormat("MM", Locale.getDefault());
             SimpleDateFormat monthofdayformat = new SimpleDateFormat("dd", Locale.getDefault());
-
+            final SimpleDateFormat sdf = new SimpleDateFormat("yy.MM.dd", Locale.getDefault());
             final Calendar calendar = Calendar.getInstance(); // 오늘날짜
-            public final String day = monthofdayformat.format(calendar.getTime());
-            public String month=monthformat.format(calendar.getTime());
+            final String day = monthofdayformat.format(calendar.getTime());
+            String month=monthformat.format(calendar.getTime());
+            final String timeminutedate=timeinclude.format(calendar.getTime());
+            final String date = sdf.format(calendar.getTime());
+            //calendar.add(Calendar.DATE, -1);  // 오늘 날짜에서 하루를 뺌.
 
-    public void create(double bloodsugar, double regular,double NPH,double Ultra,String date, String time) {
+            public void readyestdayw(){
+                calendar.add(Calendar.DATE, -1);  // 오늘 날짜에서 하루를 뺌.
+                String m2 = monthformat.format(calendar.getTime());
+                String d2 = monthofdayformat.format(calendar.getTime());
+                db.collection("user").document(User).collection("bloodsugar").document(m2).collection(d2).document("기상후")
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()){
+                                    DocumentSnapshot document = task.getResult();
+                                    if(document.exists()){
+                                        ywbloodsugar=document.getData().get("bloodglucose").toString();
+                                    }
+                                    else{
+                                        ywbloodsugar="";
+                                    }
+                                    Log.d("받아오는 혈당",ywbloodsugar);
+                                    mHandler1.sendEmptyMessage(1001);
+                                }
+                            }
+                        });
+            }
+            public void readyestdaym(){
+                calendar.add(Calendar.DATE, -1);  // 오늘 날짜에서 하루를 뺌.
+                String m2 = monthformat.format(calendar.getTime());
+                String d2 = monthofdayformat.format(calendar.getTime());
+                db.collection("user").document(User).collection("bloodsugar").document(m2).collection(d2).document("아침")
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()){
+                                    DocumentSnapshot document = task.getResult();
+                                    if(document.exists()){
+                                        ymbloodsugar=document.getData().get("bloodglucose").toString();
+                                    }
+                                    else{ ymbloodsugar="";
+
+                                    }
+                                    Log.d("받아오는 혈당",ymbloodsugar);
+                                   // mHandler1.sendEmptyMessage(1001);
+                                }
+                            }
+                        });
+            }
+            public void readyestdayl(){
+                calendar.add(Calendar.DATE, -1);  // 오늘 날짜에서 하루를 뺌.
+                String m2 = monthformat.format(calendar.getTime());
+                String d2 = monthofdayformat.format(calendar.getTime());
+                Log.d(this.getClass().getName(),d2);
+                db.collection("user").document(User).collection("bloodsugar").document(m2).collection(d2).document("점심")
+                        .get()
+                       .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()){
+                                    DocumentSnapshot document = task.getResult();
+                                    if(document.exists()){
+                                        ylbloodsuagar=document.getData().get("bloodglucose").toString();
+                                        Log.d("어제 점심 받아오는 혈당",ylbloodsuagar);
+
+                                    }
+                                    else{ ylbloodsuagar="";
+                                        Log.d("어제 점심 받아오는 혈당",ylbloodsuagar);
+
+                                    }
+                                    mHandler1.sendEmptyMessage(1001);
+                                }
+                            }
+                        });
+            }
+            public void readyestdayd(){
+                calendar.add(Calendar.DATE, -1);  // 오늘 날짜에서 하루를 뺌.
+                String m2 = monthformat.format(calendar.getTime());
+                String d2 = monthofdayformat.format(calendar.getTime());
+                db.collection("user").document(User).collection("bloodsugar").document(m2).collection(d2).document("저녁")
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()){
+                                    DocumentSnapshot document = task.getResult();
+                                    if(document.exists()){
+                                        ydbloodsugar=document.getData().get("bloodglucose").toString();
+                                    }
+                                    else{ ydbloodsugar="";
+                                    }
+                                    Log.d("받아오는 혈당",ydbloodsugar);
+                                   // mHandler1.sendEmptyMessage(1001);
+                                }
+                            }
+                        });
+            }
+
+            public void readyestdays(){
+                calendar.add(Calendar.DATE, -1);  // 오늘 날짜에서 하루를 뺌.
+                String m2 = monthformat.format(calendar.getTime());
+                String d2 = monthofdayformat.format(calendar.getTime());
+                db.collection("user").document(User).collection("bloodsugar").document(m2).collection(d2).document("점심")
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()){
+                                    DocumentSnapshot document = task.getResult();
+                                    if(document.exists()){
+                                        ysbloodsugar=document.getData().get("bloodglucose").toString();
+                                    }
+                                    else{ ysbloodsugar="";
+
+                                    }
+                                    Log.d("받아오는 혈당",ylbloodsuagar);
+                                   // mHandler1.sendEmptyMessage(1001);
+                                }
+                            }
+                        });
+            }
+
+
+            public void create(double bloodsugar, double regular,double NPH,double Ultra,String date, String time) {
         //오버로딩
         Map<String, Object> updateData = new HashMap<>();
 
@@ -271,18 +421,16 @@
                                     DocumentSnapshot document = task.getResult();
                                     if(document.exists()){
                                         mbloodsugar=document.getData().get("bloodglucose").toString();
-                                        if(document.getData().get("regularInsuline").toString().equals("1.0")){
-                                           mregular="";
-                                        }
-                                        if(document.getData().get("NPHInsuline").toString().equals("1.0")){
-                                            mNPH="";
-                                        }
+                                        if(document.getData().get("regularInsuline").toString().length()==0)
+                                                mregular="";
+                                        else
+                                                mregular=document.getData().get("regularInsuline").toString();
+                                        if(document.getData().get("NPHInsuline").toString().length()==0)
+                                                mNPH="";
                                         else
                                             mNPH=document.getData().get("NPHInsuline").toString();
-
-                                        if(document.getData().get("UltralenteInsuline").toString().equals("1.0")){
-                                            multra="";
-                                        }
+                                        if(document.getData().get("UltralenteInsuline").toString().length()==0)
+                                            mNPH="";
                                         else
                                             multra=document.getData().get("UltralenteInsuline").toString();
 
@@ -310,9 +458,23 @@
                                     DocumentSnapshot document = task.getResult();
                                     if(document.exists()){
                                         lbloodsugar=document.getData().get("bloodglucose").toString();
-                                        lregular=document.getData().get("regularInsuline").toString();
-                                        lNPH=document.getData().get("NPHInsuline").toString();
-                                        lultra=document.getData().get("UltralenteInsuline").toString();
+
+                                        if(document.getData().get("regularInsuline").toString().equals("-1.0")){
+                                            lregular="";
+                                        }
+                                        else
+                                            lregular=document.getData().get("regularInsuline").toString();
+                                        if(document.getData().get("NPHInsuline").toString().equals("-1.0")){
+                                            lNPH="";
+                                        }
+                                        else
+                                            lNPH=document.getData().get("NPHInsuline").toString();
+
+                                        if(document.getData().get("UltralenteInsuline").toString().equals("-1.0")){
+                                            lultra="";
+                                        }
+                                        else
+                                            lultra=document.getData().get("UltralenteInsuline").toString();
 
                                     }
                                     else{ lbloodsugar="";
@@ -409,7 +571,7 @@
                 Map<String, Object> data = new HashMap<>();
                 data.put("bloodglucose", glucose);
                 data.put("dateTime", date);
-                db.collection("user").document(User).collection("bloodsugar").document(m).collection(d).document("아침")
+                db.collection("user").document(User).collection("bloodsugar").document(m).collection(d).document("점심")
                         .set(data, SetOptions.merge());
             }
 

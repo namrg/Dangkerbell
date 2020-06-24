@@ -1,6 +1,7 @@
 package com.example.dankerbell.mealManagement;
 
 import android.content.Context;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,22 +26,16 @@ public class RecyclerDBAdapter extends RecyclerView.Adapter<RecyclerDBAdapter.Vi
     final Calendar calendar = Calendar.getInstance(); // 오늘날짜
     final String date = sdf.format(calendar.getTime());
     static int morningkcal=0;
-
     public static int getMorningkcal() {
         return morningkcal;
     }
-
     private ArrayList<RecyclermyfoodItem> mData = null ;
-
     Context context;
     // 생성자에서 데이터 리스트 객체를 전달받음.
     RecyclerDBAdapter(Context context, ArrayList<RecyclermyfoodItem> list) {
         this.context=context;
         mData = list ;
     }
-
-
-
 
     // onCreateViewHolder() - 아이템 뷰를 위한 뷰홀더 객체 생성하여 리턴.
     @Override
@@ -51,7 +46,6 @@ public class RecyclerDBAdapter extends RecyclerView.Adapter<RecyclerDBAdapter.Vi
         RecyclerDBAdapter.ViewHolder vh = new RecyclerDBAdapter.ViewHolder(view) ;
         return vh ;
     }
-
 
     // onBindViewHolder() - position에 해당하는 데이터를 뷰홀더의 아이템뷰에 표시.
     @Override
@@ -67,20 +61,22 @@ public class RecyclerDBAdapter extends RecyclerView.Adapter<RecyclerDBAdapter.Vi
                 for(int i=0;i<mData.size();i++){
                     if(mData.get(position).isDeleted()){ // true
                         Log.d("삭제 한 행 ",mData.get(i).getMyfood());
-                        foodlistCrud.delete(mData.get(i).getMyfood(),date,"아침",mData.get(i).getMykcal());
-
+                        String delfood=mData.get(i).getMyfood();
+                        String delkcal=mData.get(i).getMykcal();
+                        foodlistCrud.delete(delfood,date,"아침",delkcal);
                         mData.remove(position);
                         notifyItemRemoved(position);
                         notifyItemRangeChanged(position, mData.size());
-
                     }
                     }
             }
         });
-
     }
 
-
+    public void clear(){
+        mData.clear();
+        notifyDataSetChanged();
+    }
 
     // getItemCount() - 전체 데이터 갯수 리턴.
     @Override
@@ -88,24 +84,17 @@ public class RecyclerDBAdapter extends RecyclerView.Adapter<RecyclerDBAdapter.Vi
         return mData.size() ;
     }
     public class ViewHolder extends RecyclerView.ViewHolder implements CompoundButton.OnCheckedChangeListener {
-
         TextView foodlist ;
         TextView kcallist;
         TextView delete;
-
         ViewHolder(View itemView) {
             super(itemView) ;
             Context context=itemView.getContext();
-
-
-
             // 뷰 객체에 대한 참조. (hold strong reference)
             foodlist = itemView.findViewById(R.id.foodlist) ;
             kcallist=itemView.findViewById(R.id.kcallist);
             delete=itemView.findViewById(R.id.delete);
         }
-
-
         @Override
         public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 

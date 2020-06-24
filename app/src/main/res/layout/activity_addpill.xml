@@ -100,21 +100,13 @@
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginRight="100dp"
                     android:fontFamily="@font/nanumsquare_acr"
                     android:hint="의약품명"
                     android:textAlignment="center"
                     android:textColorHint="#B8b8b8"
                     android:textSize="15dp" />
 
-                <Button
-                    android:layout_width="100dp"
-                    android:layout_height="30dp"
-                    android:background="@color/colorAccent"
-                    android:fontFamily="@font/nanumsquare_acr"
-
-                    android:text="의약품 검색"
-                    android:textColor="#ffffff"
-                    android:textSize="15dp" />
             </LinearLayout>
 
             <LinearLayout

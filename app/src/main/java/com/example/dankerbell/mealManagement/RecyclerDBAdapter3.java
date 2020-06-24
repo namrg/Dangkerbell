@@ -37,7 +37,10 @@ public class RecyclerDBAdapter3 extends RecyclerView.Adapter<RecyclerDBAdapter3.
         this.context=context;
         mData = list ;
     }
-
+    public void clear(){
+        mData.clear();
+        notifyDataSetChanged();
+    }
 
 
 
@@ -67,7 +70,9 @@ public class RecyclerDBAdapter3 extends RecyclerView.Adapter<RecyclerDBAdapter3.
                 for(int i=0;i<mData.size();i++){
                     if(mData.get(position).isDeleted()){ // true
                         Log.d("삭제 한 행 ",mData.get(i).getMyfood());
-                        foodlistCrud.delete(mData.get(i).getMyfood(),date,"저녁",mData.get(i).getMykcal());
+                        String delfood=mData.get(i).getMyfood();
+                        String delkcal=mData.get(i).getMykcal();
+                        foodlistCrud.delete(delfood,date,"아침",delkcal);
                         mData.remove(position);
                         notifyItemRemoved(position);
                         notifyItemRangeChanged(position, mData.size());

@@ -118,17 +118,22 @@ public class SamsungheightReporter {
                 mbmi=Double.parseDouble(String.format("%.2f",mbmi));
                 Log.d("weight",String.valueOf(weight));
                 mprofile.updatehw(count,SamsungweightReporter.count,mbmi);
+                if(mprofile.getMygender().length()==0){
+                    mprofile.createprofile("","","",height,weight,mbmi,"","","","","","","");
 
+                }
+                else{
+                 mprofile.updatehw(count,SamsungweightReporter.count,mbmi);
+                }
 
 //                if(mprofile.getMybirthday().equals("")){
 //
-//                    mprofile.createprofile("","","",height,weight,mbmi,"","","","","","","");
 //
 //                //만약에 입력을 안한애면 키랑,몸무게 insert
 //                //입력된 애면 update
 //            }
 //                else{
-//                    mprofile.updatehw(count,SamsungweightReporter.count,mbmi);
+//
 //                }
                           }
         } finally {

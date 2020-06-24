@@ -209,7 +209,7 @@ public class ProfileActivity extends AppCompatActivity { // 회원정보등록 �
                 } else {
                 finishshow();
                 mprofile.createprofile(gender,birthday,mdiabeteskind,iheight,iweight,mbmi,mdisease,highblood,smoking,myear,mheal,activity,weightchange);
-                    Intent homeintent = new Intent(getApplicationContext(), myprofileActivity.class);
+                    Intent homeintent = new Intent(getApplicationContext(), homeActivity.class);
                     startActivity(homeintent);//홈화면 전환
                 }
 

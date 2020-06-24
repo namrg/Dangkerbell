@@ -76,7 +76,6 @@ public class SamsungStepCountReporter {
 
     private long getStartTimeOfToday() {
         Calendar today = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-        Calendar today2 = Calendar.getInstance(TimeZone.getTimeZone("Asia/Seoul"));
 
         today.set(Calendar.HOUR_OF_DAY, 0);
         today.set(Calendar.MINUTE, 0);
@@ -84,17 +83,15 @@ public class SamsungStepCountReporter {
         today.set(Calendar.MILLISECOND, 0);
         Log.d("날짜",String.valueOf(today.getTime())); //UTC
 
-        Log.d("날짜",String.valueOf(today2.getTime())); //Asia
         return today.getTimeInMillis();
     }
 
     private final HealthResultHolder.ResultListener<ReadResult> mListener = result -> {
-
+        count=0;
 
         try {
             for (HealthData data : result) {
               //  count += data.getInt(HealthConstants.StepCount.COUNT);
-                count=0;
                 count += data.getInt(HealthConstants.StepCount.COUNT);
 
             }

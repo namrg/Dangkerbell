@@ -42,6 +42,7 @@ public class SearchmealActivity extends AppCompatActivity implements RecyclerVie
     RecyclerView mRecyclerView = null ;
     com.example.dankerbell.mealManagement.RecyclerImageTextAdapter mAdapter = null ;
     static ArrayList<RecyclerItem> mList = new ArrayList<RecyclerItem>();
+
     static final ArrayList<String> mfoodarraylist=new ArrayList<>();
     static final ArrayList<String> mkcalarraylist=new ArrayList<>();
     static final ArrayList<String> lfoodarraylist=new ArrayList<>();
@@ -50,8 +51,8 @@ public class SearchmealActivity extends AppCompatActivity implements RecyclerVie
     static final ArrayList<String> dkcalarraylist=new ArrayList<>();
 
     String food,kcal;
-
     TextView foodfinish;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -160,13 +161,15 @@ public void init(){
             search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String s) {
-                    return false;
+                    Log.d("검색어",s);
+                    mAdapter.exampleFilter.filter(s);
+                    return true;
                 }
 
                 @Override
                 public boolean onQueryTextChange(String s) {
-
-                    return false;
+                    mAdapter.exampleFilter.filter(s);
+                    return true;
                 }
             });
 

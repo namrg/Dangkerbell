@@ -231,6 +231,7 @@
                 <EditText
                     android:id="@+id/disease"
                     android:layout_width="100dp"
+                    android:layout_marginRight="100dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nanumsquare_acr"
                     android:gravity="center"

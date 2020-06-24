@@ -66,12 +66,12 @@ public class RecyclerDBAdapter2 extends RecyclerView.Adapter<RecyclerDBAdapter2.
                 for(int i=0;i<mData.size();i++){
                     if(mData.get(position).isDeleted()){ // true
                         Log.d("삭제 한 행 ",mData.get(i).getMyfood());
-                        foodlistCrud.delete(mData.get(i).getMyfood(),date,"점심",mData.get(i).getMykcal());
-
+                        String delfood=mData.get(i).getMyfood();
+                        String delkcal=mData.get(i).getMykcal();
+                        foodlistCrud.delete(delfood,date,"아침",delkcal);
                         mData.remove(position);
                         notifyItemRemoved(position);
                         notifyItemRangeChanged(position, mData.size());
-
                     }
                     }
             }
@@ -85,6 +85,10 @@ public class RecyclerDBAdapter2 extends RecyclerView.Adapter<RecyclerDBAdapter2.
     @Override
     public int getItemCount() {
         return mData.size() ;
+    }
+    public void clear(){
+        mData.clear();
+        notifyDataSetChanged();
     }
     public class ViewHolder extends RecyclerView.ViewHolder implements CompoundButton.OnCheckedChangeListener {
 

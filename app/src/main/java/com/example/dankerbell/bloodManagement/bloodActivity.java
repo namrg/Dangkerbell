@@ -70,7 +70,7 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
     TextView home; //
     TextView meal_txt; // 상단에 식단관리 TextView
     TextView pill_txt; // 상단에 복약관리 TextView
-        TextView wakeup,wakeUp,wakeupbloodedit,wakesugartext,wakeupbloodfinish;  // 기상 후 !!!
+    TextView wakeup,wakeUp,wakeupbloodedit,wakesugartext,wakeupbloodfinish;  // 기상 후 !!!
     EditText inputdang,inputcol;
     // wakeUp,wakeup=기상후 , wakeupbloodedit : 기상 후 연필 아이콘 , wakesugartext : 기상 후 혈당 text wakepressuretext : 기상 후 혈압text
     // wakepressuretext : 기상 후 혈압 text wakeupbloodfinish : 체크 아이콘
@@ -95,7 +95,6 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
     // wakeUp,wakeup=기상후 , wakeupbloodedit : 기상 후 연필 아이콘 , wakesugartext : 기상 후 혈당 text wakepressuretext : 기상 후 혈압text
     // wakepressuretext : 기상 후 혈압 text wakeupbloodfinish : 체크 아이콘
 
-
     // Lunch,lunch : 점심 , lunchbloodedit : 점심 연필 아이콘 , lunchsugartext : 점심 혈당 text, lunchbloodfinish : 점심 혈압 text
     // lunchpressuretext : 점심 혈압 text lunchbloodfinish : 체크 아이콘
     EditText lunchsugaredit; // 점심 혈당입력칸 / 혈압 입력칸
@@ -110,8 +109,6 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
     TextView Sleep,sleep,sleepbloodedit,sleepsugartext,sleepbloodfinish;  // 취침전 !!!
     EditText sleepsugaredit; // 취침 전 혈당입력칸 / 혈압 입력칸
 
-
-
     GridLayout morningtextgrid,morningeditgrid,lunchtextgrid,luncheditgrid,dinnertextgrid,dinnereditgrid,sleeptextgrid,sleepeditgrid,waketextgrid,wakeeditgrid;
 
     TextView currentdate;
@@ -122,11 +119,9 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
     TextView textdangwha,textcol,editcol,finishcol;
     Button drawer_pill,drawer_meal,drawer_blood;
 
-
     static String date="";
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     final String User = user.getEmail();
-
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -150,7 +145,6 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
         userid=findViewById(R.id.userid); // !!!!!!!
         userid.setText(User);
 
-
         final SimpleDateFormat sdf = new SimpleDateFormat("yy.MM.dd", Locale.getDefault());
         final SimpleDateFormat timeinclude = new SimpleDateFormat("yy-MM-dd HH:MM", Locale.getDefault());
         SimpleDateFormat monthformat = new SimpleDateFormat("MM", Locale.getDefault());
@@ -162,7 +156,6 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
 
         date = sdf.format(calendar.getTime());
         final String timeminutedate=timeinclude.format(calendar.getTime());
-
 
         final String date = sdf.format(calendar.getTime());
         wakesugartext=findViewById(R.id.wakesugartext);
@@ -289,9 +282,8 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
                     lunchsugartext.setText(mBloodSugar.getlbloodsugar());
                     dinnersugartext.setText(mBloodSugar.getdbloodsugar());
                     sleepsugartext.setText(mBloodSugar.getsbloodsugar());
-
-
                 }
+
             }
         };
 
@@ -626,6 +618,9 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
                 if(wakesugar.equals("")|wakeregular.equals("")|wakeNPH.equals("")|wakeUltra.equals("")){
                     notifyshow();
                 }
+                else if(!isStringDouble(wakesugar)|!isStringDouble(wakeregular)|!isStringDouble(wakeNPH)|!isStringDouble(wakeUltra)){
+                    stringerror();
+                }
                 else{
                     mBloodSugar.create(Double.parseDouble(wakesugar), Double.parseDouble(wakeregular),Double.parseDouble(wakeNPH),Double.parseDouble(wakeUltra),timeminutedate, time);
                 }
@@ -708,6 +703,9 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
                 if(morningsugar.equals("")|mregular.equals("")|mNPH.equals("")|mUltra.equals("")){
                     notifyshow();
                 }
+                else if(!isStringDouble(morningsugar)|!isStringDouble(mregular)|!isStringDouble(mNPH)|!isStringDouble(mUltra)){
+                    stringerror();
+                }
                 else{
                     mBloodSugar.create(Double.parseDouble(morningsugar), Double.parseDouble(mregular),Double.parseDouble(mNPH),Double.parseDouble(mUltra) ,timeminutedate, time);
 
@@ -777,6 +775,9 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
                 time = "점심";
                 if(lunchsugar.equals("")|lregular.equals("")|lNPH.equals("")|lUltra.equals("")){
                     notifyshow();
+                }
+                else if(!isStringDouble(lunchsugar)|!isStringDouble(lregular)|!isStringDouble(lNPH)|!isStringDouble(lUltra)){
+                    stringerror();
                 }
                 else{
                     mBloodSugar.create(Double.parseDouble(lunchsugar), Double.parseDouble(lregular),Double.parseDouble(lNPH),Double.parseDouble(lUltra) ,timeminutedate, time);
@@ -848,6 +849,9 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
                 time = "저녁";
                 if(dinnersugar.equals("")|dregular.equals("")|dNPH.equals("")|dUltra.equals("")){
                     notifyshow();
+                }
+                else if(!isStringDouble(dinnersugar)|!isStringDouble(dregular)|!isStringDouble(dNPH)|!isStringDouble(dUltra)){
+                    stringerror();
                 }
                 else{
                     mBloodSugar.create(Double.parseDouble(dinnersugar), Double.parseDouble(dregular),Double.parseDouble(dNPH),Double.parseDouble(dUltra) ,timeminutedate, time);
@@ -948,6 +952,9 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
                 if(sleepsugar.equals("")|sregular.equals("")|sNPH.equals("")|sUltra.equals("")){
                     notifyshow();
                 }
+                else if(!isStringDouble(sleepsugar)|!isStringDouble(sregular)|!isStringDouble(sNPH)|!isStringDouble(sUltra)){
+                    stringerror();
+                }
                 else{
                     mBloodSugar.create(Double.parseDouble(sleepsugar), Double.parseDouble(sregular),Double.parseDouble(sNPH),Double.parseDouble(sUltra) ,timeminutedate, time);
                 }
@@ -995,6 +1002,18 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
         builder.show();
 
     }
+    void stringerror(){
+        Log.d(this.getClass().getName(),"정보 다 입력하고 저장하기 클릭");
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("숫자로만 입력해주세요.");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int id)
+            {
+            }
+        });
+        builder.show();
+    }
     void finishshow(){
         Log.d(this.getClass().getName(),"정보 다 입력하고 저장하기 클릭");
 
@@ -1003,6 +1022,14 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
 
         builder.show();
 
+    }
+    public static boolean isStringDouble(String s) {
+        try {
+            Double.parseDouble(s);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
         public void signOut() {
                         // Firebase sign out

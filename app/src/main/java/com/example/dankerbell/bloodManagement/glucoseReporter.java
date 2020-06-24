@@ -117,8 +117,10 @@ public class glucoseReporter {
 
                 //count=String.format("%.2f",glu);
                 Log.d("혈당2",count);
-                mBloodSugar.updateglucose(glu,month,day,date);
-                mBloodSugar.create(glu,1.0,1.0,1.0,date,"아침");
+                if (mBloodSugar.getBloodsugar().length()==0){
+                    mBloodSugar.updateglucose(glu,month,day,date);
+
+                }
                 bHandler.sendEmptyMessage(1009);
 
 

@@ -122,13 +122,15 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스 use
         mbloodsugar.lunchread(month,day);
         mbloodsugar.dinnerread(month,day);
         mbloodsugar.sleepread(month,day);
-
+        mbloodsugar.readyestdayw();
+        mbloodsugar.readyestdaym();
+        mbloodsugar.readyestdayl();
+        mbloodsugar.readyestdayd();
+        mbloodsugar.readyestdays();
         mprofile.read();
         setContentView(R.layout.activity_home);
 
         userid=findViewById(R.id.userid); // !!!!!!!
-
-
         mbloodsugar.mHandler1 = new Handler(){
             @Override public void handleMessage(Message msg){
                 if (msg.what==1000){
@@ -140,7 +142,6 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스 use
                     tmp.add(mbloodsugar.getdbloodsugar()); //저녁
                     tmp.add(mbloodsugar.getsbloodsugar()); //저녁
                     Log.d("메시지 수신 후 기상 후 혈당",mbloodsugar.getMbloodsugar());
-
                     boolean missing = false; // null값이 입력이 되지 못한 값인지, 미래의 측정치인지를 구별
                     for(int i = tmp.size()-1 ; i > 0; i--){
                         if(tmp.get(i).isEmpty() && missing == false){
@@ -156,11 +157,17 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스 use
 //                        return true;
 //                    }).collect(Collectors.toList());
                     blood = tmp;
-
                     Log.d("blood의 길이:", String.valueOf(blood.size()));
-
                     FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction().replace(R.id.container, new LineFragment()).commitAllowingStateLoss();
+                }
+                if(msg.what==1001){
+                    Log.d("Handler2","메세지 받음");
+                    Log.d("어제 취침 혈당",mbloodsugar.getYwbloodsugar());
+                    Log.d("어제 아침 혈당",mbloodsugar.getYmbloodsugar());
+                    Log.d("어제 점심 혈당",mbloodsugar.getYlbloodsuagar());
+                    Log.d("어제 저녁 혈당",mbloodsugar.getYdbloodsugar());
+                    Log.d("어제 취침 혈당",mbloodsugar.getYsbloodsugar());
                 }
             }
         };
@@ -216,7 +223,6 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스 use
                     if(mprofile.getMybmi().equals("")){ //bmi없으면
                         comment1.setText("매일 일정한 시간에 규칙적으로 식사해야 해요. 설탕,꿀 등 단순당 섭취를 주의해주세요.지방을 적당량 섭취하고, 콜레스테롤 섭취를 제한해주세요. ");
                         comment2.setText("내 정보를 입력하시면 더 정확한 건강정보를 볼 수 있습니다!");
-                        comment2.setTextSize(17);
                     }
                     else {
                         if (Double.parseDouble(mprofile.getMybmi()) > 35) {
@@ -231,7 +237,6 @@ public class homeActivity extends AppCompatActivity { // 홈화면 클래스 use
                         } else {
                             comment1.setText("매일 일정한 시간에 규칙적으로 식사해야 해요.");
                             comment2.setText("소금 섭취를 줄이고, 단순당 섭취에 주의해주세요.");
-//                            comment3.setText("지방을 적당량 섭취하고, 콜레스테롤 섭취를 제한한다..");
                         }
                     }
                 }
