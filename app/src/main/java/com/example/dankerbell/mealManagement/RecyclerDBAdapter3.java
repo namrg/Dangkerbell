@@ -72,7 +72,7 @@ public class RecyclerDBAdapter3 extends RecyclerView.Adapter<RecyclerDBAdapter3.
                         Log.d("삭제 한 행 ",mData.get(i).getMyfood());
                         String delfood=mData.get(i).getMyfood();
                         String delkcal=mData.get(i).getMykcal();
-                        foodlistCrud.delete(delfood,date,"아침",delkcal);
+                        foodlistCrud.delete(delfood,date,"저녁",delkcal);
                         mData.remove(position);
                         notifyItemRemoved(position);
                         notifyItemRangeChanged(position, mData.size());

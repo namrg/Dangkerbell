@@ -63,7 +63,7 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
     Button mypage;
     Button logout,settime;
     TextView userid;
-//
+
     TextView home; //
     TextView meal_txt; // 상단에 식단관리 TextView
     TextView pill_txt; // 상단에 복약관리 TextView
@@ -128,7 +128,7 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
         meal_txt=findViewById(R.id.meal_txt);
         pill_txt=findViewById(R.id.pill_txt);
         currentdate=findViewById(R.id.date);
-       userid=findViewById(R.id.userid); // !!!!!!!
+        userid=findViewById(R.id.userid); // !!!!!!!
         inputdang=findViewById(R.id.inputdangwha);
         textdangwha=findViewById(R.id.textdangwha);
         textcol=findViewById(R.id.textcol);
@@ -235,17 +235,17 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
         });
         mchol.read(date);
         mchol.cholHandler = new Handler(){
-                    @Override public void handleMessage(Message msg){
-                        if (msg.what==1001){
-                            Log.d(this.getClass().getName(),"콜레스테롤 메세지 받음");
-                            Log.d(this.getClass().getName(),mchol.getCholesterol());
+            @Override public void handleMessage(Message msg){
+                if (msg.what==1001){
+                    Log.d(this.getClass().getName(),"콜레스테롤 메세지 받음");
+                    Log.d(this.getClass().getName(),mchol.getCholesterol());
 
-                            textcol.setText(mchol.getCholesterol());
-                            textdangwha.setText(mchol.getDangwha());
-                        }
-                    }
+                    textcol.setText(mchol.getCholesterol());
+                    textdangwha.setText(mchol.getDangwha());
+                }
+            }
 
-                };
+        };
 
         mBloodSugar.mHandler1 = new Handler(){
             @Override public void handleMessage(Message msg){
@@ -336,7 +336,7 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
                 currentdate.setText(yesterday);
                 mBloodSugar.mHandler1 = new Handler(){
                     @Override public void handleMessage(Message msg){
-                    if (msg.what==1000){
+                        if (msg.what==1000){
                             Log.d("메세지 받음",mBloodSugar.getBloodsugar());
                             wakesugartext.setText(mBloodSugar.getBloodsugar());
                             wakeregularinsulintext.setText(mBloodSugar.getWregular());
@@ -455,7 +455,7 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
                     dinnerbloodedit.setVisibility(View.VISIBLE);
                     sleepbloodedit.setVisibility(View.VISIBLE);
                 }
-                       mchol.cholHandler = new Handler(){
+                mchol.cholHandler = new Handler(){
 
                     @Override public void handleMessage(Message msg){
                         if (msg.what==1001){
@@ -601,7 +601,7 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
                 wakeNPHinsulinedit.setVisibility(View.VISIBLE);
                 wakeregularinsulinedit.setVisibility(View.VISIBLE);
                 wakeUltrainsulinedit.setVisibility(View.VISIBLE);
-               // wakeupedit.setVisibility(View.VISIBLE);
+                // wakeupedit.setVisibility(View.VISIBLE);
                 wakeup.setVisibility(View.VISIBLE);
 
             }
@@ -654,7 +654,7 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
                 else{
                     mBloodSugar.create(Double.parseDouble(wakesugar), Double.parseDouble(wakeregular),Double.parseDouble(wakeNPH),Double.parseDouble(wakeUltra),timeminutedate, time);
                 }
-             //  mBloodSugar.create(Double.parseDouble(wakesugar), Double.parseDouble(wakepressure1),Double.parseDouble(wakepressure2),date, time)
+                //  mBloodSugar.create(Double.parseDouble(wakesugar), Double.parseDouble(wakepressure1),Double.parseDouble(wakepressure2),date, time)
             }
 
         });
@@ -844,22 +844,22 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
             @Override
             public void onClick(View view) {
                 Log.d(this.getClass().getName(),"체크 클릭");
-            dinner.setVisibility(View.GONE);
-            Dinner.setVisibility(View.VISIBLE);
-            dinnerbloodedit.setVisibility(View.VISIBLE);
-            dinnersugartext.setVisibility(View.VISIBLE);
+                dinner.setVisibility(View.GONE);
+                Dinner.setVisibility(View.VISIBLE);
+                dinnerbloodedit.setVisibility(View.VISIBLE);
+                dinnersugartext.setVisibility(View.VISIBLE);
 
-            dinnertextgrid.setVisibility(View.VISIBLE);
-            dinnereditgrid.setVisibility(View.GONE);
+                dinnertextgrid.setVisibility(View.VISIBLE);
+                dinnereditgrid.setVisibility(View.GONE);
 
-            dinnerbloodfinish.setVisibility(View.GONE);
-            dinnersugaredit.setVisibility(View.GONE);
-            dinnerregularinsulintext.setVisibility(View.VISIBLE);
-            dinnerNPHinsulintext.setVisibility(View.VISIBLE);
-            dinnerUltrainsulintext.setVisibility(View.VISIBLE);
-            dinnerregularinsulinedit.setVisibility(View.GONE);
-            dinnerNPHinsulinedit.setVisibility(View.GONE);
-            dinnerUltrainsulinedit.setVisibility(View.GONE);
+                dinnerbloodfinish.setVisibility(View.GONE);
+                dinnersugaredit.setVisibility(View.GONE);
+                dinnerregularinsulintext.setVisibility(View.VISIBLE);
+                dinnerNPHinsulintext.setVisibility(View.VISIBLE);
+                dinnerUltrainsulintext.setVisibility(View.VISIBLE);
+                dinnerregularinsulinedit.setVisibility(View.GONE);
+                dinnerNPHinsulinedit.setVisibility(View.GONE);
+                dinnerUltrainsulinedit.setVisibility(View.GONE);
 
                 String dinnersugar = (String)dinnersugaredit.getText().toString(); // 입력한 저녁 혈당을 lunchsugaredit에 입력
                 dinnersugartext.setText(dinnersugar);
@@ -892,7 +892,7 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
 
                 //mBloodSugar.create(Double.parseDouble(dinnersugar), Double.parseDouble(dinnerpressure),Double.parseDouble(dinnerpressure2), date, time);
                 mBloodSugar.create(Double.parseDouble(dinnersugar), Double.parseDouble(dregular),Double.parseDouble(dNPH),Double.parseDouble(dUltra) ,timeminutedate, time);
-             //   mBloodSugar.create("userid", Double.parseDouble(dinnersugar), Double.parseDouble(dinnerpressure), new Date(), time);
+                //   mBloodSugar.create("userid", Double.parseDouble(dinnersugar), Double.parseDouble(dinnerpressure), new Date(), time);
 
             }
 
@@ -963,7 +963,7 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
 
 
                 String sleepsugar = (String)sleepsugaredit.getText().toString(); // 입력한 취침 후  혈당을 dinnersugaredit에 입력
-        sleepsugartext.setText(sleepsugar);
+                sleepsugartext.setText(sleepsugar);
 
                 sleepsugartext.setText(sleepsugar);
 
@@ -990,10 +990,10 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
                 }
                 //  mBloodSugar.create("userid", Double.parseDouble(sleepsugar), Double.parseDouble(sleeppressure), new Date(), time);
 
-               // mBloodSugar.create(Double.parseDouble(sleepsugar), Double.parseDouble(sleeppressure),Double.parseDouble(sleeppressure2), date, time);
+                // mBloodSugar.create(Double.parseDouble(sleepsugar), Double.parseDouble(sleeppressure),Double.parseDouble(sleeppressure2), date, time);
             }
 
-});
+        });
 
         home.setOnClickListener(new View.OnClickListener() { // 당커벨 클릭 시 홈화면으로 전환
             @Override
@@ -1061,24 +1061,24 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
             return false;
         }
     }
-        public void signOut() {
-                        // Firebase sign out
-                        FirebaseAuth.getInstance().signOut();
-                        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                                .requestIdToken(getString(R.string.default_web_client_id))
-                                .requestEmail()
-                                .build();
-                        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+    public void signOut() {
+        // Firebase sign out
+        FirebaseAuth.getInstance().signOut();
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-                        // Google sign out
-                        mGoogleSignInClient.signOut().addOnCompleteListener(this,
-                                new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        Intent loginintent = new Intent(getApplicationContext(), LoginInActivity.class);
-                                        startActivity(loginintent);//액티비티 띄우기 새로 추가 - 로그인 전환
-                                        finishAffinity();
-                                    }
-                                });
+        // Google sign out
+        mGoogleSignInClient.signOut().addOnCompleteListener(this,
+                new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Intent loginintent = new Intent(getApplicationContext(), LoginInActivity.class);
+                        startActivity(loginintent);//액티비티 띄우기 새로 추가 - 로그인 전환
+                        finishAffinity();
+                    }
+                });
     }
 }

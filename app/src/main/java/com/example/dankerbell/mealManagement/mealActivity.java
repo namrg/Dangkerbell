@@ -253,7 +253,7 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
                 foodlistCrud.readmylunchmeal(yesterday);
                 foodlistCrud.readmydinnermeal(yesterday);
                 //   foodlistCrud.getTotalk();
-//
+
                 FoodlistCrud.mealHandler = new Handler(){
                     @Override public void handleMessage(Message msg){
                         if (msg.what==1001){
@@ -278,7 +278,7 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
                     morningsearch1.setVisibility(View.GONE);
                     searchlunch.setVisibility(View.GONE);
                     searchdinner.setVisibility(View.GONE);
-                    }
+                }
                 else{
                     morningsearch1.setVisibility(View.VISIBLE);
                     searchlunch.setVisibility(View.VISIBLE);
@@ -527,17 +527,17 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
         final TextView lunchmealmore=findViewById(R.id.lunchmealmore); // 점식식단 펼치기
         final TextView lunchmealless=findViewById(R.id.lunchmealless); // 점심식단 접기
         final LinearLayout lunchmeal=findViewById(R.id.lunchmeal); // 점심식단 펼치기 클릭하면 나타나는 화면
-      //  final TextView lunchfinish=findViewById(R.id.lunchfinish); // 점심식단 체크버튼
+        //  final TextView lunchfinish=findViewById(R.id.lunchfinish); // 점심식단 체크버튼
         final TextView dinnermealmore=findViewById(R.id.dinnermealmore);
         final TextView dinnermealless=findViewById(R.id.dinnermealless);
         final LinearLayout dinnermeal=findViewById(R.id.dinnermeal);
         morningmeal.setVisibility(View.VISIBLE); // 아침식단 작성 layout 생성
         lunchmeal.setVisibility(View.VISIBLE); //점심식단 작성 layout 사라짐
         dinnermeal.setVisibility(View.VISIBLE);
-  //      morningfinish.setVisibility(View.VISIBLE);
-   //     lunchfinish.setVisibility(View.VISIBLE);
-    //    final TextView dinnerfinish=findViewById(R.id.dinnerfinish);
-      //  dinnerfinish.setVisibility(View.VISIBLE);
+        //      morningfinish.setVisibility(View.VISIBLE);
+        //     lunchfinish.setVisibility(View.VISIBLE);
+        //    final TextView dinnerfinish=findViewById(R.id.dinnerfinish);
+        //  dinnerfinish.setVisibility(View.VISIBLE);
         morningmealless2.setVisibility(View.VISIBLE);
         mRecyclerView2.setVisibility(View.VISIBLE);
         morningmealmore.setOnClickListener(new View.OnClickListener() {
@@ -577,7 +577,7 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
             public void onClick(View view) { // 점심 펼치기 클릭 시 실행
                 Log.d(this.getClass().getName(),"펼치기 클릭");
                 lunchmealmore.setVisibility(View.GONE); // 펼치기 버튼 사라짐
-               // lunchfinish.setVisibility(View.VISIBLE);
+                // lunchfinish.setVisibility(View.VISIBLE);
                 lunchmealless.setVisibility(View.VISIBLE); // 접기 버튼 생성
                 lunchmeal.setVisibility(View.VISIBLE); //점심식단 작성 layout 사라짐
             }
@@ -587,7 +587,7 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
             public void onClick(View view) { // 점심 접기 클릭 시 실행
                 Log.d(this.getClass().getName(),"접기 클릭");
                 lunchmealmore.setVisibility(View.VISIBLE); // 펼치기 버튼 생성
-               // lunchfinish.setVisibility(View.GONE);
+                // lunchfinish.setVisibility(View.GONE);
                 lunchmealless.setVisibility(View.GONE); // 접기 버튼 사라짐
                 lunchmeal.setVisibility(View.GONE); // 점식식단 작성 layot 사라짐
             }
@@ -607,7 +607,7 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
             public void onClick(View view) { // 저녁 펼치기 클릭 시 실행
                 Log.d(this.getClass().getName(),"펼치기 클릭");
                 dinnermealmore.setVisibility(View.GONE); // 펼치기 버튼 사라짐
-              //  dinnerfinish.setVisibility(View.VISIBLE);
+                //  dinnerfinish.setVisibility(View.VISIBLE);
                 dinnermealless.setVisibility(View.VISIBLE); // 접기 버튼 생성
                 dinnermeal.setVisibility(View.VISIBLE); // 저녁식단 작성 layout 생성
             }
@@ -617,7 +617,7 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
             public void onClick(View view) { // 저녁 접기 클릭 시 실행
                 Log.d(this.getClass().getName(),"접기 클릭");
                 dinnermealmore.setVisibility(View.VISIBLE); // 펼치기 버튼 생성
-             //   dinnerfinish.setVisibility(View.GONE);
+                //   dinnerfinish.setVisibility(View.GONE);
                 dinnermealless.setVisibility(View.GONE); // 접기 버튼 사라짐
                 dinnermeal.setVisibility(View.GONE); // 저녁식단 작성 layout 사라짐
             }

@@ -1,5 +1,6 @@
 package com.example.dankerbell.pillManagement;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -135,6 +136,21 @@ public class pillActivity extends AppCompatActivity { // 복약관리 클래스
                 startActivity(setTimeintent);//액티비티 띄우기
             }
         });
+        blood_txt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent bloodintent = new Intent(getApplicationContext(),bloodActivity.class);
+                startActivity(bloodintent);//액티비티 띄우기
+            }
+        });
+        meal_txt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mealintent = new Intent(getApplicationContext(),mealActivity.class);
+                startActivity(mealintent);//액티비티 띄우기
+            }
+        });
+
         drawer_blood=findViewById(R.id.drawer_blood);
         drawer_meal=findViewById(R.id.drawer_meal);
         drawer_pill=findViewById(R.id.drawer_pill);

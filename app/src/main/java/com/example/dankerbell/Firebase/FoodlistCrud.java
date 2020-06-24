@@ -260,6 +260,7 @@ public class FoodlistCrud implements CrudInterface {
                 });
 
     }
+
     public void delete(String food,String date,String time,String kcal) {
         db.collection("user").document(User).collection(time+date).document(food)
                 .delete()
