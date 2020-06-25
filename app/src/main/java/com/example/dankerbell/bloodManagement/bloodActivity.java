@@ -883,7 +883,7 @@ public class bloodActivity extends AppCompatActivity{ // 혈당관리클래스
                 //   mBloodSugar.create("userid", Double.parseDouble(dinnersugar), Double.parseDouble(dinnerpressure), new Date(), time);
 
                 //mBloodSugar.create(Double.parseDouble(dinnersugar), Double.parseDouble(dinnerpressure),Double.parseDouble(dinnerpressure2), date, time);
-                mBloodSugar.create(Double.parseDouble(dinnersugar), Double.parseDouble(dregular),Double.parseDouble(dNPH),Double.parseDouble(dUltra) ,timeminutedate, time);
+             //   mBloodSugar.create(Double.parseDouble(dinnersugar), Double.parseDouble(dregular),Double.parseDouble(dNPH),Double.parseDouble(dUltra) ,timeminutedate, time);
                 //   mBloodSugar.create("userid", Double.parseDouble(dinnersugar), Double.parseDouble(dinnerpressure), new Date(), time);
 
             }

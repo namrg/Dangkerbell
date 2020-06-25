@@ -107,6 +107,8 @@ public class SearchmealActivity extends AppCompatActivity implements RecyclerVie
         if(mList.isEmpty()) {
             Log.d(this.getClass().getName(),"mList비어져잇음");
             for(int i=0;i<ma.getfood.size();i++){ //파이어베이스에서 받아온 코드
+                Log.d(this.getClass().getName(),ma.getfood.get(0));
+                Log.d(this.getClass().getName(),ma.getfood.get(1));
             addItem(ma.getfood.get(i),ma.getkcal.get(i));
             }
             //final String food=null;

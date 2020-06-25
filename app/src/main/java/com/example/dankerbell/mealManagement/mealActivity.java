@@ -302,8 +302,8 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
                 FoodlistCrud.mealHandler = new Handler(){
                     @Override public void handleMessage(Message msg){
                         if (msg.what==1001){
-                            mylist();
-//                            Log.d("오늘총칼로리",String.valueOf(foodlistCrud.totalkcal()));
+
+                            //                            Log.d("오늘총칼로리",String.valueOf(foodlistCrud.totalkcal()));
                         }
                         if(msg.what==1002){
                             Log.d(tomorrow+"총칼로리",String.valueOf(foodlistCrud.totalkcal));
@@ -312,6 +312,7 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
                     }};
                 currentdate.setText(tomorrow);
                 morningmealless2.setVisibility(View.GONE);
+
                 int result=date.compareTo(tomorrow);
                 if(result>0|result<0){// today>day
                     morningsearch1.setVisibility(View.GONE);
@@ -323,7 +324,6 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
                     searchlunch.setVisibility(View.VISIBLE);
                     searchdinner.setVisibility(View.VISIBLE);
                 }
-
             }
         });
         FoodlistCrud.readfoodList();
@@ -338,8 +338,99 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
             @Override public void handleMessage(Message msg){
                 if (msg.what==1001){ // 파이어베이스 데이터를 받아오는 메소드에서 메세지 받음
                     Log.d("식단 읽기 메세지 받음","식단메시지!!!!");
-                    mylist();
-
+//                    if(!foodlistCrud.mymorningfood.isEmpty()){ // 파이어베이스에 저장된 아침식단 목록이 있다면 실행
+//                        op="아침db";
+//                        if(mymorningList.isEmpty()){
+//                            Log.d("식단 읽기 메세지 받음","아침식단 보이게 !!");
+//                            if(mymorningList.isEmpty()){
+//                                for(int i=0;i<foodlistCrud.mymorningfood.size();i++){
+//                                    addFoodKcalItem(foodlistCrud.mymorningfood.get(i),foodlistCrud.mymorningkcal.get(i),false);
+//                                }
+//                            }
+//                            com.example.dankerbell.mealManagement.RecyclerDBAdapter mymorningAdapter = new com.example.dankerbell.mealManagement.RecyclerDBAdapter(mealActivity.this,mymorningList);
+//                            Log.d("아침칼로리",String.valueOf(mkcal));
+//                            mRecyclerView2.setAdapter(mymorningAdapter); // 어댑터
+//                        }}
+//                    else{
+//                        op="아침db";
+//                        mymorningList.clear();
+//                        com.example.dankerbell.mealManagement.RecyclerDBAdapter mymorningAdapter = new com.example.dankerbell.mealManagement.RecyclerDBAdapter(mealActivity.this,mymorningList);
+//                        mymorningAdapter.clear();
+//                        Recyclerlunch.setAdapter(mymorningAdapter);
+//                    }
+//                    if(!foodlistCrud.mylunchfood.isEmpty()){
+//                        op="점심db";
+//                        if(mylunchList.isEmpty()){
+//                            for(int i=0;i<foodlistCrud.mylunchfood.size();i++){
+//                                addFoodKcalItem(foodlistCrud.mylunchfood.get(i),foodlistCrud.mylunchkcal.get(i),false);
+//                            }
+//                            com.example.dankerbell.mealManagement.RecyclerDBAdapter2 mylunchAdapter = new com.example.dankerbell.mealManagement.RecyclerDBAdapter2(mealActivity.this,mylunchList);
+//                            Log.d("점심칼로리",String.valueOf(lkcal));
+//
+//                            Recyclerlunch.setAdapter(mylunchAdapter);
+//                        }}
+//                    else{
+//                        op="점심db";
+//                        Log.d(this.getClass().getName(),"디비배열 비어있음");
+//                        mylunchList.clear();
+//                        Log.d("점심리스트 사이즈",String.valueOf(mylunchList.size()));
+//                        com.example.dankerbell.mealManagement.RecyclerDBAdapter2 mylunchAdapter = new com.example.dankerbell.mealManagement.RecyclerDBAdapter2(mealActivity.this,mylunchList);
+//                        mylunchAdapter.clear();
+//                        Recyclerlunch.setAdapter(mylunchAdapter);
+//                    }
+//                    if(foodlistCrud.mydinnerfood.isEmpty()!=true){  // attaching이 왜 안되죵 ?
+//                        op="저녁db";
+//                        if(mydinnerList.isEmpty()){
+//                            for(int i=0;i<foodlistCrud.mydinnerfood.size();i++){
+//                                addFoodKcalItem(foodlistCrud.mydinnerfood.get(i),foodlistCrud.mydinnerkcal.get(i),false);}
+//                            com.example.dankerbell.mealManagement.RecyclerDBAdapter3 mydinnerAdapter = new com.example.dankerbell.mealManagement.RecyclerDBAdapter3(mealActivity.this,mydinnerList);
+//                            Recyclerdinner.setAdapter(mydinnerAdapter);
+//                        }}
+//                    else{
+//                        op="저녁db";
+//                        Log.d(this.getClass().getName(),"디비배열 비어있음");
+//                        mydinnerList.clear();
+//                        Log.d("점심리스트 사이즈",String.valueOf(mydinnerList.size()));
+//                        com.example.dankerbell.mealManagement.RecyclerDBAdapter3 mydinnerAdapter = new com.example.dankerbell.mealManagement.RecyclerDBAdapter3(mealActivity.this,mydinnerList);
+//                        Recyclerdinner.setAdapter(mydinnerAdapter);
+//                    }
+                   mylist();
+                    if(getfood.isEmpty()){
+                        for(int i=0;i<FoodlistCrud.getKcal().size();i++){
+                            Log.d("음식", String.valueOf(i)+FoodlistCrud.getFood());
+                            getfood.add(FoodlistCrud.getFood().get(i)); // db에있는 음식
+                            getkcal.add(FoodlistCrud.getKcal().get(i)); // db에있는 칼로리
+                            Log.d("칼로리", String.valueOf(i)+FoodlistCrud.getKcal());
+                        }
+                    }
+                    todaycalory.setText(String.valueOf(foodlistCrud.getTotalkcal()));
+                    morningsearch1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Log.d(this.getClass().getName(), "검색화면이동");
+                            op="아침";
+                            Intent searchintent = new Intent(getApplicationContext(), SearchmealActivity.class);
+                            startActivity(searchintent);// 음식검색화면으로 이동
+                        }
+                    });
+                    searchlunch.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Log.d(this.getClass().getName(), "검색화면이동");
+                            op="점심";
+                            Intent searchintent = new Intent(getApplicationContext(), SearchmealActivity.class);
+                            startActivity(searchintent);// 음식검색화면으로 이동
+                        }
+                    });
+                    searchdinner.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Log.d(this.getClass().getName(), "검색화면이동");
+                            op="저녁";
+                            Intent searchintent = new Intent(getApplicationContext(), SearchmealActivity.class);
+                            startActivity(searchintent);// 음식검색화면으로 이동
+                        }
+                    });
                 }
                 if(msg.what==1002){
                     Log.d(date+"총칼로리",String.valueOf(foodlistCrud.totalkcal));
@@ -623,6 +714,8 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
                 for(int i=0;i<foodlistCrud.mylunchfood.size();i++){
                     addFoodKcalItem(foodlistCrud.mylunchfood.get(i),foodlistCrud.mylunchkcal.get(i),false);
                 }
+                Log.d("점심리스트 사이즈",String.valueOf(mylunchList.size()));
+
                 com.example.dankerbell.mealManagement.RecyclerDBAdapter2 mylunchAdapter = new com.example.dankerbell.mealManagement.RecyclerDBAdapter2(mealActivity.this,mylunchList);
                 Recyclerlunch.setAdapter(mylunchAdapter);
             }}
@@ -648,7 +741,7 @@ public class mealActivity extends AppCompatActivity { // 식단관리 클래스
             op="저녁db";
             Log.d(this.getClass().getName(),"디비배열 비어있음");
             mydinnerList.clear();
-            Log.d("점심리스트 사이즈",String.valueOf(mydinnerList.size()));
+            Log.d("저녁리스트 사이즈",String.valueOf(mydinnerList.size()));
             com.example.dankerbell.mealManagement.RecyclerDBAdapter3 mydinnerAdapter = new com.example.dankerbell.mealManagement.RecyclerDBAdapter3(mealActivity.this,mydinnerList);
             Recyclerdinner.setAdapter(mydinnerAdapter);
         }
